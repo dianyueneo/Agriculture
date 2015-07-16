@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity {
         inflater = LayoutInflater.from(this);
 
         mTabHost = (FragmentTabHost)this.findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, this.getSupportFragmentManager(), android.R.id.tabcontent);
+        mTabHost.setup(this, this.getSupportFragmentManager(), R.id.realcontent);
         if(Build.VERSION.SDK_INT > 10){
             mTabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
         }
