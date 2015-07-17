@@ -20,9 +20,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
+import com.xn121.scjg.nmt.netInterface.XMLRequest;
 
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,11 +50,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             parent.removeView(rootView);
         }
 
+        initView();
+
+        return rootView;
+    }
+
+    private void initView(){
         tv = (TextView)rootView.findViewById(R.id.mtv);
         btn = (Button)rootView.findViewById(R.id.mbtn);
         btn.setOnClickListener(this);
-
-        return rootView;
     }
 
     @Override
@@ -259,20 +267,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    private void getPriceofDomain(String areaid){
-        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
-        String type = "forecast";
-        String publicKey = String.format(NetUtil.GETPRICEOFDOMAIN, areaid, type, date, NetUtil.APPID);
-        String key = NetUtil.getSignature(publicKey);
-        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0,6)+"&key="+key);
+    private void getPriceofDomain(String lat, String lon, String domains){
+        String url = String.format(NetUtil.GETPRICEOFDOMAIN, null, lat, lon, domains);
 
         Log.i("test", url);
 
-        StringRequest jsonObjectRequest = new StringRequest(url, new Response.Listener<String>() {
+        XMLRequest xmlRequest = new XMLRequest(url, new Response.Listener<XmlPullParser>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("test", response.toString());
-                tv.setText(response.toString());
+            public void onResponse(XmlPullParser response) {
+                parseXml(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -282,8 +285,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        queue.add(jsonObjectRequest);
+        queue.add(xmlRequest);
 
+    }
+
+    private void parseXml(XmlPullParser response){
+        try {
+            int eventType = response.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        String nodeName = response.getName();
+                        if ("city".equals(nodeName)) {
+                            String pName = response.getAttributeValue(0);
+                            Log.d("TAG", "pName is " + pName);
+                        }
+                        break;
+                }
+                eventType = response.next();
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -321,6 +346,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //                getProductNameList("product_chaye");
 //                getObserve("101010100");
 //                getForecast("101010100");
+//                getPriceofDomain("39.911421", "116.460934", "");
                 getProfitStatement("acquisition", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
                 break;
             default:
