@@ -14,9 +14,18 @@ import com.xn121.scjg.nmt.R;
  */
 public class WeatherFragment extends Fragment {
 
+    private View rootView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_temp, null);
+        if(rootView == null){
+            rootView = inflater.inflate(R.layout.fragment_temp, null);
+        }
+        ViewGroup parent = (ViewGroup)rootView.getParent();
+        if(parent != null){
+            parent.removeView(rootView);
+        }
+        return rootView;
     }
 }
