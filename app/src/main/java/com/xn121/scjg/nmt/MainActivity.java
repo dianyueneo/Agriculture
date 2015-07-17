@@ -1,10 +1,9 @@
 package com.xn121.scjg.nmt;
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +20,7 @@ import com.xn121.scjg.nmt.fragement.IntroductionsFragment;
 import com.xn121.scjg.nmt.fragement.WeatherFragment;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost mTabHost;
     private LayoutInflater inflater;
