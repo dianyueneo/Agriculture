@@ -9,4 +9,22 @@
     <string name="weather">当地天气</string>
     <string name="about">关于我们</string>
     <string name="introductions">使用说明</string>
+    
+    <string name="qidian">起点</string>
+    <string name="xuanzedidian">（选择您需要销售地点）</string>
+    <string name="shengfen">省份</string>
+    <string name="chengshi">城市</string>
+    <string name="zhongdian">终点</string>
+    <string name="xuanzezhongdian">（选择您需要销售终点）</string>
+    <string name="shangpin">商品</string>
+    <string name="xuanzechanpin">（选择您需要销售产品）</string>
+    <string name="shucai">蔬菜</string>
+    <string name="caipin">菜品</string>
+    <string name="dangdijiage">当地参考价格</string>
+    <string name="dianji">点击查询</string>
+    <string name="pifa">批发价格:</string>
+    <string name="lingshou">零售价格:</string>
+    <string name="shangpinchengben">商品成本、数量</string>
+    <string name="xiaoshou">销售数量</string>
+    <string name="xiaoshou_cb">销售成本</string>
 </resources>

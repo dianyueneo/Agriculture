@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import com.xn121.scjg.nmt.R;
 
 /**
- * Created by admin on 7/16/15.
+ * Created by hongge on 15/7/18.
  */
-public class IntroductionsFragment extends Fragment {
+public class HomeBuyFragment extends Fragment{
 
     private View rootView;
 
@@ -20,12 +20,19 @@ public class IntroductionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(rootView == null){
-            rootView = inflater.inflate(R.layout.fragment_home, null);
+            rootView = inflater.inflate(R.layout.fragment_home_buy, null);
         }
         ViewGroup parent = (ViewGroup)rootView.getParent();
         if(parent != null){
             parent.removeView(rootView);
         }
+
+        initView();
+
         return rootView;
+    }
+
+    private void initView(){
+
     }
 }

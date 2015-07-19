@@ -1,8 +1,25 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+
+    <style name="AppTheme" parent="AppBaseTheme">
+
+
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/material_blue_500</item>
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
+        <item name="colorAccent">@color/material_green_A200</item>
+
+
+    </style>
+
+    <style name="CustomTitleTextAppearance">
+        <item name="android:textSize">@dimen/toolbar_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

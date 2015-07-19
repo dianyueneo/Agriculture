@@ -1,15 +1,20 @@
 package com.xn121.scjg.nmt;
 
+import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost mTabHost;
     private LayoutInflater inflater;
+    private Toolbar toolbar;
+    private TextView toolbartitle;
 
 
     private Class fragmentArray[] = {HomeFragment.class , AskPriceFragment.class, WeatherFragment.class, AboutFragment.class, IntroductionsFragment.class};
@@ -34,8 +41,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        this.getWindow().setBackgroundDrawable(null);
 
+        initToolbar();
         initView();
+    }
+
+    private void initToolbar(){
+        toolbar = (Toolbar)this.findViewById(R.id.id_toolbar);
+        this.setSupportActionBar(toolbar);
+        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbartitle = (TextView)this.findViewById(R.id.toolbartitle);
+        toolbartitle.setText(this.getResources().getString(textArray[0]));
     }
 
     private void initView(){
@@ -53,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
             mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
 
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                toolbartitle.setText(tabId);
+            }
+        });
+
     }
 
     private View getTabItemView(int index){
@@ -66,27 +90,4 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
