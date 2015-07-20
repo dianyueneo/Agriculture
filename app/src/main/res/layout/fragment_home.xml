@@ -5,11 +5,32 @@
     android:orientation="vertical"
     >
 
-    <android.common.view.SlidingTabLayout
-        android:id="@+id/sliding_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_sell"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sell"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            />
+
+        <ImageView
+            android:id="@+id/btn_buy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/buy"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            />
+
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

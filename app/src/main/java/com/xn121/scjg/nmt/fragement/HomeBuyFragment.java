@@ -21,13 +21,12 @@ public class HomeBuyFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_home_buy, null);
+            initView();
         }
         ViewGroup parent = (ViewGroup)rootView.getParent();
         if(parent != null){
             parent.removeView(rootView);
         }
-
-        initView();
 
         return rootView;
     }
