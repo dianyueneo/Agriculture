@@ -7,49 +7,49 @@
 
     <ImageView
         android:id="@+id/progress1"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_red"
         />
     <ImageView
         android:id="@+id/progress2"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress1"
         />
     <ImageView
         android:id="@+id/progress3"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress2"
         />
     <ImageView
         android:id="@+id/progress4"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress3"
         />
     <ImageView
         android:id="@+id/progress5"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress4"
         />
     <ImageView
         android:id="@+id/progress6"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress5"
         />
     <ImageView
         android:id="@+id/progress7"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/progress_width"
+        android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress6"
         />
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/qidian"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:textColor="@color/red"
             />
 
@@ -74,10 +74,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzedidian"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/red"
             android:layout_toRightOf="@id/qidian"
             android:layout_marginLeft="6dp"
+            android:layout_alignBaseline="@id/qidian"
             />
 
         <View
@@ -87,7 +88,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/qidian"
-            android:background="#A9A9A9"
+            android:background="@color/grey"
             />
 
         <TextView
@@ -98,7 +99,7 @@
             android:background="@color/red"
             android:text="@string/shengfen"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="8dp"
@@ -126,7 +127,7 @@
             android:background="@color/red"
             android:text="@string/chengshi"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="8dp"
@@ -148,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zhongdian"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:textColor="@color/grey"
             android:layout_below="@id/line2"
             />
@@ -157,10 +158,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzezhongdian"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line2"
             android:layout_toRightOf="@id/zhongdian"
+            android:layout_alignBaseline="@id/zhongdian"
             android:layout_marginLeft="6dp"
             />
 
@@ -171,7 +173,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/zhongdian"
-            android:background="#A9A9A9"
+            android:background="@color/grey"
             />
 
         <TextView
@@ -182,7 +184,7 @@
             android:background="@color/grey"
             android:text="@string/shengfen"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="8dp"
@@ -206,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shangpin"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:textColor="@color/grey"
             android:layout_below="@id/line4"
             />
@@ -215,11 +217,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzechanpin"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line4"
             android:layout_toRightOf="@id/shangpin"
             android:layout_marginLeft="6dp"
+            android:layout_alignBaseline="@id/shangpin"
             />
 
         <View
@@ -229,7 +232,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/shangpin"
-            android:background="#A9A9A9"
+            android:background="@color/grey"
             />
 
 
@@ -241,7 +244,7 @@
             android:background="@color/grey"
             android:text="@string/shucai"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="8dp"
@@ -269,7 +272,7 @@
             android:background="@color/grey"
             android:text="@string/caipin"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="8dp"
@@ -291,7 +294,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dangdijiage"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:textColor="@color/grey"
             android:layout_below="@id/line6"
             />
@@ -303,7 +306,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/dangdijiage"
-            android:background="#A9A9A9"
+            android:background="@color/grey"
             />
 
         <TextView
@@ -314,7 +317,7 @@
             android:background="@color/grey"
             android:text="@string/dianji"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="13dp"
@@ -323,15 +326,15 @@
 
         <TextView
             android:id="@+id/tv_pf"
-            android:layout_width="84dp"
+            android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line7"
             android:layout_toRightOf="@id/btn_cx"
             android:background="@color/grey"
             android:text="@string/pifa"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/text_size_smaller"
+            android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="4dp"
@@ -341,15 +344,15 @@
 
         <TextView
             android:id="@+id/tv_pf_c"
-            android:layout_width="84dp"
+            android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_pf"
             android:layout_toRightOf="@id/btn_cx"
             android:background="@color/grey"
             android:text="@string/pifa"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/text_size_smaller"
+            android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="0dp"
@@ -358,15 +361,15 @@
 
         <TextView
             android:id="@+id/tv_ls"
-            android:layout_width="84dp"
+            android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line7"
             android:layout_toRightOf="@id/tv_pf"
             android:background="@color/grey"
             android:text="@string/lingshou"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/text_size_smaller"
+            android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="4dp"
@@ -376,15 +379,15 @@
 
         <TextView
             android:id="@+id/tv_ls_c"
-            android:layout_width="84dp"
+            android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_pf"
             android:layout_toRightOf="@id/tv_pf_c"
             android:background="@color/grey"
             android:text="@string/lingshou"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/text_size_smaller"
+            android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="0dp"
@@ -406,7 +409,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shangpinchengben"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:textColor="@color/grey"
             android:layout_below="@id/line8"
             />
@@ -418,17 +421,17 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/shangping"
-            android:background="#A9A9A9"
+            android:background="@color/grey"
             />
 
         <TextView
             android:id="@+id/xiaoshou"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/xiaoshou_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:text="@string/xiaoshou"
             android:textColor="@color/grey"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:lines="2"
             />
 
@@ -445,13 +448,13 @@
 
         <TextView
             android:id="@+id/xiaoshou_cb"
-            android:layout_width="40dp"
+            android:layout_width="@dimen/xiaoshou_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:text="@string/xiaoshou_cb"
             android:layout_toRightOf="@id/xs_sl"
             android:textColor="@color/grey"
-            android:textSize="@dimen/sp20"
+            android:textSize="@dimen/text_size_big"
             android:lines="2"
             android:layout_marginLeft="10dp"
             />
