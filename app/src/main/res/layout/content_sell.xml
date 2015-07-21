@@ -71,6 +71,7 @@
             />
 
         <TextView
+            android:id="@+id/xzdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzedidian"
@@ -155,6 +156,7 @@
             />
 
         <TextView
+            android:id="@+id/xzzd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzezhongdian"
@@ -214,6 +216,7 @@
             />
 
         <TextView
+            android:id="@+id/xzcp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzechanpin"
@@ -405,7 +408,7 @@
             />
 
         <TextView
-            android:id="@+id/shangping"
+            android:id="@+id/spcbsl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shangpinchengben"
@@ -420,7 +423,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
-            android:layout_below="@id/shangping"
+            android:layout_below="@id/spcbsl"
             android:background="@color/grey"
             />
 
@@ -585,6 +588,7 @@
             />
 
         <TextView
+            android:id="@+id/yuan1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/line13"
@@ -619,6 +623,7 @@
             />
 
         <TextView
+            android:id="@+id/yuan2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gongren"
@@ -654,6 +659,7 @@
             />
 
         <TextView
+            android:id="@+id/yuan3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cailiao"
