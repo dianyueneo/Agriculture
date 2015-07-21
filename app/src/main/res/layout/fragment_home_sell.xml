@@ -21,22 +21,3 @@
     </ScrollView>
 
 </me.dreamheart.autoscalinglayout.ASRelativeLayout>
-<!--<RelativeLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:padding="10dp"-->
-    <!--android:background="@android:color/white"-->
-    <!-->-->
-
-    <!--<ScrollView-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:scrollbars="none"-->
-        <!-->-->
-
-        <!--<include layout="@layout/content_sell"/>-->
-
-    <!--</ScrollView>-->
-
-<!--</RelativeLayout>-->

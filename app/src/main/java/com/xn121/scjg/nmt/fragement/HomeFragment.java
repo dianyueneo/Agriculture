@@ -49,13 +49,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         fragments.add(new HomeBuyFragment());
         viewPager.setAdapter(new TabsViewPagerAdapter(this.getChildFragmentManager(), fragments));
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         btn_sell = (ImageView)rootView.findViewById(R.id.btn_sell);
         btn_buy = (ImageView)rootView.findViewById(R.id.btn_buy);
         btn_sell.setOnClickListener(this);
         btn_buy.setOnClickListener(this);
 
-        btn_sell.setSelected(true);
-        btn_buy.setSelected(false);
+        setSelected(0);
     }
 
     @Override
@@ -71,11 +87,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_sell:
+                setSelected(0);
+                break;
+            case R.id.btn_buy:
+                setSelected(1);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void setSelected(int position){
+        switch (position){
+            case 0:
                 btn_sell.setSelected(true);
                 btn_buy.setSelected(false);
                 viewPager.setCurrentItem(0);
                 break;
-            case R.id.btn_buy:
+            case 1:
                 btn_sell.setSelected(false);
                 btn_buy.setSelected(true);
                 viewPager.setCurrentItem(1);
@@ -83,6 +113,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
-
     }
 }

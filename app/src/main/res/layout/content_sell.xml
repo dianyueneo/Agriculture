@@ -337,7 +337,7 @@
             android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="4dp"
+            android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
             android:layout_marginTop="1dp"
             />
@@ -356,7 +356,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="0dp"
-            android:paddingBottom="4dp"
+            android:paddingBottom="@dimen/price_padding_bottom"
             />
 
         <TextView
@@ -372,7 +372,7 @@
             android:layout_marginLeft="@dimen/price_marginlift"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="4dp"
+            android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
             android:layout_marginTop="1dp"
             />
@@ -391,7 +391,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="0dp"
-            android:paddingBottom="4dp"
+            android:paddingBottom="@dimen/price_padding_bottom"
             />
 
         <View
@@ -443,6 +443,8 @@
             android:layout_toRightOf="@id/xiaoshou"
             android:layout_alignBottom="@id/xiaoshou"
             android:hint="0"
+            android:singleLine="true"
+            android:inputType="numberDecimal"
             android:layout_marginLeft="10dp"
             />
 
@@ -467,7 +469,213 @@
             android:layout_toRightOf="@id/xiaoshou_cb"
             android:layout_alignBottom="@id/xiaoshou_cb"
             android:hint="0"
+            android:inputType="numberDecimal"
             android:layout_marginLeft="10dp"
+            />
+
+
+        <View
+            android:id="@+id/line10"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:layout_below="@id/xiaoshou"
+            android:background="@color/grey"
+            />
+
+        <TextView
+            android:id="@+id/yunshu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yunshu"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/grey"
+            android:layout_below="@id/line10"
+            />
+
+        <View
+            android:id="@+id/line11"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/yunshu"
+            android:background="@color/grey"
+            />
+
+        <TextView
+            android:id="@+id/btn_cl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line11"
+            android:background="@color/grey"
+            android:text="@string/cheliangleixing"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big2"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+        />
+
+        <TextView
+            android:id="@+id/btn_ry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line11"
+            android:layout_toRightOf="@id/btn_cl"
+            android:background="@color/grey"
+            android:text="@string/ranyouleixing"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big2"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:layout_marginLeft="15dp"
+            />
+
+        <View
+            android:id="@+id/line12"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:layout_below="@id/btn_cl"
+            android:background="@color/grey"
+            />
+
+        <TextView
+            android:id="@+id/qita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chengben"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/grey"
+            android:layout_below="@id/line12"
+            />
+
+        <View
+            android:id="@+id/line13"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/qita"
+            android:background="@color/grey"
+            />
+
+        <TextView
+            android:id="@+id/gongren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gongren"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/grey"
+            android:layout_below="@id/line13"
+            />
+
+        <EditText
+            android:id="@+id/et_gr"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line13"
+            android:layout_toRightOf="@id/gongren"
+            android:layout_alignBaseline="@id/gongren"
+            android:hint="0"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="@dimen/feiyong_et_marginleft"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line13"
+            android:layout_toRightOf="@id/et_gr"
+            android:text="@string/yuan"
+            android:textSize="@dimen/text_size_big"
+            />
+
+
+        <TextView
+            android:id="@+id/cailiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cailiao"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/grey"
+            android:layout_below="@id/gongren"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+        <EditText
+            android:id="@+id/et_cl"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gongren"
+            android:layout_toRightOf="@id/cailiao"
+            android:layout_alignBaseline="@id/cailiao"
+            android:hint="0"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="@dimen/feiyong_et_marginleft"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gongren"
+            android:layout_toRightOf="@id/et_cl"
+            android:text="@string/yuan"
+            android:textSize="@dimen/text_size_big"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+
+        <TextView
+            android:id="@+id/qtfy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qtfy"
+            android:textSize="@dimen/text_size_big"
+            android:textColor="@color/grey"
+            android:layout_below="@id/cailiao"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+        <EditText
+            android:id="@+id/et_qt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cailiao"
+            android:layout_toRightOf="@id/qtfy"
+            android:layout_alignBaseline="@id/qtfy"
+            android:hint="0"
+            android:inputType="numberDecimal"
+            android:layout_marginLeft="@dimen/feiyong_et_marginleft"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cailiao"
+            android:layout_toRightOf="@id/et_qt"
+            android:text="@string/yuan"
+            android:textSize="@dimen/text_size_big"
+            android:layout_marginTop="@dimen/chengben_margintop"
+            />
+
+        <TextView
+            android:id="@+id/btn_hqxl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/qtfy"
+            android:background="@color/grey"
+            android:text="@string/huoqu"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big2"
+            android:gravity="center_horizontal"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:layout_marginTop="@dimen/chengben_margintop"
             />
 
 

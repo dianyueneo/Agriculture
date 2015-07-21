@@ -9,12 +9,17 @@
     <dimen name="sp20">20sp</dimen>
     <dimen name="sp22">22sp</dimen>
     <dimen name="text_size_big">26dp</dimen>
+    <dimen name="text_size_big2">22dp</dimen>
     <dimen name="text_size_small">20dp</dimen>
     <dimen name="text_size_smaller">18dp</dimen>
     <dimen name="progress_width">30dp</dimen>
     <dimen name="progress_height">150dp</dimen>
     <dimen name="price_width">100dp</dimen>
-    <dimen name="price_marginlift">20dp</dimen>
+    <dimen name="price_padding">6dp</dimen>
+    <dimen name="price_padding_bottom">5dp</dimen>
+    <dimen name="price_marginlift">10dp</dimen>
     <dimen name="xiaoshou_width">60dp</dimen>
+    <dimen name="feiyong_et_marginleft">120dp</dimen>
+    <dimen name="chengben_margintop">15dp</dimen>
 
 </resources>

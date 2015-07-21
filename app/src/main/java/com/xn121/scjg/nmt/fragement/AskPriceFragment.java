@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -346,11 +347,23 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
 //                getObserve("101010100");
 //                getForecast("101010100");
 //                getPriceofDomain("39.911421", "116.460934", "");
-                getProfitStatement("acquisition", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
+//                getProfitStatement("acquisition", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
+                showInfo();
                 break;
             default:
                 break;
         }
 
     }
+
+    private void showInfo(){
+        DisplayMetrics dm = new DisplayMetrics();
+        dm = this.getActivity().getApplicationContext().getResources().getDisplayMetrics();
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+        float density = dm.density;
+        Log.i("test", "screenWidth:"+screenWidth+" screenHeight:"+screenHeight+" density:"+density);
+        tv.setText("screenWidth:"+screenWidth+" screenHeight:"+screenHeight+" density:"+density);
+    }
+
 }
