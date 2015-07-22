@@ -1,4 +1,4 @@
-package com.xn121.scjg.nmt.netInterface;
+package com.xn121.scjg.nmt.volley;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import org.apache.http.protocol.HTTP;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -34,7 +35,7 @@ public class XMLRequest extends Request<XmlPullParser> {
     protected Response<XmlPullParser> parseNetworkResponse(NetworkResponse response) {
         try {
             String xmlString = new String(response.data,
-                    HttpHeaderParser.parseCharset(response.headers));
+                    HttpHeaderParser.parseCharset(response.headers, HTTP.UTF_8));
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = factory.newPullParser();
             xmlPullParser.setInput(new StringReader(xmlString));

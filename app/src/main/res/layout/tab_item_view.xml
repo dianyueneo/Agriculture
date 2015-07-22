@@ -11,7 +11,6 @@
         android:id="@+id/imageview"
         android:layout_width="24dip"
         android:layout_height="24dip"
-        android:background="@drawable/home_sel"
         />
 
     <TextView

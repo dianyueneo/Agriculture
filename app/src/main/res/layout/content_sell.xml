@@ -10,6 +10,8 @@
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_red"
+        android:layout_marginTop="7dp"
+
         />
     <ImageView
         android:id="@+id/progress2"
@@ -103,8 +105,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
         <ImageView
@@ -131,8 +133,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
         <View
@@ -189,8 +191,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
 
@@ -250,8 +252,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
         <ImageView
@@ -278,8 +280,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
         <View
@@ -323,8 +325,8 @@
             android:textSize="@dimen/text_size_big"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             />
 
         <TextView
@@ -342,7 +344,6 @@
             android:paddingRight="10dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
-            android:layout_marginTop="1dp"
             />
 
         <TextView
@@ -377,7 +378,6 @@
             android:paddingRight="10dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
-            android:layout_marginTop="1dp"
             />
 
         <TextView
@@ -434,7 +434,7 @@
             android:layout_below="@id/line9"
             android:text="@string/xiaoshou"
             android:textColor="@color/grey"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_big2"
             android:lines="2"
             />
 
@@ -448,7 +448,7 @@
             android:hint="0"
             android:singleLine="true"
             android:inputType="numberDecimal"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="6dp"
             />
 
         <TextView
@@ -459,9 +459,9 @@
             android:text="@string/xiaoshou_cb"
             android:layout_toRightOf="@id/xs_sl"
             android:textColor="@color/grey"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_big2"
             android:lines="2"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             />
 
         <EditText
@@ -473,7 +473,7 @@
             android:layout_alignBottom="@id/xiaoshou_cb"
             android:hint="0"
             android:inputType="numberDecimal"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="6dp"
             />
 
 
@@ -516,8 +516,8 @@
             android:text="@string/cheliangleixing"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big2"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
         />
 
         <TextView
@@ -530,8 +530,8 @@
             android:text="@string/ranyouleixing"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big2"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
             android:layout_marginLeft="15dp"
             />
 
@@ -679,13 +679,16 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big2"
             android:gravity="center_horizontal"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:layout_marginTop="@dimen/chengben_margintop"
+            android:paddingTop="@dimen/button_padding"
+            android:paddingBottom="@dimen/button_padding"
+            android:layout_marginTop="20dp"
             />
-
-
-
+        
+        <android.widget.Space
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/btn_hqxl"
+            />
 
     </RelativeLayout>
 

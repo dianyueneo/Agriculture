@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Class fragmentArray[] = {HomeFragment.class , AskPriceFragment.class, WeatherFragment.class, AboutFragment.class, IntroductionsFragment.class};
-    private int imageViewArray[] = {R.drawable.home_sel,R.drawable.home_sel,R.drawable.home_sel,R.drawable.home_sel,R.drawable.home_sel};
+    private int imageViewArray[] = {R.drawable.home_sel,R.drawable.ask,R.drawable.weather,R.drawable.about,R.drawable.explan};
     private int textArray[] = {R.string.home, R.string.askprice, R.string.weather, R.string.about, R.string.introductions};
 
     @Override

@@ -12,15 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
-import com.xn121.scjg.nmt.netInterface.XMLRequest;
+import com.xn121.scjg.nmt.volley.XMLRequest;
 
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -39,6 +40,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
     private TextView tv;
     private Button btn;
     private RequestQueue queue;
+    private RetryPolicy retryPolicy;
 
     @Nullable
     @Override
@@ -59,6 +61,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         queue = Volley.newRequestQueue(activity);
+        retryPolicy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
 
     private void initView(){
@@ -87,6 +90,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
                 tv.setText("接口异常");
             }
         });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -102,24 +107,9 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
 
         Log.i("test", url);
 
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.i("test", response.toString());
-//                tv.setText(response.toString());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.i("test", "接口异常");
-//                tv.setText("接口异常");
-//            }
-//        });
-
-
-        StringRequest jsonObjectRequest = new StringRequest(url, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
                 Log.i("test", response.toString());
                 tv.setText(response.toString());
             }
@@ -131,6 +121,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -145,32 +136,19 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
 
         Log.i("test", url);
 
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                tv.setText(response.toString());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                tv.setText("接口异常");
-//            }
-//        });
-
-        StringRequest jsonObjectRequest = new StringRequest(url, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("test", response.toString());
+            public void onResponse(JSONObject response) {
                 tv.setText(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("test", "接口异常");
                 tv.setText("接口异常");
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -184,32 +162,19 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
 
         Log.i("test", url);
 
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                tv.setText(response.toString());
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                tv.setText("接口异常");
-//            }
-//        });
-
-        StringRequest jsonObjectRequest = new StringRequest(url, new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
-                Log.i("test", response.toString());
+            public void onResponse(JSONObject response) {
                 tv.setText(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("test", "接口异常");
                 tv.setText("接口异常");
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -236,6 +201,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -262,6 +228,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -285,6 +252,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        xmlRequest.setRetryPolicy(retryPolicy);
         queue.add(xmlRequest);
 
     }
@@ -331,6 +299,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
         queue.add(jsonObjectRequest);
 
     }
@@ -342,13 +311,13 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
             case R.id.mbtn:
 //                getPrice("10101ganguo_hetaomarket1032013m7");
 //                getTradeLeads();
-//                getMarketNameList("market_10101");
+                getMarketNameList("market_10101");
 //                getProductNameList("product_chaye");
 //                getObserve("101010100");
 //                getForecast("101010100");
 //                getPriceofDomain("39.911421", "116.460934", "");
 //                getProfitStatement("acquisition", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
-                showInfo();
+//                showInfo();
                 break;
             default:
                 break;
