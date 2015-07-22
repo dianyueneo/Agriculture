@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.SellStep.SellStep;
 
 /**
  * Created by hongge on 15/7/18.
@@ -44,6 +45,9 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     private Object[] step5 = null;
     private Object[] step6 = null;
     private Object[] step7 = null;
+    private Object[] step8 = null;
+
+    private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
 
     @Nullable
     @Override
@@ -72,6 +76,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_cs.setOnClickListener(this);
 
         step1 = new Object[]{progress1, qidian, xzdd, btn_sf, btn_cs};
+        sellStep1 = new SellStep(this.getActivity(), step1, 1);
 
         //step2
         progress2 = (ImageView)rootView.findViewById(R.id.progress2);
@@ -82,6 +87,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_sf2.setOnClickListener(this);
 
         step2 = new Object[]{progress2, zhongdian, xzzd, btn_sf2};
+        sellStep2 = new SellStep(this.getActivity(), step2, 0);
 
         //step3
         progress3 = (ImageView)rootView.findViewById(R.id.progress3);
@@ -94,18 +100,21 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_cp.setOnClickListener(this);
 
         step3 = new Object[]{progress3, shangpin, xzcp, btn_sc, btn_cp};
+        sellStep3 = new SellStep(this.getActivity(), step3, 0);
 
         //step4
         progress4 = (ImageView)rootView.findViewById(R.id.progress4);
         dangdijiage = (TextView)rootView.findViewById(R.id.dangdijiage);
         btn_cx = (TextView)rootView.findViewById(R.id.btn_cx);
+        tv_pf = (TextView)rootView.findViewById(R.id.tv_pf);
         tv_pf_c = (TextView)rootView.findViewById(R.id.tv_pf_c);
         tv_ls = (TextView)rootView.findViewById(R.id.tv_ls);
         tv_ls_c = (TextView)rootView.findViewById(R.id.tv_ls_c);
 
         btn_cx.setOnClickListener(this);
 
-        step4 = new Object[]{progress4, dangdijiage, btn_cx, tv_pf_c, tv_ls, tv_ls_c};
+        step4 = new Object[]{progress4, dangdijiage, btn_cx, tv_pf, tv_pf_c, tv_ls, tv_ls_c};
+        sellStep4 = new SellStep(this.getActivity(), step4, 0);
 
         //step5
         progress5 = (ImageView)rootView.findViewById(R.id.progress5);
@@ -116,6 +125,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         xs_cb = (EditText)rootView.findViewById(R.id.xs_cb);
 
         step5 = new Object[]{progress5, spcbsl, xiaoshou, xiaoshou_cb, xs_sl, xs_cb};
+        sellStep5 = new SellStep(this.getActivity(), step5, 0);
 
         //step6
         progress6 = (ImageView)rootView.findViewById(R.id.progress6);
@@ -127,6 +137,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_ry.setOnClickListener(this);
 
         step6 = new Object[]{progress6, yunshu, btn_cl, btn_ry};
+        sellStep6 = new SellStep(this.getActivity(), step6, 0);
 
         //step7
         progress7 = (ImageView)rootView.findViewById(R.id.progress7);
@@ -143,72 +154,48 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         et_qt = (EditText)rootView.findViewById(R.id.et_qt);
 
         step7 = new Object[]{progress7, qita, gongren, yuan1, cailiao, yuan2, qtfy, yuan3, et_gr, et_cl, et_qt};
+        sellStep7 = new SellStep(this.getActivity(), step7, 0);
 
         //step8
         btn_hqxl = (TextView)rootView.findViewById(R.id.btn_hqxl);
 
         btn_hqxl.setOnClickListener(this);
 
-        setStatus(step1, 1);
-        setStatus(step5, 0);
+        step8 = new Object[]{btn_hqxl};
+        sellStep8 = new SellStep(this.getActivity(), step8, 0);
+
+        sellStep1.setHandler(sellStep2);
+        sellStep2.setHandler(sellStep3);
+        sellStep3.setHandler(sellStep4);
+        sellStep4.setHandler(sellStep5);
+        sellStep5.setHandler(sellStep6);
+        sellStep6.setHandler(sellStep7);
+        sellStep7.setHandler(sellStep8);
 
     }
 
 
-    private void setStatus(Object[] widgets, int status){
-        int resid = R.drawable.progress_gray;
-        int colorid = R.color.grey;
-        boolean clickable = false;
-        boolean focusable = false;
 
-        switch (status){
-            case 0:
-                resid = R.drawable.progress_gray;
-                colorid = R.color.grey;
-                clickable = false;
-                focusable = false;
-                break;
-            case 1:
-                resid = R.drawable.progress_red;
-                colorid = R.color.red;
-                clickable = true;
-                focusable = true;
-                break;
-            case 2:
-                resid = R.drawable.progress_green;
-                colorid = R.color.material_blue_500;
-                clickable = true;
-                focusable = true;
-                break;
-            default:
-                break;
-        }
-
-        for(Object obj: widgets){
-            if(ImageView.class.isInstance(obj)){
-                Log.i("test2", "ImageView====" + obj);
-                ((ImageView) obj).setImageResource(resid);
-            }else if(TextView.class.isInstance(obj) && AppCompatTextView.class.isInstance(obj)){
-                Log.i("test2", "TextView===="+obj);
-                TextView tv = ((TextView) obj);
-                if(tv.getBackground() == null){
-                    tv.setTextColor(this.getResources().getColor(colorid));
-                }else {
-                    tv.setBackgroundColor(this.getResources().getColor(colorid));
-                }
-                tv.setClickable(clickable);
-
-            }else if(EditText.class.isInstance(obj) && AppCompatEditText.class.isInstance(obj)){
-                Log.i("test2", "EditText===="+obj);
-                ((EditText)obj).setFocusable(focusable);
-                ((EditText)obj).setEnabled(focusable);
-            }
-        }
-
-    }
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.btn_sf:
+                sellStep1.complete();
+                break;
+            case R.id.btn_sf2:
+                sellStep2.complete();
+                break;
+            case R.id.btn_sc:
+                sellStep3.complete();
+                break;
+            case R.id.btn_cx:
+                sellStep4.complete();
+                break;
+            case R.id.btn_ry:
+                sellStep6.complete();
+            default:
+                break;
+        }
     }
 }
