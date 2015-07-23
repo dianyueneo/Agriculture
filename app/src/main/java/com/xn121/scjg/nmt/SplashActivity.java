@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.ListView;
 
-import com.xn121.scjg.nmt.adapter.ListAdapter;
 import com.xn121.scjg.nmt.db.AssetsUtil;
 
 

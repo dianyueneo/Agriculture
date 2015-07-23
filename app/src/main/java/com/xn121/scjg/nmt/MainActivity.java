@@ -1,6 +1,7 @@
 package com.xn121.scjg.nmt;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
@@ -90,4 +91,8 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

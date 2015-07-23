@@ -2,6 +2,7 @@ package com.xn121.scjg.nmt.fragement;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private RequestQueue queue;
     private ViewPager viewPager;
     private ImageView btn_sell, btn_buy;
+    private TabsViewPagerAdapter tabsViewPagerAdapter;
 
     @Nullable
     @Override
@@ -47,7 +49,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         fragments.add(new HomeSellFragment());
         fragments.add(new HomeBuyFragment());
-        viewPager.setAdapter(new TabsViewPagerAdapter(this.getChildFragmentManager(), fragments));
+        tabsViewPagerAdapter = new TabsViewPagerAdapter(this.getChildFragmentManager(), fragments);
+        viewPager.setAdapter(tabsViewPagerAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -113,5 +116,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        tabsViewPagerAdapter.getItem(viewPager.getCurrentItem()).onActivityResult(requestCode, resultCode, data);
     }
 }

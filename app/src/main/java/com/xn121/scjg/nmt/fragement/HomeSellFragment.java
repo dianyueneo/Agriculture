@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
+import com.xn121.scjg.nmt.bean.Market;
+import com.xn121.scjg.nmt.bean.Province;
 
 /**
  * Created by hongge on 15/7/18.
@@ -51,6 +53,8 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     private boolean textchanged5 = false;
 
     private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
+
+    private String provinceId, marketId;
 
     @Nullable
     @Override
@@ -275,7 +279,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_sf:
                 Intent i = new Intent(this.getActivity(), ProvinceActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 100);
                 sellStep1.complete();
                 break;
             case R.id.btn_sf2:
@@ -292,5 +296,21 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100 && resultCode == 130){
+            btn_sf.setText(data.getStringExtra("provinceName"));
+            btn_cs.setText(data.getStringExtra("marketName"));
+            provinceId = data.getStringExtra("provinceId");
+            marketId = data.getStringExtra("marketId");
+        }
+
+
+
+
+
     }
 }

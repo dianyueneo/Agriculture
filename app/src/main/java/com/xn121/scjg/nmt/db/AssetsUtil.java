@@ -70,8 +70,8 @@ public class AssetsUtil {
 
         while (cursor.moveToNext()){
             market = new Market();
-            market.setMarketId(cursor.getString(marketName_index));
             market.setMarketId(cursor.getString(marketId_index));
+            market.setMarketName(cursor.getString(marketName_index));
             list.add(market);
         }
 

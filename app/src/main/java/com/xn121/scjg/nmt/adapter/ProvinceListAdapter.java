@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Created by admin on 15/7/23.
  */
-public class ListAdapter extends BaseAdapter{
+public class ProvinceListAdapter extends BaseAdapter{
 
     private List<Province> list;
     private LayoutInflater inflater;
 
-    public ListAdapter(Context context) {
+    public ProvinceListAdapter(Context context) {
         inflater = LayoutInflater.from(context);
     }
 
