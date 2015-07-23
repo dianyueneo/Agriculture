@@ -1,11 +1,11 @@
 package com.xn121.scjg.nmt.fragement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
 
@@ -34,10 +35,6 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     private ImageView progress1, progress2, progress3, progress4, progress5, progress6, progress7;
     private TextView btn_hqxl;
 
-    private int unSelect = 0;//未选择
-    private int select = 1;//选中
-    private int completed = 2;//完成
-
     private Object[] step1 = null;
     private Object[] step2 = null;
     private Object[] step3 = null;
@@ -46,6 +43,12 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     private Object[] step6 = null;
     private Object[] step7 = null;
     private Object[] step8 = null;
+
+    private boolean textchanged1 = false;
+    private boolean textchanged2 = false;
+    private boolean textchanged3 = false;
+    private boolean textchanged4 = false;
+    private boolean textchanged5 = false;
 
     private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
 
@@ -76,7 +79,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_cs.setOnClickListener(this);
 
         step1 = new Object[]{progress1, qidian, xzdd, btn_sf, btn_cs};
-        sellStep1 = new SellStep(this.getActivity(), step1, 1);
+        sellStep1 = new SellStep(this.getActivity(), step1, SellStep.SELECT);
 
         //step2
         progress2 = (ImageView)rootView.findViewById(R.id.progress2);
@@ -87,7 +90,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_sf2.setOnClickListener(this);
 
         step2 = new Object[]{progress2, zhongdian, xzzd, btn_sf2};
-        sellStep2 = new SellStep(this.getActivity(), step2, 0);
+        sellStep2 = new SellStep(this.getActivity(), step2, SellStep.UNSELECT);
 
         //step3
         progress3 = (ImageView)rootView.findViewById(R.id.progress3);
@@ -100,7 +103,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_cp.setOnClickListener(this);
 
         step3 = new Object[]{progress3, shangpin, xzcp, btn_sc, btn_cp};
-        sellStep3 = new SellStep(this.getActivity(), step3, 0);
+        sellStep3 = new SellStep(this.getActivity(), step3, SellStep.UNSELECT);
 
         //step4
         progress4 = (ImageView)rootView.findViewById(R.id.progress4);
@@ -114,7 +117,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_cx.setOnClickListener(this);
 
         step4 = new Object[]{progress4, dangdijiage, btn_cx, tv_pf, tv_pf_c, tv_ls, tv_ls_c};
-        sellStep4 = new SellStep(this.getActivity(), step4, 0);
+        sellStep4 = new SellStep(this.getActivity(), step4, SellStep.UNSELECT);
 
         //step5
         progress5 = (ImageView)rootView.findViewById(R.id.progress5);
@@ -124,8 +127,44 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         xs_sl = (EditText)rootView.findViewById(R.id.xs_sl);
         xs_cb = (EditText)rootView.findViewById(R.id.xs_cb);
 
+        xs_sl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().length() > 0){
+                    textchanged1 = true;
+                    if(textchanged1 && textchanged2){
+                        sellStep5.complete();
+                    }
+                }
+            }
+        });
+
+        xs_cb.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().length() > 0){
+                    textchanged2 = true;
+                    if(textchanged1 && textchanged2){
+                        sellStep5.complete();
+                    }
+                }
+            }
+        });
+
         step5 = new Object[]{progress5, spcbsl, xiaoshou, xiaoshou_cb, xs_sl, xs_cb};
-        sellStep5 = new SellStep(this.getActivity(), step5, 0);
+        sellStep5 = new SellStep(this.getActivity(), step5, SellStep.UNSELECT);
 
         //step6
         progress6 = (ImageView)rootView.findViewById(R.id.progress6);
@@ -137,7 +176,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_ry.setOnClickListener(this);
 
         step6 = new Object[]{progress6, yunshu, btn_cl, btn_ry};
-        sellStep6 = new SellStep(this.getActivity(), step6, 0);
+        sellStep6 = new SellStep(this.getActivity(), step6, SellStep.UNSELECT);
 
         //step7
         progress7 = (ImageView)rootView.findViewById(R.id.progress7);
@@ -153,8 +192,62 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         et_cl = (EditText)rootView.findViewById(R.id.et_cl);
         et_qt = (EditText)rootView.findViewById(R.id.et_qt);
 
+        et_gr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().length() > 0){
+                    textchanged3 = true;
+                    if(textchanged3 && textchanged4 && textchanged5){
+                        sellStep7.complete();
+                    }
+                }
+            }
+        });
+
+        et_cl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().length() > 0){
+                    textchanged4 = true;
+                    if(textchanged3 && textchanged4 && textchanged5){
+                        sellStep7.complete();
+                    }
+                }
+            }
+        });
+
+        et_qt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().length() > 0){
+                    textchanged5 = true;
+                    if(textchanged3 && textchanged4 && textchanged5){
+                        sellStep7.complete();
+                    }
+                }
+            }
+        });
+
         step7 = new Object[]{progress7, qita, gongren, yuan1, cailiao, yuan2, qtfy, yuan3, et_gr, et_cl, et_qt};
-        sellStep7 = new SellStep(this.getActivity(), step7, 0);
+        sellStep7 = new SellStep(this.getActivity(), step7, SellStep.UNSELECT);
 
         //step8
         btn_hqxl = (TextView)rootView.findViewById(R.id.btn_hqxl);
@@ -162,7 +255,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         btn_hqxl.setOnClickListener(this);
 
         step8 = new Object[]{btn_hqxl};
-        sellStep8 = new SellStep(this.getActivity(), step8, 0);
+        sellStep8 = new SellStep(this.getActivity(), step8, SellStep.UNSELECT);
 
         sellStep1.setHandler(sellStep2);
         sellStep2.setHandler(sellStep3);
@@ -181,6 +274,8 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_sf:
+                Intent i = new Intent(this.getActivity(), ProvinceActivity.class);
+                startActivity(i);
                 sellStep1.complete();
                 break;
             case R.id.btn_sf2:

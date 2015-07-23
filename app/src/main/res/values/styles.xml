@@ -17,9 +17,5 @@
 
     </style>
 
-    <style name="CustomTitleTextAppearance">
-        <item name="android:textSize">@dimen/toolbar_text_size</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
 
 </resources>

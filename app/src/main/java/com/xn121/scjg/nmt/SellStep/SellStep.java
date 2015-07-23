@@ -18,6 +18,10 @@ public class SellStep extends AbstractHandler implements Handler{
     private Object[] widgets;
     private Context context;
 
+    public static final int UNSELECT = 0;//未选择
+    public static final int SELECT = 1;//选中
+    public static final int COMPLETED = 2;//完成
+
     public SellStep(Context context, Object[] widgets, int status) {
         this.status = status;
         this.widgets = widgets;
@@ -28,15 +32,15 @@ public class SellStep extends AbstractHandler implements Handler{
 
     @Override
     public void complete() {
-        if(status == 0){
+        if(status == UNSELECT){
             if(getHandler() !=null){
-                status = 1;
+                status = SELECT;
             }else{
-                status = 2;
+                status = COMPLETED;
             }
             setStatus(status);
-        }else if(status ==1){
-            status = 2;
+        }else if(status == SELECT){
+            status = COMPLETED;
             setStatus(status);
             if(getHandler() != null){
                 getHandler().complete();
@@ -51,19 +55,19 @@ public class SellStep extends AbstractHandler implements Handler{
         boolean focusable = false;
 
         switch (status){
-            case 0:
+            case UNSELECT:
                 resid = R.drawable.progress_gray;
                 colorid = R.color.grey;
                 clickable = false;
                 focusable = false;
                 break;
-            case 1:
+            case SELECT:
                 resid = R.drawable.progress_red;
                 colorid = R.color.red;
                 clickable = true;
                 focusable = true;
                 break;
-            case 2:
+            case COMPLETED:
                 resid = R.drawable.progress_green;
                 colorid = R.color.material_blue_500;
                 clickable = true;
