@@ -135,6 +135,8 @@
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
+            android:ellipsize="middle"
+            android:singleLine="true"
             />
 
         <View
@@ -344,6 +346,7 @@
             android:paddingRight="10dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
+            android:gravity="center"
             />
 
         <TextView
@@ -353,7 +356,7 @@
             android:layout_below="@id/tv_pf"
             android:layout_toRightOf="@id/btn_cx"
             android:background="@color/grey"
-            android:text="@string/pifa"
+            android:text="@string/moren"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_smaller"
             android:layout_marginLeft="@dimen/price_marginlift"
@@ -361,6 +364,7 @@
             android:paddingRight="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="@dimen/price_padding_bottom"
+            android:gravity="center"
             />
 
         <TextView
@@ -378,6 +382,7 @@
             android:paddingRight="10dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
+            android:gravity="center"
             />
 
         <TextView
@@ -387,7 +392,7 @@
             android:layout_below="@id/tv_pf"
             android:layout_toRightOf="@id/tv_pf_c"
             android:background="@color/grey"
-            android:text="@string/lingshou"
+            android:text="@string/moren"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_smaller"
             android:layout_marginLeft="@dimen/price_marginlift"
@@ -395,6 +400,7 @@
             android:paddingRight="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="@dimen/price_padding_bottom"
+            android:gravity="center"
             />
 
         <View

@@ -80,7 +80,9 @@ public class AssetsDatabaseManager {
             }  
               
             dbs.edit().putBoolean(dbfile, true).commit();  
-        }  
+        }else{
+            Log.createDBLog( String.format("database %s exist flag= %s file=%s", dbfile, flag, file.exists()));
+        }
           
         SQLiteDatabase db = SQLiteDatabase.openDatabase(sfile, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);  
         if(db != null){  
@@ -104,10 +106,10 @@ public class AssetsDatabaseManager {
      * @param des 数据库保存全路径，例如：/data/data/%s/database/weather_index.db
      * @return
      */
-    private boolean copyAssetsToFilesystem(String assetsSrc, String des){  
+    private boolean copyAssetsToFilesystem(String assetsSrc, String des){
     	Log.createDBLog("Copy " + assetsSrc + " to " + des);
-        InputStream istream = null;  
-        OutputStream ostream = null;  
+        InputStream istream = null;
+        OutputStream ostream = null;
         try{  
             AssetManager am = context.getAssets();
             String dbName = assetsSrc;

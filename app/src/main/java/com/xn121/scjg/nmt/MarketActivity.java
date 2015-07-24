@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.xn121.scjg.nmt.adapter.MarketListAdapter;
 import com.xn121.scjg.nmt.bean.Market;
 import com.xn121.scjg.nmt.db.AssetsUtil;
+import com.xn121.scjg.nmt.fragement.HomeFragment;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class MarketActivity extends Activity implements AdapterView.OnItemClickL
         Intent intent = new Intent();
         intent.putExtra("marketId", market.getMarketId());
         intent.putExtra("marketName", market.getMarketName());
-        setResult(120, intent);
+        setResult(HomeFragment.RESULT_CODE_MARKET, intent);
         finish();
     }
 }

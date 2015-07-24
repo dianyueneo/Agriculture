@@ -1,23 +1,43 @@
 package com.xn121.scjg.nmt.fragement;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.xn121.scjg.nmt.CategoryActivity;
 import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
-import com.xn121.scjg.nmt.bean.Market;
-import com.xn121.scjg.nmt.bean.Province;
+import com.xn121.scjg.nmt.netInterface.NetUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by hongge on 15/7/18.
@@ -54,7 +74,12 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
 
     private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
 
-    private String provinceId, marketId;
+    private String provinceId_start, marketId, provinceId_end, goodsPinin;
+
+    private RequestQueue requestQueue;
+    private RetryPolicy retryPolicy;
+
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -278,18 +303,21 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_sf:
-                Intent i = new Intent(this.getActivity(), ProvinceActivity.class);
-                startActivityForResult(i, 100);
-                sellStep1.complete();
+                Intent intent_sf = new Intent(this.getActivity(), ProvinceActivity.class);
+                intent_sf.putExtra("requestCode", HomeFragment.REQUEST_CODE_PROVINCESTART);
+                startActivityForResult(intent_sf, HomeFragment.REQUEST_CODE_PROVINCESTART);
                 break;
             case R.id.btn_sf2:
-                sellStep2.complete();
+                Intent intent_sf2 = new Intent(this.getActivity(), ProvinceActivity.class);
+                intent_sf2.putExtra("requestCode", HomeFragment.REQUEST_CODE_PROVINCEEND);
+                startActivityForResult(intent_sf2, HomeFragment.REQUEST_CODE_PROVINCEEND);
                 break;
             case R.id.btn_sc:
-                sellStep3.complete();
+                Intent intent_sc = new Intent(this.getActivity(), CategoryActivity.class);
+                startActivityForResult(intent_sc, HomeFragment.REQUEST_CODE_CATEGORY_START);
                 break;
             case R.id.btn_cx:
-                sellStep4.complete();
+                getPrice();
                 break;
             case R.id.btn_ry:
                 sellStep6.complete();
@@ -299,18 +327,87 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100 && resultCode == 130){
-            btn_sf.setText(data.getStringExtra("provinceName"));
-            btn_cs.setText(data.getStringExtra("marketName"));
-            provinceId = data.getStringExtra("provinceId");
-            marketId = data.getStringExtra("marketId");
-        }
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        requestQueue = Volley.newRequestQueue(activity);
+        retryPolicy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
 
 
+    private void getPrice(){
 
+        progressDialog = ProgressDialog.show(getActivity(), getResources().getString(R.string.loading), getResources().getString(R.string.wait));
 
+        Calendar calendar = Calendar.getInstance();
+        String areaid = provinceId_end + goodsPinin + "market" + marketId + calendar.get(Calendar.YEAR) + "m" +calendar.get(Calendar.MONTH);
+        Log.i("test", "=========="+areaid);
+        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        String type = "xn121";
+        String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
+        String key = NetUtil.getSignature(publicKey);
+        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0,6)+"&key="+key);
+        Log.i("test", "=========="+url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                tv_pf_c.setText(getPrice(response));
+                tv_ls_c.setText(getPrice(response));
+                sellStep4.complete();
+                progressDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
 
     }
+
+
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == HomeFragment.REQUEST_CODE_PROVINCESTART && resultCode == HomeFragment.RESULT_CODE_PROVINCE){
+            btn_sf.setText(data.getStringExtra("provinceName"));
+            btn_cs.setText(data.getStringExtra("marketName"));
+            provinceId_start = data.getStringExtra("provinceId");
+            marketId = data.getStringExtra("marketId");
+            sellStep1.complete();
+        }else if(requestCode == HomeFragment.REQUEST_CODE_PROVINCEEND && resultCode == HomeFragment.RESULT_CODE_PROVINCE){
+            btn_sf2.setText(data.getStringExtra("provinceName"));
+            provinceId_end = data.getStringExtra("provinceId");
+            sellStep2.complete();
+        }else if(requestCode == HomeFragment.REQUEST_CODE_CATEGORY_START && resultCode == HomeFragment.RESULT_CODE_CATEGORY){
+            btn_sc.setText(data.getStringExtra("category"));
+            btn_cp.setText(data.getStringExtra("name"));
+            goodsPinin = data.getStringExtra("pinyin");
+            sellStep3.complete();
+        }
+
+    }
+
+    private String getPrice(JSONObject response){
+        String str = "$";
+        try {
+            boolean status = TextUtils.isEmpty(response.optString("status"));
+            if(status) {
+                JSONArray jsonArray = response.getJSONArray("days");
+                str += jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return str;
+    }
+
 }

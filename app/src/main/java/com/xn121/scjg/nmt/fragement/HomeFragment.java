@@ -29,6 +29,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ImageView btn_sell, btn_buy;
     private TabsViewPagerAdapter tabsViewPagerAdapter;
 
+    public static final int REQUEST_CODE_PROVINCESTART = 100;
+    public static final int REQUEST_CODE_PROVINCEEND = 110;
+    public static final int REQUEST_CODE_PROVINCE = 200;
+    public static final int RESULT_CODE_MARKET = 300;
+    public static final int RESULT_CODE_PROVINCE = 400;
+
+    public static final int REQUEST_CODE_CATEGORY_START = 1000;
+    public static final int REQUEST_CODE_CATEGORY = 2000;
+    public static final int RESULT_CODE_GOODS = 3000;
+    public static final int RESULT_CODE_CATEGORY = 4000;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -309,9 +309,9 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.mbtn:
-//                getPrice("10101ganguo_hetaomarket1032013m7");
+                getPrice("10101ganguo_hetaomarket1032015m7");
 //                getTradeLeads();
-                getMarketNameList("market_10101");
+//                getMarketNameList("market_10101");
 //                getProductNameList("product_chaye");
 //                getObserve("101010100");
 //                getForecast("101010100");

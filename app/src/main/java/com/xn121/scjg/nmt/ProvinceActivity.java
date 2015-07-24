@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.xn121.scjg.nmt.adapter.ProvinceListAdapter;
 import com.xn121.scjg.nmt.bean.Province;
 import com.xn121.scjg.nmt.db.AssetsUtil;
+import com.xn121.scjg.nmt.fragement.HomeFragment;
 
 /**
  * Created by admin on 15/7/23.
@@ -19,12 +20,18 @@ public class ProvinceActivity extends Activity implements AdapterView.OnItemClic
     private ProvinceListAdapter adapter;
     private Province province;
 
+    private int requestCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_list);
 
         listView = (ListView)this.findViewById(R.id.list);
+
+
+        Intent intent = this.getIntent();
+        requestCode = intent.getIntExtra("requestCode", 0);
 
         adapter = new ProvinceListAdapter(this);
         adapter.setList(AssetsUtil.getProvinceList(this));
@@ -36,21 +43,33 @@ public class ProvinceActivity extends Activity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         province = adapter.getItem(position);
-        Intent intent = new Intent(ProvinceActivity.this, MarketActivity.class);
-        intent.putExtra("provinceId", province.getProvinceId());
-        startActivityForResult(intent, 110);
+
+        if(requestCode == HomeFragment.REQUEST_CODE_PROVINCESTART){
+            Intent intent = new Intent(ProvinceActivity.this, MarketActivity.class);
+            intent.putExtra("provinceId", province.getProvinceId());
+            startActivityForResult(intent, HomeFragment.REQUEST_CODE_PROVINCE);
+        }else if(requestCode == HomeFragment.REQUEST_CODE_PROVINCEEND){
+            Intent intent = new Intent();
+            intent.putExtra("provinceId", province.getProvinceId());
+            intent.putExtra("provinceName", province.getProvinceName());
+            setResult(HomeFragment.RESULT_CODE_PROVINCE, intent);
+            finish();
+        }
+
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 110 && resultCode ==120){
+        if(requestCode == HomeFragment.REQUEST_CODE_PROVINCE && resultCode == HomeFragment.RESULT_CODE_MARKET){
             Intent intent = new Intent();
             intent.putExtra("provinceId", province.getProvinceId());
             intent.putExtra("provinceName", province.getProvinceName());
             intent.putExtra("marketId", data.getStringExtra("marketId"));
             intent.putExtra("marketName", data.getStringExtra("marketName"));
-            setResult(130, intent);
+            setResult(HomeFragment.RESULT_CODE_PROVINCE, intent);
             finish();
         }
     }
