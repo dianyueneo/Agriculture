@@ -1,20 +1,32 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'agriculture'
+            keyPassword '123456'
+            storeFile file('/Users/hongge/Documents/workspace_AndroidStudio/Agriculture/agriculture.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.xn121.scjg.nmt"
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
+        debug{
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

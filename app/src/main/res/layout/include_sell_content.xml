@@ -515,7 +515,7 @@
 
         <TextView
             android:id="@+id/btn_cl"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line11"
             android:background="@color/grey"
@@ -524,11 +524,12 @@
             android:textSize="@dimen/text_size_big2"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
+            android:gravity="center"
         />
 
         <TextView
             android:id="@+id/btn_ry"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line11"
             android:layout_toRightOf="@id/btn_cl"
@@ -539,6 +540,7 @@
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             android:layout_marginLeft="15dp"
+            android:gravity="center"
             />
 
         <View

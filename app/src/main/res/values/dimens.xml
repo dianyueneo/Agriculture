@@ -22,5 +22,12 @@
     <dimen name="feiyong_et_marginleft">120dp</dimen>
     <dimen name="chengben_margintop">15dp</dimen>
     <dimen name="button_padding">8dp</dimen>
+    <dimen name="btn_width">180dp</dimen>
+
+    <dimen name="progress_short_heigt">73dp</dimen>
+
+    <dimen name="ask_marginleft">5dp</dimen>
+    <dimen name="ask_marginright">40dp</dimen>
+    <dimen name="ask_margintop">48dp</dimen>
 
 </resources>

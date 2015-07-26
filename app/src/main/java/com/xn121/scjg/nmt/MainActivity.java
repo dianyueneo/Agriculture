@@ -1,21 +1,15 @@
 package com.xn121.scjg.nmt;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -81,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private View getTabItemView(int index){
-        View view = inflater.inflate(R.layout.tab_item_view, null);
+        View view = inflater.inflate(R.layout.item_tab, null);
         ImageView imageView = (ImageView)view.findViewById(R.id.imageview);
         imageView.setImageResource(imageViewArray[index]);
 

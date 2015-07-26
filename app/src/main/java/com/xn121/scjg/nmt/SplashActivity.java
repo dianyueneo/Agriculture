@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.xn121.scjg.nmt.db.AssetsUtil;
 
 
@@ -24,8 +26,6 @@ public class SplashActivity extends Activity {
 
         setContentView(R.layout.activity_splash);
 
-        AssetsUtil.initDb(this);
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -34,6 +34,9 @@ public class SplashActivity extends Activity {
                 finish();
             }
         }, 1000);
+
+        AssetsUtil.initDb(this);
+
 
     }
 

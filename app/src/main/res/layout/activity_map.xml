@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.amap.api.maps2d.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+    
+    <SlidingDrawer
+        android:id="@+id/slidingDrawer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:handle="@+id/handler"
+        android:content="@+id/content"
+        android:orientation="vertical"
+        android:topOffset="800dp"
+        >
+
+        <ImageView
+            android:id="@+id/handler"
+            android:layout_width="197dp"
+            android:layout_height="62dp"
+            android:src="@drawable/up"/>
+
+        <include android:id="@+id/content" layout="@layout/include_map_sliderdrawer"/>
+
+
+    </SlidingDrawer>
+</FrameLayout>

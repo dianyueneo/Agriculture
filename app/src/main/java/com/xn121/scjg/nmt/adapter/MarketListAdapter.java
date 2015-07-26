@@ -53,7 +53,7 @@ public class MarketListAdapter extends BaseAdapter{
 
 
         if(convertView == null){
-            convertView = inflater.inflate(R.layout.listview_item, null);
+            convertView = inflater.inflate(R.layout.item_listview, null);
             viewHolder = new ViewHolder();
             viewHolder.show = (TextView)convertView.findViewById(R.id.show);
             viewHolder.hide = (TextView)convertView.findViewById(R.id.hide);

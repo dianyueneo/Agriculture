@@ -33,11 +33,7 @@ public class SellStep extends AbstractHandler implements Handler{
     @Override
     public void complete() {
         if(status == UNSELECT){
-            if(getHandler() !=null){
-                status = SELECT;
-            }else{
-                status = COMPLETED;
-            }
+            status = SELECT;
             setStatus(status);
         }else if(status == SELECT){
             status = COMPLETED;

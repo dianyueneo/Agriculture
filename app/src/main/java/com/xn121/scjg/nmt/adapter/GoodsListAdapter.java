@@ -50,7 +50,7 @@ public class GoodsListAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
         if(view == null){
-            view = layoutInflater.inflate(R.layout.listview_item, null);
+            view = layoutInflater.inflate(R.layout.item_listview, null);
             viewHolder = new ViewHolder();
             viewHolder.show = (TextView)view.findViewById(R.id.show);
             viewHolder.hide = (TextView)view.findViewById(R.id.hide);

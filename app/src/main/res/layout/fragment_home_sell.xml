@@ -16,7 +16,7 @@
         android:scrollbars="none"
         >
 
-        <include layout="@layout/content_sell"/>
+        <include layout="@layout/include_sell_content"/>
 
     </ScrollView>
 

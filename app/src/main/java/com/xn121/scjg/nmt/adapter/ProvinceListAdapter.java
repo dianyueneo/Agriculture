@@ -43,7 +43,7 @@ public class ProvinceListAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder;
         if(view == null){
-            view = inflater.inflate(R.layout.listview_item, null);
+            view = inflater.inflate(R.layout.item_listview, null);
 
             viewHolder = new ViewHolder();
             viewHolder.tv_show = (TextView)view.findViewById(R.id.show);

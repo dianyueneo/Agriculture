@@ -1,7 +1,9 @@
 package com.xn121.scjg.nmt.fragement;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.CategoryActivity;
+import com.xn121.scjg.nmt.MapActivity;
 import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
@@ -74,7 +77,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
 
     private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
 
-    private String provinceId_start, marketId, provinceId_end, goodsPinin;
+    private String provinceId_start, marketId, provinceId_end, provinceName_end, goodsPinin, carId, fuelId;
 
     private RequestQueue requestQueue;
     private RetryPolicy retryPolicy;
@@ -319,8 +322,15 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
             case R.id.btn_cx:
                 getPrice();
                 break;
+            case R.id.btn_cl:
+                showCarDialog();
+                break;
             case R.id.btn_ry:
-                sellStep6.complete();
+                showFuelDialog();
+                break;
+            case R.id.btn_hqxl:
+                getProfitStatement();
+                break;
             default:
                 break;
         }
@@ -339,14 +349,14 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         progressDialog = ProgressDialog.show(getActivity(), getResources().getString(R.string.loading), getResources().getString(R.string.wait));
 
         Calendar calendar = Calendar.getInstance();
-        String areaid = provinceId_end + goodsPinin + "market" + marketId + calendar.get(Calendar.YEAR) + "m" +calendar.get(Calendar.MONTH);
+        String areaid = provinceId_start + goodsPinin + "market" + marketId + calendar.get(Calendar.YEAR) + "m" +(calendar.get(Calendar.MONTH)+1);
         Log.i("test", "=========="+areaid);
         String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
         String type = "xn121";
         String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
         String key = NetUtil.getSignature(publicKey);
         String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0,6)+"&key="+key);
-        Log.i("test", "=========="+url);
+        Log.i("test", "==========" + url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -384,6 +394,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
             sellStep1.complete();
         }else if(requestCode == HomeFragment.REQUEST_CODE_PROVINCEEND && resultCode == HomeFragment.RESULT_CODE_PROVINCE){
             btn_sf2.setText(data.getStringExtra("provinceName"));
+            provinceName_end = data.getStringExtra("provinceName");
             provinceId_end = data.getStringExtra("provinceId");
             sellStep2.complete();
         }else if(requestCode == HomeFragment.REQUEST_CODE_CATEGORY_START && resultCode == HomeFragment.RESULT_CODE_CATEGORY){
@@ -402,12 +413,95 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
             if(status) {
                 JSONArray jsonArray = response.getJSONArray("days");
                 str += jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
+            }else{
+                str += "00.00";
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return str;
+    }
+
+    private void showCarDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder.setTitle("车辆类型");
+        final String[] carlist = {"微型货车", "轻型货车", "中型货车", "重型货车"};
+        builder.setItems(carlist, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                carId = which+1+"";
+                btn_cl.setText(carlist[which]);
+            }
+        });
+        builder.show();
+    }
+
+    private void showFuelDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder.setTitle("燃油类型");
+        final String[] carlist = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};
+        builder.setItems(carlist, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                fuelId = which+1+"";
+                btn_ry.setText(carlist[which]);
+                sellStep6.complete();
+            }
+        });
+        builder.show();
+    }
+
+    private void getProfitStatement(){
+        String type = "sales";
+        String corpname = goodsPinin.substring(goodsPinin.indexOf("_"),goodsPinin.length());
+        String price = xs_cb.getText().toString();
+        String number = xs_sl.getText().toString();
+        String othercosts = Float.parseFloat(et_gr.getText().toString())+Float.parseFloat(et_cl.getText().toString())+Float.parseFloat(et_qt.getText().toString())+"";
+        String url = String.format(NetUtil.GETPROFITSTATEMENT, type, corpname, marketId, provinceId_end, price, number, carId, fuelId, othercosts);
+        Log.i("test", url);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                parseProfitStatement(response);
+                sellStep8.complete();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT);
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    private void parseProfitStatement(JSONObject jsonObject){
+        boolean success = false;
+        try {
+            String status = jsonObject.getString("status");
+            if("success".equals(status)){
+                JSONObject startpoint = jsonObject.getJSONObject("startpoint");
+                Double lon = Double.parseDouble(startpoint.getString("lon"));
+                Double lat = Double.parseDouble(startpoint.getString("lat"));
+
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                intent.putExtra("start_lon", lon);
+                intent.putExtra("start_lat", lat);
+                intent.putExtra("end", provinceName_end);
+                startActivity(intent);
+                success = true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }finally {
+            if(!success){
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT);
+            }
+        }
     }
 
 }
