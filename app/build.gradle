@@ -5,7 +5,7 @@ android {
         release {
             keyAlias 'agriculture'
             keyPassword '123456'
-            storeFile file('/Users/hongge/Documents/workspace_AndroidStudio/Agriculture/agriculture.jks')
+            storeFile file('agriculture.jks')
             storePassword '123456'
         }
     }
@@ -19,7 +19,7 @@ android {
         versionName "1.0"
     }
     buildTypes {
-        debug{
+        debug {
             minifyEnabled false
             signingConfig signingConfigs.release
         }

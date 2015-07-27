@@ -12,6 +12,7 @@
     <dimen name="text_size_big2">22dp</dimen>
     <dimen name="text_size_small">20dp</dimen>
     <dimen name="text_size_smaller">16dp</dimen>
+    <dimen name="text_size_smaller2">17dp</dimen>
     <dimen name="progress_width">22dp</dimen>
     <dimen name="progress_height">116dp</dimen>
     <dimen name="price_width">90dp</dimen>
@@ -24,10 +25,11 @@
     <dimen name="button_padding">8dp</dimen>
     <dimen name="btn_width">180dp</dimen>
 
-    <dimen name="progress_short_heigt">73dp</dimen>
+    <dimen name="progress_short_heigt">64dp</dimen>
+    <dimen name="progress_short_marginleft">15dp</dimen>
 
     <dimen name="ask_marginleft">5dp</dimen>
-    <dimen name="ask_marginright">40dp</dimen>
-    <dimen name="ask_margintop">48dp</dimen>
+    <dimen name="ask_marginright">15dp</dimen>
+    <dimen name="ask_margintop">35dp</dimen>
 
 </resources>

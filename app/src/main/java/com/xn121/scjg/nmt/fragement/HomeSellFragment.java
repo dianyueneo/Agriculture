@@ -454,7 +454,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
 
     private void getProfitStatement(){
         String type = "sales";
-        String corpname = goodsPinin.substring(goodsPinin.indexOf("_"),goodsPinin.length());
+        String corpname = goodsPinin.substring(goodsPinin.indexOf("_")+1,goodsPinin.length());
         String price = xs_cb.getText().toString();
         String number = xs_sl.getText().toString();
         String othercosts = Float.parseFloat(et_gr.getText().toString())+Float.parseFloat(et_cl.getText().toString())+Float.parseFloat(et_qt.getText().toString())+"";

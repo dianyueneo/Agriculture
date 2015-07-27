@@ -29,6 +29,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -221,8 +223,14 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    private void getPriceofDomain(String lat, String lon, String domains){
-        String url = String.format(NetUtil.GETPRICEOFDOMAIN, null, lat, lon, domains);
+    private void getPriceofDomain(String question, String lat, String lon){
+        String str = null;
+        try {
+            str = URLEncoder.encode(question, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String url = String.format(NetUtil.GETPRICEOFDOMAIN, str, lat, lon);
 
         Log.i("test", url);
 
@@ -280,8 +288,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 //                getProductNameList("product_chaye");
 //                getObserve("101010100");
 //                getForecast("101010100");
-//                getPriceofDomain("39.911421", "116.460934", "");
-                getProfitStatement("sales", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
+                getPriceofDomain("北京白菜价格","39.911421", "116.460934");
+//                getProfitStatement("sales", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
 //                showInfo();
 //                openMap();
                 break;

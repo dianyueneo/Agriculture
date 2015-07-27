@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<me.dreamheart.autoscalinglayout.ASLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    custom:designWidth="384dp"
+    custom:designHeight="575dp"
+    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -23,7 +27,7 @@
                 android:textColor="@color/material_blue_500"
                 android:gravity="center"
                 android:layout_marginTop="20dp"
-                android:textSize="@dimen/text_size_big2"
+                android:textSize="@dimen/text_size_small"
                 />
 
             <ImageView
@@ -32,7 +36,7 @@
                 android:layout_height="@dimen/progress_short_heigt"
                 android:src="@drawable/progress_short"
                 android:layout_below="@id/title"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/progress_short_marginleft"
                 android:layout_marginTop="20dp"
                 />
 
@@ -42,7 +46,7 @@
                 android:layout_height="@dimen/progress_short_heigt"
                 android:src="@drawable/progress_short"
                 android:layout_below="@id/pg1"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/progress_short_marginleft"
                 />
 
             <ImageView
@@ -51,7 +55,7 @@
                 android:layout_height="@dimen/progress_short_heigt"
                 android:src="@drawable/progress_short"
                 android:layout_below="@id/pg2"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/progress_short_marginleft"
                 />
 
             <ImageView
@@ -60,7 +64,7 @@
                 android:layout_height="22dp"
                 android:src="@drawable/progress_head"
                 android:layout_below="@id/pg3"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="@dimen/progress_short_marginleft"
                 />
 
             <RelativeLayout
@@ -68,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/ask_marginleft"
                 android:layout_marginRight="@dimen/ask_marginright"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="19dp"
                 android:layout_below="@id/title"
                 android:layout_toRightOf="@id/pg1"
                 >
@@ -87,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="北京的西红柿什么价格？"
                     android:textColor="@color/black_overlay"
+                    android:textSize="@dimen/text_size_smaller2"
                     android:layout_below="@id/l1"
                     android:background="@color/grey_background"
                     />
@@ -116,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:text="河南西瓜的价格？"
                     android:textColor="@color/black_overlay"
+                    android:textSize="@dimen/text_size_smaller2"
                     android:layout_below="@id/l3"
                     android:background="@color/grey_background"
                     />
@@ -145,6 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="北京京丰岳各庄批发市场黄瓜多少钱一斤？"
                     android:textColor="@color/black_overlay"
+                    android:textSize="@dimen/text_size_smaller2"
                     android:layout_below="@id/l5"
                     android:background="@color/grey_background"
                     />
@@ -174,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:text="鸡蛋怎么卖？"
                     android:textColor="@color/black_overlay"
+                    android:textSize="@dimen/text_size_smaller2"
                     android:layout_below="@id/l7"
                     android:background="@color/grey_background"
                     />
@@ -225,4 +233,4 @@
 
 
 
-</LinearLayout>
+</me.dreamheart.autoscalinglayout.ASLinearLayout>

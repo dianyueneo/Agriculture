@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.dreamheart.autoscalinglayout.ASFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    custom:designWidth="384dp"
+    custom:designHeight="575dp"
+    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.amap.api.maps2d.MapView
@@ -15,7 +19,7 @@
         android:handle="@+id/handler"
         android:content="@+id/content"
         android:orientation="vertical"
-        android:topOffset="800dp"
+        android:topOffset="250dp"
         >
 
         <ImageView
@@ -24,8 +28,33 @@
             android:layout_height="62dp"
             android:src="@drawable/up"/>
 
-        <include android:id="@+id/content" layout="@layout/include_map_sliderdrawer"/>
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.app.FragmentTabHost
+                android:id="@android:id/tabhost"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0"
+                    />
+
+            </android.support.v4.app.FragmentTabHost>
+
+            <FrameLayout
+                android:id="@+id/realcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
 
 
     </SlidingDrawer>
-</FrameLayout>
+</me.dreamheart.autoscalinglayout.ASFrameLayout>
