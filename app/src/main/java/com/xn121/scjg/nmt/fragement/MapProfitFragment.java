@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.adapter.MapListAdapter;
 import com.xn121.scjg.nmt.bean.Profit;
@@ -43,10 +44,7 @@ public class MapProfitFragment extends Fragment{
         listView = (ListView)rootView.findViewById(R.id.listview);
         mapListAdapter = new MapListAdapter(getActivity());
 
-        List<Profit> list = new ArrayList<Profit>();
-        list.add(new Profit("北京大红门农副产品批发市场","北京顺鑫石门农副产品批发市场",10700.00));
-        list.add(new Profit("北京大红门农副产品批发市场","北京顺鑫石门农副产品批发市场",10700.00));
-        list.add(new Profit("北京大红门农副产品批发市场","北京顺鑫石门农副产品批发市场",10700.00));
+        List<Profit> list = ((MyApplication)getActivity().getApplication()).getProfitList();
 
         mapListAdapter.setList(list);
         listView.setAdapter(mapListAdapter);

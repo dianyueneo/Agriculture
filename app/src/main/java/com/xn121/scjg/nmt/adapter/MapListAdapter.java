@@ -62,8 +62,8 @@ public class MapListAdapter extends BaseAdapter {
         }
 
         viewHolder.number.setText(position+1+"");
-        viewHolder.market_qidian.setText(getItem(position).getStart());
-        viewHolder.market_zhongdian.setText(getItem(position).getEnd());
+        viewHolder.market_qidian.setText(getItem(position).getName_start());
+        viewHolder.market_zhongdian.setText(getItem(position).getName_end());
         viewHolder.profit.setText(""+getItem(position).getProfit());
 
         return convertView;

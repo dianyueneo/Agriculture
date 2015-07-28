@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -29,9 +30,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.CategoryActivity;
 import com.xn121.scjg.nmt.MapActivity;
+import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
+import com.xn121.scjg.nmt.bean.Profit;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
 
 import org.json.JSONArray;
@@ -39,8 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by hongge on 15/7/18.
@@ -444,7 +449,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         builder.setItems(carlist, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                fuelId = which+1+"";
+                fuelId = which + 1 + "";
                 btn_ry.setText(carlist[which]);
                 sellStep6.complete();
             }
@@ -487,11 +492,33 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
                 JSONObject startpoint = jsonObject.getJSONObject("startpoint");
                 Double lon = Double.parseDouble(startpoint.getString("lon"));
                 Double lat = Double.parseDouble(startpoint.getString("lat"));
+                String name_start = startpoint.getString("name");
+
+                JSONArray list = jsonObject.getJSONArray("list");
+                Profit profit;
+                ArrayList<Profit> arrayList = new ArrayList<Profit>();
+                for(int i=0;i<list.length();i++){
+                    JSONObject json = list.getJSONObject(i);
+                    profit = new Profit();
+                    profit.setName_end(json.getString("name"));
+                    profit.setProfit(json.getDouble("profit"));
+                    profit.setDistance(json.getDouble("distance"));
+                    profit.setFuelprice(json.getDouble("fuelprice"));
+                    profit.setTime(json.getDouble("time"));
+                    profit.setPrice(json.getDouble("price"));
+                    profit.setLon_end(Double.parseDouble(json.getString("lon")));
+                    profit.setLat_end(Double.parseDouble(json.getString("lat")));
+
+                    profit.setName_start(name_start);
+                    profit.setLon_start(lon);
+                    profit.setLat_start(lat);
+
+                    arrayList.add(profit);
+                }
+
+                ((MyApplication)getActivity().getApplication()).setProfitList(arrayList);
 
                 Intent intent = new Intent(getActivity(), MapActivity.class);
-                intent.putExtra("start_lon", lon);
-                intent.putExtra("start_lat", lat);
-                intent.putExtra("end", provinceName_end);
                 startActivity(intent);
                 success = true;
             }

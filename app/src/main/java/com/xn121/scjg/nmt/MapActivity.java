@@ -27,15 +27,19 @@ import com.amap.api.services.route.DrivePath;
 import com.amap.api.services.route.DriveRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkRouteResult;
+import com.xn121.scjg.nmt.bean.Profit;
 import com.xn121.scjg.nmt.fragement.MapProfitFragment;
 import com.xn121.scjg.nmt.fragement.MapShortFragment;
 import com.xn121.scjg.nmt.util.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by hongge on 15/7/25.
  */
-public class MapActivity extends FragmentActivity implements RouteSearch.OnRouteSearchListener, PoiSearch.OnPoiSearchListener{
+public class MapActivity extends FragmentActivity implements RouteSearch.OnRouteSearchListener{
 
     private MapView mapView;
     private AMap aMap;
@@ -48,8 +52,7 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
     private SlidingDrawer slidingDrawer;
     private ImageView imageView;
 
-    private double start_lat, start_lon;
-    private String end;
+    private List<Profit> list;
 
     private Class[] fragmentArray = {MapProfitFragment.class, MapShortFragment.class};
     private String[] textArray = {"利润排名推荐", "最短路程"};
@@ -59,15 +62,16 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        Intent intent = getIntent();
-        start_lon = intent.getDoubleExtra("start_lon", 0);
-        start_lat = intent.getDoubleExtra("start_lat", 0);
-        end = intent.getStringExtra("end");
+        list = ((MyApplication)getApplication()).getProfitList();
 
         mapView = (MapView)findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         init();
-        startSerachEndPoint();
+
+        Profit profit = list.get(0);
+        LatLonPoint startPoint = new LatLonPoint(profit.getLat_start(), profit.getLon_start());
+        LatLonPoint endPoint = new LatLonPoint(profit.getLat_end(), profit.getLon_end());
+        startDriveRouteQuery(startPoint, endPoint);
     }
 
     private void init(){
@@ -116,20 +120,9 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
         return view;
     }
 
-    private void startSerachEndPoint(){
+
+    private void startDriveRouteQuery(LatLonPoint startPoint, LatLonPoint endPoint){
         showProgressDialog();
-        endSearchQuery = new PoiSearch.Query(end, "", ""); // 第一个参数表示查询关键字，第二参数表示poi搜索类型，第三个参数表示城市区号或者城市名
-        endSearchQuery.setPageNum(0);// 设置查询第几页，第一页从0开始
-        endSearchQuery.setPageSize(1);// 设置每页返回多少条数据
-
-        PoiSearch poiSearch = new PoiSearch(MapActivity.this,
-                endSearchQuery);
-        poiSearch.setOnPoiSearchListener(this);
-        poiSearch.searchPOIAsyn(); // 异步poi查询
-    }
-
-    private void startDriveRouteQuery(LatLonPoint endPoint){
-        LatLonPoint startPoint = new LatLonPoint(start_lat, start_lon);
         RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(startPoint, endPoint);
         RouteSearch.DriveRouteQuery driveRouteQuery = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DrivingDefault, null, null, "");
         routeSearch.calculateDriveRouteAsyn(driveRouteQuery);
@@ -219,31 +212,4 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
         }
     }
 
-
-    @Override
-    public void onPoiSearched(PoiResult result, int rCode) {
-        if (rCode == 0) {// 返回成功
-            if (result != null && result.getQuery() != null
-                    && result.getPois() != null && result.getPois().size() > 0) {// 搜索poi的结果
-                if (result.getQuery().equals(endSearchQuery)) {
-                    PoiItem poiItems = result.getPois().get(0);// 取得poiitem数据
-                    startDriveRouteQuery(poiItems.getLatLonPoint());
-                }
-            } else {
-                ToastUtil.show(MapActivity.this, R.string.no_result);
-            }
-        } else if (rCode == 27) {
-            ToastUtil.show(MapActivity.this, R.string.error_network);
-        } else if (rCode == 32) {
-            ToastUtil.show(MapActivity.this, R.string.error_key);
-        } else {
-            ToastUtil.show(MapActivity.this, getString(R.string.error_other)
-                    + rCode);
-        }
-    }
-
-    @Override
-    public void onPoiItemDetailSearched(PoiItemDetail poiItemDetail, int i) {
-
-    }
 }
