@@ -1,5 +1,6 @@
 package com.xn121.scjg.nmt.fragement;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,11 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.MapActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
@@ -50,6 +53,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_temp2, null);
+            init();
         }
         ViewGroup parent = (ViewGroup)rootView.getParent();
         if(parent != null){
@@ -58,6 +62,19 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    private void init(){
+        tv = (TextView)rootView.findViewById(R.id.mtv);
+        btn = (Button)rootView.findViewById(R.id.mbtn);
+        btn.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        queue = Volley.newRequestQueue(activity);
+        retryPolicy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
 
     private void getPrice(String areaid){
         String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
@@ -223,56 +240,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     }
 
 
-    private void getPriceofDomain(String question, String lat, String lon){
-        String str = null;
-        try {
-            str = URLEncoder.encode(question, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String url = String.format(NetUtil.GETPRICEOFDOMAIN, str, lat, lon);
 
-        Log.i("test", url);
-
-        XMLRequest xmlRequest = new XMLRequest(url, new Response.Listener<XmlPullParser>() {
-            @Override
-            public void onResponse(XmlPullParser response) {
-                parseXml(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("test", "接口异常");
-                tv.setText("接口异常");
-            }
-        });
-
-        xmlRequest.setRetryPolicy(retryPolicy);
-        queue.add(xmlRequest);
-
-    }
-
-    private void parseXml(XmlPullParser response){
-        try {
-            int eventType = response.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                switch (eventType) {
-                    case XmlPullParser.START_TAG:
-                        String nodeName = response.getName();
-                        if ("city".equals(nodeName)) {
-                            String pName = response.getAttributeValue(0);
-                            Log.d("TAG", "pName is " + pName);
-                        }
-                        break;
-                }
-                eventType = response.next();
-            }
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -288,7 +256,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 //                getProductNameList("product_chaye");
 //                getObserve("101010100");
 //                getForecast("101010100");
-                getPriceofDomain("北京白菜价格","39.911421", "116.460934");
 //                getProfitStatement("sales", "bailuobo", "50", "10126", "1.8", "1000", "1", "1", "300");
 //                showInfo();
 //                openMap();

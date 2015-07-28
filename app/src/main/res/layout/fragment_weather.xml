@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.dreamheart.autoscalinglayout.ASLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    custom:designWidth="384dp"
+    custom:designHeight="575dp"
+    custom:autoScaleEnable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="190dp"
+            android:src="@drawable/back_weather"
+            android:scaleType="centerCrop"
+            />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京"
+                android:textSize="30dp"
+                android:textColor="@android:color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12月11日"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="星期四"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="14dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4°C"
+                android:textSize="30dp"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="8dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                >
+                <TextView
+                    android:id="@+id/weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小雨"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/wend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="无风"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="14dp"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/img_weather_1"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_2"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_3"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_4"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_5"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_6"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+        <ImageView
+            android:id="@+id/img_weather_7"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="1"
+            android:src="@drawable/cloudy_red"
+            android:layout_marginLeft="@dimen/img_weather_marginleft"
+            />
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/flag"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/text_weather_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="今天"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/red"
+            />
+
+        <TextView
+            android:id="@+id/text_weather_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="明天"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+        <TextView
+            android:id="@+id/text_weather_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="周六"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+        <TextView
+            android:id="@+id/text_weather_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="周日"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+        <TextView
+            android:id="@+id/text_weather_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="周一"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+        <TextView
+            android:id="@+id/text_weather_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="周二"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+
+        <TextView
+            android:id="@+id/text_weather_7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="周三"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@color/material_blue_500"
+            android:layout_marginLeft="@dimen/text_weather_marginleft"
+            />
+
+    </LinearLayout>
+    
+    <com.xn121.scjg.nmt.chart.ChartView
+        android:id="@+id/chart"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:background="#EBE1DD"
+        />
+
+
+
+
+
+
+</me.dreamheart.autoscalinglayout.ASLinearLayout>

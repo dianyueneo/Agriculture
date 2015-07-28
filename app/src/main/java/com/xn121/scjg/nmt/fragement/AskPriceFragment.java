@@ -12,10 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -24,11 +27,18 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.speech.RecognizerResult;
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.netInterface.NetUtil;
 import com.xn121.scjg.nmt.util.JsonParser;
+import com.xn121.scjg.nmt.volley.XMLRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -116,19 +126,9 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
         @Override
         public void onResult(com.iflytek.cloud.RecognizerResult recognizerResult, boolean b) {
-            String sn = null;
-            // 读取json结果中的sn字段
-            try {
-                JSONObject resultJson = new JSONObject(recognizerResult.getResultString());
-                sn = resultJson.optString("sn");
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if(!b){
+                getPriceofDomain(parseResult(recognizerResult));
             }
-
-            if("1".equals(sn)){
-                Log.i("test","===="+parseResult(recognizerResult));
-            }
-
         }
 
         @Override
@@ -160,6 +160,56 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
     private String parseResult(com.iflytek.cloud.RecognizerResult results) {
         return JsonParser.parseIatResult(results.getResultString());
+    }
+
+    private void getPriceofDomain(String question){
+        String str = null;
+        try {
+            str = URLEncoder.encode(question, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String url = String.format(NetUtil.GETPRICEOFDOMAIN, str);
+
+        Log.i("test", url);
+
+        XMLRequest xmlRequest = new XMLRequest(url, new Response.Listener<XmlPullParser>() {
+            @Override
+            public void onResponse(XmlPullParser response) {
+                parseXml(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        xmlRequest.setRetryPolicy(retryPolicy);
+        queue.add(xmlRequest);
+
+    }
+
+    private void parseXml(XmlPullParser response){
+        try {
+            int eventType = response.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        String nodeName = response.getName();
+                        if ("city".equals(nodeName)) {
+                            String pName = response.getAttributeValue(0);
+                            Log.d("TAG", "pName is " + pName);
+                        }
+                        break;
+                }
+                eventType = response.next();
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

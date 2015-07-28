@@ -32,4 +32,7 @@
     <dimen name="ask_marginright">15dp</dimen>
     <dimen name="ask_margintop">35dp</dimen>
 
+    <dimen name="text_weather_marginleft">25dp</dimen>
+    <dimen name="img_weather_marginleft">38dp</dimen>
+
 </resources>
