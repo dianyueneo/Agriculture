@@ -12,6 +12,15 @@ public class Product {
     private String ap;
     private List<Price> list;
     private String title;
+    private String date;
+    private String province;
+    private String product;
+
+    private static final int CODE_1 = 1 << 0;//时间扩展
+    private static final int CODE_2 = 1 << 1;//农产品扩展
+    private static final int CODE_3 = 1 << 2;//市场扩展到省份
+    private static final int CODE_4 = 1 << 3;//省份扩展到全国
+
 
     public List<Price> getList() {
         return list;
@@ -45,39 +54,60 @@ public class Product {
         this.code = code;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getTitle(){
+        String str_start = "没有找到";
+        String str_end = "为您找到以下";
         String str = null;
 
-        switch (code){
-            case 0://没有扩展
+        if(code == 0){
+            str = "为您找到以下内容：";
+        }else{
+            if ((code & CODE_1) == CODE_1) {
+                str_start += date;
+                str_end += "日期";
+            }
 
-                break;
-            case 1://时间有扩展,例如查询 6 月 1 日但无数据,返回了 6 月 3 日的结果;
+            if ((code & CODE_3) == CODE_3) {
+                str_end += "省份";
+            }
 
-                break;
-            case 2://农产品有扩展,例如查询黄花鱼,查无此鱼,返回其他水产的结果;
+            if ((code & CODE_4) == CODE_4) {
+                str_end += "全国";
+            }
 
-                break;
-            case 4://市场扩展到了省份,例如查询北京新发地市场的某菜价,返回全北京各个市场的 该菜价价格;
-
-                break;
-            case 8://省份扩展到了全国。
-
-                break;
-            case 3://时间、农产品扩展
-
-                break;
-            case 5://时间、省份扩展
-
-                break;
-            case 7://时间、农产品、省份扩展
-
-                break;
-
-
-
+            if ((code & CODE_2) == CODE_2) {
+                str_end += "产品";
+            }else{
+                str_end += product;
+            }
+            str_start += title;
+            str_end += "的价格";
         }
 
-        return str;
+        return str == null ?  str_start+str_end : str;
     }
 }

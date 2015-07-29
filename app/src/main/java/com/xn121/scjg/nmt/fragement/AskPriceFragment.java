@@ -24,6 +24,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.adapter.AskPriceListAdapter;
 import com.xn121.scjg.nmt.bean.Price;
 import com.xn121.scjg.nmt.bean.Product;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
@@ -51,6 +52,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
     private ImageView speech, clear;
 
     private ListView listView;
+    private AskPriceListAdapter adapter;
+    private List<Product> productList;
 
     private String appId = "55b4a6ff";
 
@@ -86,14 +89,17 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         clear.setOnClickListener(this);
 
         listView = (ListView)rootView.findViewById(R.id.listview);
-
+        adapter = new AskPriceListAdapter(getActivity());
+        productList = new ArrayList<Product>();
+        adapter.setList(productList);
+        listView.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.clear:
-
+                clearProduct();
                 break;
             default:
                 break;
@@ -180,7 +186,9 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
             public void onResponse(XmlPullParser response) {
                 Product product = parseXml(response);
                 if(product != null){
-
+                    addProduct(product);
+                }else{
+                    Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -210,6 +218,15 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
                             }else{
                                 break;
                             }
+                        }else if("rawprovince".equals(nodeName)){
+                            String province = response.nextText();
+                            product.setProvince(province);
+                        }else if("rawproduct".equals(nodeName)){
+                            String pro = response.nextText();
+                            product.setProduct(pro);
+                        }else if("dates".equals(nodeName)){
+                            String date = response.nextText();
+                            product.setDate(date);
                         }else if("code".equals(nodeName)){
                             String code = response.nextText();
                             product.setCode(Integer.parseInt(code));
@@ -259,6 +276,16 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         }finally {
             return product;
         }
+    }
+
+    private void addProduct(Product product){
+        productList.add(product);
+        adapter.setList(productList);
+    }
+
+    private void clearProduct(){
+        productList.clear();;
+        adapter.setList(productList);
     }
 
 }
