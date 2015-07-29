@@ -287,8 +287,8 @@
     <com.xn121.scjg.nmt.chart.ChartView
         android:id="@+id/chart"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:background="#EBE1DD"
+        android:layout_height="250dp"
+        android:background="@drawable/chart_background"
         />
 
 

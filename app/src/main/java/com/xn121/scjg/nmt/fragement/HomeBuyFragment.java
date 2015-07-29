@@ -29,9 +29,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.CategoryActivity;
 import com.xn121.scjg.nmt.MapActivity;
+import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.ProvinceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.SellStep.SellStep;
+import com.xn121.scjg.nmt.bean.Profit;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
 
 import org.json.JSONArray;
@@ -39,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -83,6 +86,8 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
     private RetryPolicy retryPolicy;
 
     private ProgressDialog progressDialog;
+
+    private String type = "acquisition";//acquisition
 
     @Nullable
     @Override
@@ -346,7 +351,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
 
     private void getPrice(){
 
-        progressDialog = ProgressDialog.show(getActivity(), getResources().getString(R.string.loading), getResources().getString(R.string.wait));
+        showProgressDialog();
 
         Calendar calendar = Calendar.getInstance();
         String areaid = provinceId_start + goodsPinin + "market" + marketId + calendar.get(Calendar.YEAR) + "m" +(calendar.get(Calendar.MONTH)+1);
@@ -363,12 +368,12 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
                 tv_pf_c.setText(getPrice(response));
                 tv_ls_c.setText(getPrice(response));
                 sellStep4.complete();
-                progressDialog.dismiss();
+                dismissProgressDialog();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                dismissProgressDialog();
                 Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
         });
@@ -415,6 +420,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
                 str += jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
             }else{
                 str += "00.00";
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -444,7 +450,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         builder.setItems(carlist, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                fuelId = which+1+"";
+                fuelId = which + 1 + "";
                 btn_ry.setText(carlist[which]);
                 sellStep6.complete();
             }
@@ -453,7 +459,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
     }
 
     private void getProfitStatement(){
-        String type = "acquisition";
+        showProgressDialog();
         String corpname = goodsPinin.substring(goodsPinin.indexOf("_")+1,goodsPinin.length());
         String price = xs_cb.getText().toString();
         String number = xs_sl.getText().toString();
@@ -464,13 +470,15 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                dismissProgressDialog();
                 parseProfitStatement(response);
                 sellStep8.complete();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT);
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -487,20 +495,64 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
                 JSONObject startpoint = jsonObject.getJSONObject("startpoint");
                 Double lon = Double.parseDouble(startpoint.getString("lon"));
                 Double lat = Double.parseDouble(startpoint.getString("lat"));
+                String name_start = startpoint.getString("name");
 
-                Intent intent = new Intent(getActivity(), MapActivity.class);
-                intent.putExtra("start_lon", lon);
-                intent.putExtra("start_lat", lat);
-                intent.putExtra("end", provinceName_end);
-                startActivity(intent);
-                success = true;
+                JSONArray list = jsonObject.getJSONArray("list");
+                Profit profit;
+                ArrayList<Profit> arrayList = new ArrayList<Profit>();
+                int size = list.length();
+                if(size > 0){
+                    for(int i=0;i<size;i++){
+                        JSONObject json = list.getJSONObject(i);
+                        profit = new Profit();
+                        profit.setName_end(json.getString("name"));
+                        profit.setProfit(json.getDouble("profit"));
+                        profit.setDistance(json.getDouble("distance"));
+                        profit.setFuelprice(json.getDouble("fuelprice"));
+                        profit.setTime(json.getDouble("time"));
+                        profit.setPrice(json.getDouble("price"));
+                        profit.setLon_end(Double.parseDouble(json.getString("lon")));
+                        profit.setLat_end(Double.parseDouble(json.getString("lat")));
+
+                        profit.setName_start(name_start);
+                        profit.setLon_start(lon);
+                        profit.setLat_start(lat);
+
+                        arrayList.add(profit);
+                    }
+
+                    ((MyApplication)getActivity().getApplication()).setProfitList(arrayList);
+
+                    Intent intent = new Intent(getActivity(), MapActivity.class);
+                    startActivity(intent);
+
+                    success = true;
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }finally {
             if(!success){
-                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT);
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage("正在搜索");
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 

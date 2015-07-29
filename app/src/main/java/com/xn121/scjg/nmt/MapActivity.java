@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -62,16 +63,16 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        list = ((MyApplication)getApplication()).getProfitList();
-
         mapView = (MapView)findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         init();
 
-        Profit profit = list.get(0);
-        LatLonPoint startPoint = new LatLonPoint(profit.getLat_start(), profit.getLon_start());
-        LatLonPoint endPoint = new LatLonPoint(profit.getLat_end(), profit.getLon_end());
-        startDriveRouteQuery(startPoint, endPoint);
+        list = ((MyApplication)getApplication()).getProfitList();
+
+        if(list != null && list.size() > 0){
+            Profit profit = list.get(0);
+            startDriveRouteQuery(profit);
+        }
     }
 
     private void init(){
@@ -121,8 +122,10 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
     }
 
 
-    private void startDriveRouteQuery(LatLonPoint startPoint, LatLonPoint endPoint){
+    public void startDriveRouteQuery(Profit profit){
         showProgressDialog();
+        LatLonPoint startPoint = new LatLonPoint(profit.getLat_start(), profit.getLon_start());
+        LatLonPoint endPoint = new LatLonPoint(profit.getLat_end(), profit.getLon_end());
         RouteSearch.FromAndTo fromAndTo = new RouteSearch.FromAndTo(startPoint, endPoint);
         RouteSearch.DriveRouteQuery driveRouteQuery = new RouteSearch.DriveRouteQuery(fromAndTo, RouteSearch.DrivingDefault, null, null, "");
         routeSearch.calculateDriveRouteAsyn(driveRouteQuery);

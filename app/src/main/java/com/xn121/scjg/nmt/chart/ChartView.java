@@ -52,6 +52,8 @@ public class ChartView extends View {
 	    public Boolean showXLabels = true;
 	    public int XYLineColor;
 
+		public String title;
+
 	    // 默认值
 	    public int drawValueSpace = 1;
 	    public ChartViewValuePointType chartViewValuePointType = ChartViewValuePointType.ChartViewValuePoint;
@@ -99,8 +101,12 @@ public class ChartView extends View {
 	            Paint paint = new Paint();
 	            paint.setAntiAlias(true);
 	            paint.setTextSize(20);
-	            paint.setColor(Color.WHITE);
+				paint.setColor(Color.parseColor("#009688"));
 //	            paint.setShadowLayer(2,2,2, Color.BLACK);
+
+				drawTitle(canvas, paint);
+
+				paint.setColor(Color.WHITE);
 	            //
 	            drawYlables(canvas,paint); 
 	            //
@@ -191,7 +197,7 @@ public class ChartView extends View {
 	        }
 	        if (showXLabels) {
 	        	paint.setStrokeWidth(3);
-		        canvas.drawLine(yAxisLableWith + 2,maxY,maxX,maxY,paint);	
+		        canvas.drawLine(yAxisLableWith + 2, maxY, maxX, maxY, paint);
 			}
 	    }
 	    private void drawYlables(Canvas canvas,Paint paint){
@@ -227,6 +233,12 @@ public class ChartView extends View {
 	 	        canvas.drawLine(yAxisLableWith + 2,5,yAxisLableWith + 2,maxY,paint);	
 			}
 	    }
+
+		private void drawTitle(Canvas canvas,Paint paint){
+			if(title != null){
+				canvas.drawText(title, 20, 40, paint);
+			}
+		}
 	    
 	    private void chartViewPostType(Canvas canvas,Paint paint){
 	        int size = dataArray.size();

@@ -3,23 +3,28 @@ package com.xn121.scjg.nmt.fragement;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.xn121.scjg.nmt.MapActivity;
 import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.adapter.MapListAdapter;
 import com.xn121.scjg.nmt.bean.Profit;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by hongge on 15/7/25.
  */
-public class MapProfitFragment extends Fragment{
+public class MapProfitFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private View rootView;
     private ListView listView;
@@ -46,7 +51,32 @@ public class MapProfitFragment extends Fragment{
 
         List<Profit> list = ((MyApplication)getActivity().getApplication()).getProfitList();
 
-        mapListAdapter.setList(list);
-        listView.setAdapter(mapListAdapter);
+        if(list != null && list.size() > 0){
+            list = srotByProfity(list);
+            mapListAdapter.setList(list);
+            listView.setAdapter(mapListAdapter);
+            listView.setOnItemClickListener(this);
+        }
+
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Profit profit = mapListAdapter.getItem(i);
+        ((MapActivity)getActivity()).startDriveRouteQuery(profit);
+    }
+
+    private List<Profit> srotByProfity(List<Profit> profits){
+        List<Profit> list = profits;
+        Collections.sort(list, new SortByProfity());
+        return list;
+    };
+
+    class SortByProfity implements Comparator<Profit>{
+        @Override
+        public int compare(Profit profit, Profit t1) {
+            return Double.compare(profit.getProfit(), t1.getProfit());
+        }
     }
 }

@@ -1,10 +1,7 @@
 package com.xn121.scjg.nmt.fragement;
 
 import android.app.Activity;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -25,22 +23,21 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
-import com.iflytek.speech.RecognizerResult;
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.bean.Price;
+import com.xn121.scjg.nmt.bean.Product;
 import com.xn121.scjg.nmt.netInterface.NetUtil;
 import com.xn121.scjg.nmt.util.JsonParser;
 import com.xn121.scjg.nmt.volley.XMLRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 7/16/15.
@@ -52,6 +49,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
     private RetryPolicy retryPolicy;
 
     private ImageView speech, clear;
+
+    private ListView listView;
 
     private String appId = "55b4a6ff";
 
@@ -85,6 +84,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         speech.setOnClickListener(this);
         speech.setOnLongClickListener(this);
         clear.setOnClickListener(this);
+
+        listView = (ListView)rootView.findViewById(R.id.listview);
 
     }
 
@@ -127,6 +128,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         @Override
         public void onResult(com.iflytek.cloud.RecognizerResult recognizerResult, boolean b) {
             if(!b){
+                Log.i("test", recognizerResult.toString());
                 getPriceofDomain(parseResult(recognizerResult));
             }
         }
@@ -176,7 +178,10 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         XMLRequest xmlRequest = new XMLRequest(url, new Response.Listener<XmlPullParser>() {
             @Override
             public void onResponse(XmlPullParser response) {
-                parseXml(response);
+                Product product = parseXml(response);
+                if(product != null){
+
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -190,16 +195,58 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
     }
 
-    private void parseXml(XmlPullParser response){
+    private Product parseXml(XmlPullParser response){
+        Product product = null;
         try {
             int eventType = response.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
                         String nodeName = response.getName();
-                        if ("city".equals(nodeName)) {
-                            String pName = response.getAttributeValue(0);
-                            Log.d("TAG", "pName is " + pName);
+                        if ("errorcode".equals(nodeName)) {
+                            String errorcode = response.nextText();
+                            if("0".equals(errorcode)){
+                                product = new Product();
+                            }else{
+                                break;
+                            }
+                        }else if("code".equals(nodeName)){
+                            String code = response.nextText();
+                            product.setCode(Integer.parseInt(code));
+                        }else if("market".equals(nodeName)){
+                            String pro = response.getAttributeValue(0);
+                            String province = response.getAttributeValue(1);
+                            String name = response.getAttributeValue(2);
+                            String address = response.getAttributeValue(3);
+                            String lat = response.getAttributeValue(4);
+                            String lon = response.getAttributeValue(5);
+                            String date = response.getAttributeValue(6);
+                            String pri = response.nextText();
+
+                            Price price = new Price();
+                            price.setProduct(pro);
+                            price.setProvince(province);
+                            price.setName(name);
+                            price.setAddress(address);
+                            price.setLat(Double.parseDouble(lat));
+                            price.setLon(Double.parseDouble(lon));
+                            price.setDate(date);
+                            price.setPrice(pri);
+
+                            if(product.getList() == null){
+                                List<Price> list = new ArrayList<Price>();
+                                list.add(price);
+                                product.setList(list);
+                            }else{
+                                product.getList().add(price);
+                            }
+
+                        }else if("RRP".equals(nodeName)){
+                            String RRP = response.nextText();
+                            product.setRrp(RRP);
+                        }else if("AP".equals(nodeName)){
+                            String AP = response.nextText();
+                            product.setAp(AP);
                         }
                         break;
                 }
@@ -209,6 +256,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            return product;
         }
     }
 

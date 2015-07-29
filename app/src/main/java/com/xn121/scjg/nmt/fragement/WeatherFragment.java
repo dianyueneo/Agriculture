@@ -91,6 +91,7 @@ public class WeatherFragment extends Fragment {
         chartView.drawYScaleLine = true;
         chartView.drawXScaleLine = false;
         chartView.YAxisDataCount = 4;
+        chartView.title = "未来七天气温变化趋势";
 
         chartView.invalidate();
     }
