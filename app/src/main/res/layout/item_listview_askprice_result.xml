@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/green"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="没有找到2015年07月29日的价格，为您找到以下日期的价格："
+        />
+
+</LinearLayout>

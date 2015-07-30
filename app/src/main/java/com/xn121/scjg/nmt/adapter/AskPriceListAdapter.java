@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.TextView;
 
+import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.bean.Price;
 import com.xn121.scjg.nmt.bean.Product;
 
 import java.util.ArrayList;
@@ -16,13 +19,15 @@ import java.util.List;
  */
 public class AskPriceListAdapter extends BaseExpandableListAdapter{
 
-//    private static final int TYPE_GROUP_LIST = 0;
-//    private static final int TYPE_GROUP_MAP = 1;
+    private static final int TYPE_GROUP_TEXT_QUERY = 0;
+    private static final int TYPE_GROUP_IMG = 1;
+    private static final int TYPE_GROUP_TEXT_MAP = 2;
 
-    private static final int TYPE_CHILD_TITLE = 2;
-    private static final int TYPE_CHILD_ITEM = 3;
+    private static final int TYPE_CHILD_TITLE = 3;
+    private static final int TYPE_CHILD_ITEM = 4;
 
-    private List<Integer> typeList;
+    private List<Integer> typeList_group = new ArrayList<Integer>();;
+    private List<Integer> typeList_child = new ArrayList<Integer>();;
 
     private List<Product> productList;
 
@@ -38,11 +43,21 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
     public void setProductList(List<Product> productList) {
         this.productList = productList;
 
-        if(productList.size() > 0){
-            typeList.add(TYPE_CHILD_TITLE);
-            for(Product product: productList){
-                typeList.add(TYPE_CHILD_ITEM);
+        typeList_group.clear();
+        typeList_child.clear();
+
+        for(Product product: productList){
+            typeList_group.add(TYPE_GROUP_TEXT_QUERY);
+            typeList_group.add(TYPE_GROUP_IMG);
+            typeList_group.add(TYPE_GROUP_TEXT_MAP);
+
+            if(product.getList().size() > 0){
+                typeList_child.add(TYPE_CHILD_TITLE);
+                for(Price price:product.getList()){
+                    typeList_child.add(TYPE_CHILD_ITEM);
+                }
             }
+
         }
 
         notifyDataSetChanged();
@@ -52,22 +67,22 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public int getGroupCount() {
-        return productList.size();
+        return typeList_group.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return (productList.get(groupPosition/2)).getList().size() + 1;
+        return groupPosition%3==1 ? (productList.get((groupPosition-1)/3)).getList().size() + 1: 0;
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
-        return productList.get(groupPosition);
+    public Product getGroup(int groupPosition) {
+        return productList.get(groupPosition/3);
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return typeList.get(groupPosition) == 0 ? (productList.get(groupPosition/2)).getList().get(childPosition) : null;
+    public Product getChild(int groupPosition, int childPosition) {
+        return groupPosition%3==1 ? productList.get((groupPosition-1)/3) : null;
     }
 
     @Override
@@ -86,13 +101,102 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
     }
 
     @Override
-    public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        return null;
+    public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup viewGroup) {
+        GroupViewHolder groupViewHolder = null;
+        if(view == null){
+            groupViewHolder = new GroupViewHolder();
+            switch (getGroupType(groupPosition)){
+                case TYPE_GROUP_TEXT_QUERY:
+                    view = layoutInflater.inflate(R.layout.item_listview_askprice_query, null);
+                    groupViewHolder.query = (TextView)view.findViewById(R.id.query_content);
+                    break;
+                case TYPE_GROUP_IMG:
+                    view = layoutInflater.inflate(R.layout.item_listview_askprice_result, null);
+                    groupViewHolder.result = (TextView)view.findViewById(R.id.response);
+                    break;
+                case TYPE_GROUP_TEXT_MAP:
+                    view = layoutInflater.inflate(R.layout.item_listview_askprice_map, null);
+                    break;
+                default:
+                    break;
+            }
+            view.setTag(groupViewHolder);
+
+        }else{
+            groupViewHolder = (GroupViewHolder)view.getTag();
+        }
+
+        Product product = getGroup(groupPosition);
+
+        switch (getGroupType(groupPosition)){
+            case TYPE_GROUP_TEXT_QUERY:
+                groupViewHolder.query.setText(product.getQuestion());
+                break;
+            case TYPE_GROUP_IMG:
+                groupViewHolder.result.setText(product.getTitle());
+                break;
+            case TYPE_GROUP_TEXT_MAP:
+                break;
+            default:
+                break;
+        }
+
+        return view;
     }
 
     @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        return null;
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup viewGroup) {
+        ChildViewHolder childViewHolder = null;
+
+        if(view == null){
+            childViewHolder = new ChildViewHolder();
+            switch (getChildType(groupPosition,childPosition)){
+                case TYPE_CHILD_TITLE:
+                    view = layoutInflater.inflate(R.layout.item_listview_askprice_result_title, null);
+                    childViewHolder.qgpfj = (TextView)view.findViewById(R.id.qgpfj);
+                    childViewHolder.lsj = (TextView)view.findViewById(R.id.lsj);
+                    break;
+                case TYPE_CHILD_ITEM:
+                    view = layoutInflater.inflate(R.layout.item_listview_askprice_result_item, null);
+                    childViewHolder.num = (TextView)view.findViewById(R.id.num);
+                    childViewHolder.product = (TextView)view.findViewById(R.id.product);
+                    childViewHolder.name = (TextView)view.findViewById(R.id.name);
+                    childViewHolder.address = (TextView)view.findViewById(R.id.address);
+                    childViewHolder.pfj_content = (TextView)view.findViewById(R.id.pfj_content);
+                    childViewHolder.time_content = (TextView)view.findViewById(R.id.time_content);
+                    break;
+                default:
+                    break;
+            }
+            view.setTag(childViewHolder);
+        }else{
+            childViewHolder = (ChildViewHolder)view.getTag();
+        }
+
+        Product product = getChild(groupPosition, childPosition);
+
+        switch (getChildType(groupPosition,childPosition)){
+            case TYPE_CHILD_TITLE:
+                view = layoutInflater.inflate(R.layout.item_listview_askprice_result_title, null);
+                childViewHolder.qgpfj.setText(product.getAp());
+                childViewHolder.lsj.setText(product.getRrp());
+                break;
+            case TYPE_CHILD_ITEM:
+                view = layoutInflater.inflate(R.layout.item_listview_askprice_result_item, null);
+                childViewHolder.num.setText(childPosition);
+                Price price = product.getList().get(childPosition - 1);
+                childViewHolder.product.setText(price.getProduct());
+                childViewHolder.name.setText(price.getName());
+                childViewHolder.address.setText(price.getAddress());
+                childViewHolder.pfj_content.setText(price.getPrice());
+                childViewHolder.time_content.setText(price.getDate());
+                break;
+            default:
+                break;
+        }
+
+
+        return view;
     }
 
     @Override
@@ -104,22 +208,42 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public int getChildType(int groupPosition, int childPosition) {
-        return super.getChildType(groupPosition, childPosition);
+        return childPosition == 0 ? TYPE_CHILD_TITLE : TYPE_CHILD_ITEM;
     }
 
     @Override
     public int getChildTypeCount() {
-        return super.getChildTypeCount();
+        return 2;
     }
 
     @Override
     public int getGroupType(int groupPosition) {
-        return typeList.get(groupPosition);
+        return typeList_group.get(groupPosition);
     }
 
     @Override
     public int getGroupTypeCount() {
-        return typeList.size();
+        return 3;
+    }
+
+
+    private static class GroupViewHolder{
+        public TextView query;
+        public TextView result;
+    }
+
+    private static class ChildViewHolder{
+        public TextView qgpfj;
+        public TextView lsj;
+
+        public TextView num;
+        public TextView product;
+        public TextView name;
+        public TextView address;
+        public TextView pfj_content;
+        public TextView time_content;
+
+
     }
 
 }

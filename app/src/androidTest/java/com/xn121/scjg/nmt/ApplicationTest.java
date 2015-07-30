@@ -13,15 +13,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void test(){
-        int a = 1 << 0;//0001
-        int b = 1 << 1;//0010
-        int c = 1 << 2;//0100
-        int d = 1 << 3;//1000
-
-
-        Log.i("test", "====="+((9 & a) == a));
-        Log.i("test", "====="+((9 & b) == b));
-        Log.i("test", "====="+((9 & c) == c));
-        Log.i("test", "====="+((9 & d) == d));
+        Log.i("test", "====="+3/3);
+        Log.i("test", "====="+4/3);
+        Log.i("test", "====="+5/3);
     }
 }

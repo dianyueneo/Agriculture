@@ -93,6 +93,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         clear.setOnClickListener(this);
 
         listView = (ExpandableListView)rootView.findViewById(R.id.eplistview);
+        listView.setGroupIndicator(null);
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View view = layoutInflater.inflate(R.layout.header_listview_askprice, listView, false);
         listView.addHeaderView(view);

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_smaller2"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/num"
+        android:layout_marginLeft="10dp"
+        >
+
+        <TextView
+            android:id="@+id/product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="大白菜"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京京丰岳各庄批发市场"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/product"
+            />
+
+        <TextView
+            android:id="@+id/dizhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址:"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/name"
+            />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京市丰台区丰台路34号岳各庄批发市场（西四环岳各庄桥东）"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/name"
+            android:layout_toRightOf="@id/dizhi"
+            />
+
+        <TextView
+            android:id="@+id/pfj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="批发价:"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/address"
+            />
+
+        <TextView
+            android:id="@+id/pfj_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.40元/公斤"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/address"
+            android:layout_toRightOf="@id/pfj"
+            />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新时间:"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/pfj"
+            />
+
+        <TextView
+            android:id="@+id/time_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-06-11"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_smaller2"
+            android:layout_below="@id/pfj"
+            android:layout_toRightOf="@id/time"
+            />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
