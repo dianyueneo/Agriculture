@@ -1,6 +1,7 @@
 package com.xn121.scjg.nmt.fragement;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -51,9 +53,11 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
     private ImageView speech, clear;
 
-    private ListView listView;
+    private ExpandableListView listView;
     private AskPriceListAdapter adapter;
     private List<Product> productList;
+
+    private ProgressDialog progressDialog;
 
     private String appId = "55b4a6ff";
 
@@ -88,10 +92,13 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         speech.setOnLongClickListener(this);
         clear.setOnClickListener(this);
 
-        listView = (ListView)rootView.findViewById(R.id.listview);
+        listView = (ExpandableListView)rootView.findViewById(R.id.eplistview);
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View view = layoutInflater.inflate(R.layout.header_listview_askprice, listView, false);
+        listView.addHeaderView(view);
         adapter = new AskPriceListAdapter(getActivity());
         productList = new ArrayList<Product>();
-        adapter.setList(productList);
+        adapter.setProductList(productList);
         listView.setAdapter(adapter);
     }
 
@@ -170,7 +177,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         return JsonParser.parseIatResult(results.getResultString());
     }
 
-    private void getPriceofDomain(String question){
+    private void getPriceofDomain(final String question){
+        showProgressDialog();
         String str = null;
         try {
             str = URLEncoder.encode(question, "UTF-8");
@@ -184,16 +192,21 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         XMLRequest xmlRequest = new XMLRequest(url, new Response.Listener<XmlPullParser>() {
             @Override
             public void onResponse(XmlPullParser response) {
+                dismissProgressDialog();
                 Product product = parseXml(response);
                 if(product != null){
+                    product.setQuestion(question);
                     addProduct(product);
                 }else{
+                    Log.i("test", "获取失败, parse error");
                     Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dismissProgressDialog();
+                Log.i("test", "获取失败，response error");
                 Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
         });
@@ -209,6 +222,8 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
             int eventType = response.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
                     case XmlPullParser.START_TAG:
                         String nodeName = response.getName();
                         if ("errorcode".equals(nodeName)) {
@@ -266,6 +281,9 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
                             product.setAp(AP);
                         }
                         break;
+
+                    case XmlPullParser.END_TAG:
+                        break;
                 }
                 eventType = response.next();
             }
@@ -280,12 +298,29 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
     private void addProduct(Product product){
         productList.add(product);
-        adapter.setList(productList);
+        adapter.setProductList(productList);
     }
 
     private void clearProduct(){
         productList.clear();;
-        adapter.setList(productList);
+        adapter.setProductList(productList);
+    }
+
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage("正在搜索");
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package com.xn121.scjg.nmt.volley;
 
+import android.text.Html;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -36,6 +38,7 @@ public class XMLRequest extends Request<XmlPullParser> {
         try {
             String xmlString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, HTTP.UTF_8));
+            xmlString =  xmlString.replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", "\"");
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = factory.newPullParser();
             xmlPullParser.setInput(new StringReader(xmlString));

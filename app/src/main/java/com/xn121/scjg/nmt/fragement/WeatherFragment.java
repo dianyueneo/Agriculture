@@ -2,13 +2,20 @@ package com.xn121.scjg.nmt.fragement;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.RetryPolicy;
@@ -22,13 +29,15 @@ import java.util.ArrayList;
 /**
  * Created by admin on 7/16/15.
  */
-public class WeatherFragment extends Fragment {
+public class WeatherFragment extends Fragment implements AMapLocationListener{
 
     private View rootView;
     private RequestQueue requestQueue;
     private RetryPolicy retryPolicy;
 
     private ChartView chartView;
+
+    private LocationManagerProxy mLocationManagerProxy;;
 
     private String[] date = {"星期一","星期二","星期三","星期四","星期五","星期六","星期七"};
     private int[] maxTemperature = {15,20,20,18,17,18,19};
@@ -52,7 +61,17 @@ public class WeatherFragment extends Fragment {
         chartView = (ChartView)rootView.findViewById(R.id.chart);
         chartView.chartViewType = ChartView.ChartViewType.ChartViewLine;
 
+        mLocationManagerProxy = LocationManagerProxy.getInstance(getActivity());
+        mLocationManagerProxy.setGpsEnable(false);
+
+        startLocation();
+
         setData();
+    }
+
+    private void startLocation(){
+        mLocationManagerProxy.removeUpdates(this);
+        mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }
 
     @Override
@@ -94,5 +113,43 @@ public class WeatherFragment extends Fragment {
         chartView.title = "未来七天气温变化趋势";
 
         chartView.invalidate();
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation!=null&&aMapLocation.getAMapException().getErrorCode() == 0) {
+            Log.i("test", aMapLocation.getLatitude() + "  " + aMapLocation.getLongitude());
+            Log.i("test", aMapLocation.getAdCode());
+            Log.i("test", aMapLocation.getCityCode());
+        }else{
+            Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mLocationManagerProxy.removeUpdates(this);
+        mLocationManagerProxy.destroy();
     }
 }

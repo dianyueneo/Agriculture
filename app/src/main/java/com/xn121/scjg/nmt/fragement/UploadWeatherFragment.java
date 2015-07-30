@@ -12,7 +12,7 @@ import com.xn121.scjg.nmt.R;
 /**
  * Created by admin on 7/16/15.
  */
-public class IntroductionsFragment extends Fragment {
+public class UploadWeatherFragment extends Fragment {
 
     private View rootView;
 

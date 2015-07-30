@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.xn121.scjg.nmt.fragement.AboutFragment;
 import com.xn121.scjg.nmt.fragement.AskPriceFragment;
 import com.xn121.scjg.nmt.fragement.HomeFragment;
-import com.xn121.scjg.nmt.fragement.IntroductionsFragment;
+import com.xn121.scjg.nmt.fragement.UploadWeatherFragment;
 import com.xn121.scjg.nmt.fragement.WeatherFragment;
 
 
@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView toolbartitle;
 
 
-    private Class fragmentArray[] = {HomeFragment.class , AskPriceFragment.class, WeatherFragment.class, AboutFragment.class, IntroductionsFragment.class};
-    private int imageViewArray[] = {R.drawable.home_sel,R.drawable.ask,R.drawable.weather,R.drawable.about,R.drawable.explan};
-    private int textArray[] = {R.string.home, R.string.askprice, R.string.weather, R.string.about, R.string.introductions};
+    private Class fragmentArray[] = {HomeFragment.class , AskPriceFragment.class, WeatherFragment.class, UploadWeatherFragment.class, AboutFragment.class};
+    private int imageViewArray[] = {R.drawable.home_sel,R.drawable.ask,R.drawable.weather,R.drawable.uploadweather,R.drawable.about};
+    private int textArray[] = {R.string.home, R.string.askprice, R.string.weather, R.string.uploadweather, R.string.about};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

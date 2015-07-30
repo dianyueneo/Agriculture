@@ -15,11 +15,12 @@ public class Product {
     private String date;
     private String province;
     private String product;
+    private String question;
 
-    private static final int CODE_1 = 1 << 0;//时间扩展
-    private static final int CODE_2 = 1 << 1;//农产品扩展
-    private static final int CODE_3 = 1 << 2;//市场扩展到省份
-    private static final int CODE_4 = 1 << 3;//省份扩展到全国
+    private static final int CODE_1 = 1 << 0;//时间扩展 0001
+    private static final int CODE_2 = 1 << 1;//农产品扩展 0010
+    private static final int CODE_3 = 1 << 2;//市场扩展到省份 0100
+    private static final int CODE_4 = 1 << 3;//省份扩展到全国 1000
 
 
     public List<Price> getList() {
@@ -78,6 +79,14 @@ public class Product {
         this.product = product;
     }
 
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public String getTitle(){
         String str_start = "没有找到";
         String str_end = "为您找到以下";
@@ -104,7 +113,7 @@ public class Product {
             }else{
                 str_end += product;
             }
-            str_start += title;
+            str_start += question;
             str_end += "的价格";
         }
 
