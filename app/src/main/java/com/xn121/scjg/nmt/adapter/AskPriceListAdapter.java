@@ -1,12 +1,17 @@
 package com.xn121.scjg.nmt.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xn121.scjg.nmt.Map4AskPriceActivity;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.bean.Price;
 import com.xn121.scjg.nmt.bean.Product;
@@ -23,8 +28,8 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
     private static final int TYPE_GROUP_IMG = 1;
     private static final int TYPE_GROUP_TEXT_MAP = 2;
 
-    private static final int TYPE_CHILD_TITLE = 3;
-    private static final int TYPE_CHILD_ITEM = 4;
+    private static final int TYPE_CHILD_TITLE = 0;
+    private static final int TYPE_CHILD_ITEM = 1;
 
     private List<Integer> typeList_group = new ArrayList<Integer>();;
     private List<Integer> typeList_child = new ArrayList<Integer>();;
@@ -113,6 +118,7 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
                 case TYPE_GROUP_IMG:
                     view = layoutInflater.inflate(R.layout.item_listview_askprice_result, null);
                     groupViewHolder.result = (TextView)view.findViewById(R.id.response);
+                    groupViewHolder.guide = (ImageView)view.findViewById(R.id.guide);
                     break;
                 case TYPE_GROUP_TEXT_MAP:
                     view = layoutInflater.inflate(R.layout.item_listview_askprice_map, null);
@@ -126,7 +132,7 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
             groupViewHolder = (GroupViewHolder)view.getTag();
         }
 
-        Product product = getGroup(groupPosition);
+        final Product product = getGroup(groupPosition);
 
         switch (getGroupType(groupPosition)){
             case TYPE_GROUP_TEXT_QUERY:
@@ -134,8 +140,22 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
                 break;
             case TYPE_GROUP_IMG:
                 groupViewHolder.result.setText(product.getTitle());
+                if(isExpanded){
+                    groupViewHolder.guide.setImageResource(R.drawable.guide_down);
+                }else{
+                    groupViewHolder.guide.setImageResource(R.drawable.guide_right);
+                }
                 break;
             case TYPE_GROUP_TEXT_MAP:
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, Map4AskPriceActivity.class);
+                        intent.putParcelableArrayListExtra("list", (ArrayList<Price>)product.getList());
+                        context.startActivity(intent);
+                        Log.i("test", product.getProduct());
+                    }
+                });
                 break;
             default:
                 break;
@@ -177,13 +197,11 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
 
         switch (getChildType(groupPosition,childPosition)){
             case TYPE_CHILD_TITLE:
-                view = layoutInflater.inflate(R.layout.item_listview_askprice_result_title, null);
                 childViewHolder.qgpfj.setText(product.getAp());
                 childViewHolder.lsj.setText(product.getRrp());
                 break;
             case TYPE_CHILD_ITEM:
-                view = layoutInflater.inflate(R.layout.item_listview_askprice_result_item, null);
-                childViewHolder.num.setText(childPosition);
+                childViewHolder.num.setText(""+childPosition);
                 Price price = product.getList().get(childPosition - 1);
                 childViewHolder.product.setText(price.getProduct());
                 childViewHolder.name.setText(price.getName());
@@ -230,6 +248,7 @@ public class AskPriceListAdapter extends BaseExpandableListAdapter{
     private static class GroupViewHolder{
         public TextView query;
         public TextView result;
+        public ImageView guide;
     }
 
     private static class ChildViewHolder{

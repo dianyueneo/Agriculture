@@ -19,6 +19,9 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- WeatherAPI-->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
 
     <application
         android:name=".MyApplication"
@@ -45,7 +48,53 @@
         <activity android:name=".CategoryActivity" android:screenOrientation="portrait"/>
         <activity android:name=".GoodsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".MapActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Map4AskPriceActivity" android:screenOrientation="portrait"/>
 
+        <!-- weatherapi-->
+
+        <service android:name="cn.com.weather.util.TrafficStatsService" />
+
+        <service
+            android:name="com.smartapi.pn.client.NotificationService"
+            android:exported="true"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.smartapi.pn.client.NotificationService" />
+            </intent-filter>
+        </service>
+        <service android:name="com.smartapi.pn.client.IntentService"/>
+        <receiver android:name="com.smartapi.pn.client.NotificationReceiver">
+            <intent-filter >
+                <action android:name="cn.com.weather.SHOW_NOTIFICATION"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.smartapi.pn.client.ConnectivityReceiver">
+            <intent-filter >
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="SOFTWARESRC"
+            android:value="91Shouji" />
+        <meta-data
+            android:name="OSVERSION"
+            android:value="android" />
+        <meta-data
+            android:name="VERSIONTYPE"
+            android:value="general" />
+
+        <meta-data
+            android:name="CATEGORY"
+            android:value="mobile" />
+
+        <meta-data android:name="WEATHER_APPKEY" android:value="c72aedccd9f34896"/>
+
+        <!-- 高德地图-->
         <meta-data android:name="com.amap.api.v2.apikey" android:value="ec20364acd077dd0b2040586668621a7"/>
 
     </application>

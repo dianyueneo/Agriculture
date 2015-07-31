@@ -7,11 +7,20 @@
     android:padding="10dp"
     >
 
+    <ImageView
+        android:id="@+id/guide"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/guide_right"
+        />
+
     <TextView
         android:id="@+id/response"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="没有找到2015年07月29日的价格，为您找到以下日期的价格："
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="10dp"
         />
 
 </LinearLayout>

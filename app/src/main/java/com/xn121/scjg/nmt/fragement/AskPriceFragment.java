@@ -101,6 +101,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         productList = new ArrayList<Product>();
         adapter.setProductList(productList);
         listView.setAdapter(adapter);
+
     }
 
     @Override

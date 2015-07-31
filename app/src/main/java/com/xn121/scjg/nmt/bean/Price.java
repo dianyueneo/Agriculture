@@ -1,11 +1,14 @@
 package com.xn121.scjg.nmt.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.android.volley.DefaultRetryPolicy;
 
 /**
  * Created by admin on 15/7/29.
  */
-public class Price {
+public class Price implements Parcelable{
 
     private String product;
     private String province;
@@ -15,6 +18,20 @@ public class Price {
     private Double lon;
     private String date;
     private String price;
+
+    public Price() {
+    }
+
+    public Price(Parcel in){
+        this.product = in.readString();
+        this.province = in.readString();
+        this.name = in.readString();
+        this.address = in.readString();
+        this.lat = in.readDouble();
+        this.lon = in.readDouble();
+        this.date = in.readString();
+        this.price = in.readString();
+    }
 
     public String getProduct() {
         return product;
@@ -79,4 +96,41 @@ public class Price {
     public void setPrice(String price) {
         this.price = price;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+//    private String product;
+//    private String province;
+//    private String name;
+//    private String address;
+//    private Double lat;
+//    private Double lon;
+//    private String date;
+//    private String price;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(product);
+        parcel.writeString(province);
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeDouble(lat);
+        parcel.writeDouble(lon);
+        parcel.writeString(date);
+        parcel.writeString(price);
+    }
+
+    public static final Creator<Price> CREATOR = new Creator<Price>() {
+        @Override
+        public Price createFromParcel(Parcel parcel) {
+            return new Price(parcel);
+        }
+
+        @Override
+        public Price[] newArray(int i) {
+            return new Price[i];
+        }
+    };
 }

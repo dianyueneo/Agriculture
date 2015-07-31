@@ -40,18 +40,17 @@ import java.util.List;
 /**
  * Created by hongge on 15/7/25.
  */
-public class MapActivity extends FragmentActivity implements RouteSearch.OnRouteSearchListener{
+public class MapActivity extends FragmentActivity implements RouteSearch.OnRouteSearchListener, View.OnClickListener{
 
     private MapView mapView;
     private AMap aMap;
     private RouteSearch routeSearch;
     private DriveRouteResult driveRouteResult;
-    private PoiSearch.Query endSearchQuery;
 
     private ProgressDialog progDialog;
 
     private SlidingDrawer slidingDrawer;
-    private ImageView imageView;
+    private ImageView imageView, back;
 
     private List<Profit> list;
 
@@ -109,6 +108,9 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
             fragmentTabHost.addTab(tabSpec, fragmentArray[i], null);
             fragmentTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background_map);
         }
+
+        back = (ImageView)findViewById(R.id.back);
+        back.setOnClickListener(this);
 
     }
 
@@ -215,4 +217,14 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.back:
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 }
