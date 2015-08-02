@@ -558,4 +558,56 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void getMarketNameList(String areaid){
+        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        String type = "xn121list";
+        String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
+        String key = NetUtil.getSignature(publicKey);
+        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0, 6) + "&key=" + key);
+
+        Log.i("test", url);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("test", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("test", "接口异常");
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    private void getProductNameList(String areaid){
+        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        String type = "xn121list";
+        String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
+        String key = NetUtil.getSignature(publicKey);
+        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0,6)+"&key="+key);
+
+        Log.i("test", url);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("test", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("test", "接口异常");
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
 }

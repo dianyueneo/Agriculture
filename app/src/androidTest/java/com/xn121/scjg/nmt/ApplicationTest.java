@@ -13,8 +13,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void test(){
-        Log.i("test", "====="+3/3);
-        Log.i("test", "====="+4/3);
-        Log.i("test", "====="+5/3);
+        Log.i("test", "====="+"星期一".substring(2,3));
     }
 }

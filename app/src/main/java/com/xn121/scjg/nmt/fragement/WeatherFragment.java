@@ -1,6 +1,5 @@
 package com.xn121.scjg.nmt.fragement;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -10,21 +9,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.RequestQueue;
-import com.android.volley.RetryPolicy;
-import com.android.volley.toolbox.Volley;
+import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.R;
 import com.xn121.scjg.nmt.chart.ChartView;
 import com.xn121.scjg.nmt.chart.LineData;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cn.com.weather.api.WeatherAPI;
+import cn.com.weather.beans.Weather;
+import cn.com.weather.constants.Constants;
+import cn.com.weather.listener.AsyncResponseHandler;
 
 /**
  * Created by admin on 7/16/15.
@@ -32,16 +38,14 @@ import java.util.ArrayList;
 public class WeatherFragment extends Fragment implements AMapLocationListener{
 
     private View rootView;
-    private RequestQueue requestQueue;
-    private RetryPolicy retryPolicy;
 
     private ChartView chartView;
 
-    private LocationManagerProxy mLocationManagerProxy;;
+    private TextView city, date, week, temperature, tv_weather, wend;
+    private ImageView img_weather_1, img_weather_2, img_weather_3, img_weather_4, img_weather_5, img_weather_6, img_weather_7;
+    private TextView text_weather_3, text_weather_4, text_weather_5, text_weather_6, text_weather_7;
 
-    private String[] date = {"星期一","星期二","星期三","星期四","星期五","星期六","星期七"};
-    private int[] maxTemperature = {15,20,20,18,17,18,19};
-    private int[] minTemperature = {5,5,7,5,3,4,4};
+    private LocationManagerProxy mLocationManagerProxy;
 
     @Nullable
     @Override
@@ -58,6 +62,27 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
     }
 
     private void init(){
+        city = (TextView)rootView.findViewById(R.id.city);
+        date = (TextView)rootView.findViewById(R.id.date);
+        week = (TextView)rootView.findViewById(R.id.week);
+        temperature = (TextView)rootView.findViewById(R.id.temperature);
+        tv_weather = (TextView)rootView.findViewById(R.id.weather);
+        wend = (TextView)rootView.findViewById(R.id.wend);
+
+        img_weather_1 = (ImageView)rootView.findViewById(R.id.img_weather_1);
+        img_weather_2 = (ImageView)rootView.findViewById(R.id.img_weather_2);
+        img_weather_3 = (ImageView)rootView.findViewById(R.id.img_weather_3);
+        img_weather_4 = (ImageView)rootView.findViewById(R.id.img_weather_4);
+        img_weather_5 = (ImageView)rootView.findViewById(R.id.img_weather_5);
+        img_weather_6 = (ImageView)rootView.findViewById(R.id.img_weather_6);
+        img_weather_7 = (ImageView)rootView.findViewById(R.id.img_weather_7);
+
+        text_weather_3 = (TextView)rootView.findViewById(R.id.text_weather_3);
+        text_weather_4 = (TextView)rootView.findViewById(R.id.text_weather_4);
+        text_weather_5 = (TextView)rootView.findViewById(R.id.text_weather_5);
+        text_weather_6 = (TextView)rootView.findViewById(R.id.text_weather_6);
+        text_weather_7 = (TextView)rootView.findViewById(R.id.text_weather_7);
+
         chartView = (ChartView)rootView.findViewById(R.id.chart);
         chartView.chartViewType = ChartView.ChartViewType.ChartViewLine;
 
@@ -66,7 +91,6 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
         startLocation();
 
-        setData();
     }
 
     private void startLocation(){
@@ -74,37 +98,20 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        requestQueue = Volley.newRequestQueue(activity);
-        retryPolicy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-    }
-
-    private void setData(){
-        ArrayList<String> xlabels = new ArrayList<String>();
-        ArrayList<Number> dataArrayList_max = new ArrayList<Number>();
-        ArrayList<Number> dataArrayList_min = new ArrayList<Number>();
-        for (int i = 0; i < 7; i++) {
-            xlabels.add(date[i]);
-            dataArrayList_max.add(maxTemperature[i]);
-            dataArrayList_min.add(minTemperature[i]);
-        }
-
+    private void setCharData(ArrayList<Number> max, ArrayList<Number> min){
         LineData lineData_max = new LineData();
         lineData_max.colorValue = Color.parseColor("#009688");
-        lineData_max.dataList = dataArrayList_max;
+        lineData_max.dataList = max;
 
         LineData lineData_min = new LineData();
         lineData_min.colorValue = Color.parseColor("#6D6D6D");
-        lineData_min.dataList = dataArrayList_min;
+        lineData_min.dataList = min;
 
         ArrayList<LineData> daArrayList = new ArrayList<LineData>();
         daArrayList.add(lineData_max);
         daArrayList.add(lineData_min);
 
         chartView.dataArray = daArrayList;
-        chartView.xAxisLabels = xlabels;
         chartView.showYLabels = false;
         chartView.showXLabels = false;
         chartView.drawYScaleLine = true;
@@ -119,8 +126,10 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation!=null&&aMapLocation.getAMapException().getErrorCode() == 0) {
             Log.i("test", aMapLocation.getLatitude() + "  " + aMapLocation.getLongitude());
-            Log.i("test", aMapLocation.getAdCode());
-            Log.i("test", aMapLocation.getCityCode());
+            getCityId(aMapLocation.getLongitude() + "", aMapLocation.getLatitude() + "");
+            ((MyApplication)getActivity().getApplication()).setLocation(aMapLocation.getAddress());
+            ((MyApplication)getActivity().getApplication()).setLat(aMapLocation.getLatitude() + "");
+            ((MyApplication)getActivity().getApplication()).setLon(aMapLocation.getLongitude() + "");
         }else{
             Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
         }
@@ -152,4 +161,128 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         mLocationManagerProxy.removeUpdates(this);
         mLocationManagerProxy.destroy();
     }
+
+
+    private void getCityId(String lon, String lat){
+        WeatherAPI.getGeo(getActivity(), lon, lat, new AsyncResponseHandler() {
+            @Override
+            public void onComplete(JSONObject content) {
+                if ("0".equals(content.optString("status"))) {
+                    JSONObject geo = content.optJSONObject("geo");
+                    String id = geo.optString("id");
+                    String district = geo.optString("district");
+                    city.setText(district);
+                    Log.i("test", "cityId:" + id);
+                    getWeather(id);
+                    ((MyApplication)getActivity().getApplication()).setCityId(id);
+                } else {
+                    Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+
+            @Override
+            public void onError(Throwable error, String content) {
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getWeather(String cityId){
+        WeatherAPI.getWeather2(getActivity(), cityId, Constants.Language.ZH_CN, new AsyncResponseHandler() {
+            @Override
+            public void onComplete(Weather content) {
+                if (content != null) {
+                    parseWeather(content);
+                } else {
+                    Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable error, String content) {
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void parseWeather(Weather weather){
+        JSONObject fact = weather.getWeatherFactInfo();
+        String[] l1 = fact.optString("l1").split("\\|");
+        String[] l3 = fact.optString("l3").split("\\|");
+        String[] l4 = fact.optString("l4").split("\\|");
+        String[] l5 = fact.optString("l5").split("\\|");
+
+        JSONArray time = weather.getTimeInfo(7);
+        JSONObject time1 = time.optJSONObject(0);
+        JSONObject time2 = time.optJSONObject(1);
+        JSONObject time3 = time.optJSONObject(2);
+        JSONObject time4 = time.optJSONObject(3);
+        JSONObject time5 = time.optJSONObject(4);
+        JSONObject time6 = time.optJSONObject(5);
+        JSONObject time7 = time.optJSONObject(6);
+
+        JSONArray forcast = weather.getWeatherForecastInfo(7);
+        String fa1 = forcast.optJSONObject(0).optString("fa");
+        String fa2 = forcast.optJSONObject(1).optString("fa");
+        String fa3 = forcast.optJSONObject(2).optString("fa");
+        String fa4 = forcast.optJSONObject(3).optString("fa");
+        String fa5 = forcast.optJSONObject(4).optString("fa");
+        String fa6 = forcast.optJSONObject(5).optString("fa");
+        String fa7 = forcast.optJSONObject(6).optString("fa");
+
+        ArrayList<Number> max = new ArrayList<Number>();
+        ArrayList<Number> min = new ArrayList<Number>();
+        for(int i = 0;i<forcast.length();i++){
+            String fc = forcast.optJSONObject(i).optString("fc");
+            String fd = forcast.optJSONObject(i).optString("fd");
+
+            max.add(Integer.parseInt(fc));
+            min.add(Integer.parseInt(fd));
+        }
+
+        temperature.setText(l1[l1.length-1]+"°C");
+        String windD = WeatherAPI.parseWindDirection(getActivity(), l4[l4.length-1], Constants.Language.ZH_CN);
+        String windF = WeatherAPI.parseWindDirection(getActivity(), l3[l3.length-1], Constants.Language.ZH_CN);
+        wend.setText(windD+windF);
+        tv_weather.setText(WeatherAPI.parseWeather(getActivity(), l5[l5.length-1], Constants.Language.ZH_CN));
+        date.setText(time1.optString("t2"));
+        week.setText(time1.optString("t4"));
+
+        text_weather_3.setText("周"+time3.optString("t4").substring(2,3));
+        text_weather_4.setText("周"+time4.optString("t4").substring(2,3));
+        text_weather_5.setText("周"+time5.optString("t4").substring(2,3));
+        text_weather_6.setText("周"+time6.optString("t4").substring(2,3));
+        text_weather_7.setText("周"+time7.optString("t4").substring(2,3));
+
+        img_weather_1.setImageResource(parseWeatherImg(fa1));
+        ((MyApplication)getActivity().getApplication()).setWeatherId(fa1);
+        img_weather_2.setImageResource(parseWeatherImg(fa2));
+        img_weather_3.setImageResource(parseWeatherImg(fa3));
+        img_weather_4.setImageResource(parseWeatherImg(fa4));
+        img_weather_5.setImageResource(parseWeatherImg(fa5));
+        img_weather_6.setImageResource(parseWeatherImg(fa6));
+        img_weather_7.setImageResource(parseWeatherImg(fa7));
+
+        setCharData(max, min);
+    }
+
+    private int parseWeatherImg(String fa){
+        int weather = R.drawable.sun_green;
+        if("00".equals(fa)){
+        }else if("01".equals(fa)){
+            weather = R.drawable.cloudy_red;
+        }else if("02".equals(fa)){
+            weather = R.drawable.cloud_green;
+        }else{
+            weather = R.drawable.cloud_gray;
+        }
+
+        return weather;
+    }
+
+
 }

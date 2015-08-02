@@ -46,5 +46,9 @@
     <string name="error_key">key验证无效！</string>
     <string name="error_other">未知错误，请稍后重试!错误码为</string>
     <string name="no_result">对不起，没有搜索到相关数据！</string>
+    
+    <string name="aboutus">是由中国兴农网（http://www.xn121.com/）与贵州农经网（http://www.gznw.gov.cn/）联合退出的一款基于移动互联网的农产品信息导航系统，也是一款为“三农”服务的手机客户端软件。该软件提供农产品市场经济信息，包括农产品交易路线规划、农产品供求信息智能配对、气象信息推送、农经资讯查询和信息上报等诸多功能和服务。</string>
+    <string name="xingnong">中国兴农网是由中国气象局主办，公共气象服务中心承办、各省气象部门联办的为农服务网站，2001年6月开通。</string>
+    <string name="guizhong">贵州农经网是贵州省人民政府主办，贵州省气象局承办，为“三农”服务的农业综合信息网，2008年8月开通。</string>
 
 </resources>
