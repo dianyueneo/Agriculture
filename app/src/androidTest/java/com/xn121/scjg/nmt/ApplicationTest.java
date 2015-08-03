@@ -2,6 +2,7 @@ package com.xn121.scjg.nmt;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 /**
@@ -13,6 +14,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void test(){
-        Log.i("test", "====="+"星期一".substring(2,3));
+        DisplayMetrics dm = this.getContext().getResources().getDisplayMetrics();
+        Log.i("test", "====="+dm.widthPixels);
     }
 }
