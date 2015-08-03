@@ -1,10 +1,12 @@
 package com.xn121.scjg.nmt.fragement;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import cn.com.weather.api.WeatherAPI;
 import cn.com.weather.beans.Weather;
@@ -46,6 +50,8 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
     private TextView text_weather_3, text_weather_4, text_weather_5, text_weather_6, text_weather_7;
 
     private LocationManagerProxy mLocationManagerProxy;
+
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -89,11 +95,21 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         mLocationManagerProxy = LocationManagerProxy.getInstance(getActivity());
         mLocationManagerProxy.setGpsEnable(false);
 
+        GregorianCalendar calendar = new GregorianCalendar();
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+
+        date.setText(month + "月" + day + "日");
+        String[] weekdatyname = {"星期一","星期二","星期三","星期四","星期五","星期六","星期日"};
+        week.setText(weekdatyname[weekday]);
+
         startLocation();
 
     }
 
     private void startLocation(){
+        showProgressDialog();
         mLocationManagerProxy.removeUpdates(this);
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }
@@ -117,6 +133,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         chartView.drawYScaleLine = true;
         chartView.drawXScaleLine = false;
         chartView.YAxisDataCount = 4;
+        chartView.XAxisDataCount = 7;
         chartView.title = "未来七天气温变化趋势";
 
         chartView.invalidate();
@@ -131,6 +148,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
             ((MyApplication)getActivity().getApplication()).setLat(aMapLocation.getLatitude() + "");
             ((MyApplication)getActivity().getApplication()).setLon(aMapLocation.getLongitude() + "");
         }else{
+            dismissProgressDialog();
             Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
         }
     }
@@ -176,7 +194,8 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
                     getWeather(id);
                     ((MyApplication)getActivity().getApplication()).setCityId(id);
                 } else {
-                    Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                    dismissProgressDialog();
+                    Toast.makeText(getActivity(), "获取城市解析失败", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -184,7 +203,8 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
             @Override
             public void onError(Throwable error, String content) {
-                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), "获取城市失败", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -193,17 +213,23 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         WeatherAPI.getWeather2(getActivity(), cityId, Constants.Language.ZH_CN, new AsyncResponseHandler() {
             @Override
             public void onComplete(Weather content) {
+                dismissProgressDialog();
                 if (content != null) {
-                    parseWeather(content);
+                    try {
+                        parseWeather(content);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "获取天气解析失败", Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
             public void onError(Throwable error, String content) {
-                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), "获取天气失败", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -216,7 +242,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         String[] l4 = fact.optString("l4").split("\\|");
         String[] l5 = fact.optString("l5").split("\\|");
 
-        JSONArray time = weather.getTimeInfo(7);
+        JSONArray time = weather.getTimeInfo(0);
         JSONObject time1 = time.optJSONObject(0);
         JSONObject time2 = time.optJSONObject(1);
         JSONObject time3 = time.optJSONObject(2);
@@ -225,7 +251,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         JSONObject time6 = time.optJSONObject(5);
         JSONObject time7 = time.optJSONObject(6);
 
-        JSONArray forcast = weather.getWeatherForecastInfo(7);
+        JSONArray forcast = weather.getWeatherForecastInfo(0);
         String fa1 = forcast.optJSONObject(0).optString("fa");
         String fa2 = forcast.optJSONObject(1).optString("fa");
         String fa3 = forcast.optJSONObject(2).optString("fa");
@@ -236,7 +262,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
         ArrayList<Number> max = new ArrayList<Number>();
         ArrayList<Number> min = new ArrayList<Number>();
-        for(int i = 0;i<forcast.length();i++){
+        for(int i = 1;i<8;i++){
             String fc = forcast.optJSONObject(i).optString("fc");
             String fd = forcast.optJSONObject(i).optString("fd");
 
@@ -246,11 +272,10 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
         temperature.setText(l1[l1.length-1]+"°C");
         String windD = WeatherAPI.parseWindDirection(getActivity(), l4[l4.length-1], Constants.Language.ZH_CN);
-        String windF = WeatherAPI.parseWindDirection(getActivity(), l3[l3.length-1], Constants.Language.ZH_CN);
-        wend.setText(windD+windF);
-        tv_weather.setText(WeatherAPI.parseWeather(getActivity(), l5[l5.length-1], Constants.Language.ZH_CN));
-        date.setText(time1.optString("t2"));
-        week.setText(time1.optString("t4"));
+        String windF = WeatherAPI.parseWindForce(getActivity(), l3[l3.length - 1], Constants.Language.ZH_CN);
+        wend.setText(windD + windF);
+        String number = String.valueOf(Integer.parseInt(l5[l5.length-1]));
+        tv_weather.setText(WeatherAPI.parseWeather(getActivity(), number, Constants.Language.ZH_CN));
 
         text_weather_3.setText("周"+time3.optString("t4").substring(2,3));
         text_weather_4.setText("周"+time4.optString("t4").substring(2,3));
@@ -282,6 +307,24 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         }
 
         return weather;
+    }
+
+
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage("正在搜索");
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
 

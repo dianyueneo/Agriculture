@@ -27,8 +27,8 @@ public class ChartView extends View {
 	    private int maxY;
 	    private int maxX;
 
-	    private final int UpOrDownSpace = 6;
-	    private int XAxisDataCount;
+	    private int UpOrDownSpace;
+	    public int XAxisDataCount;
 	    public ArrayList xData;        //x 轴数据
 	    public boolean drawXScaleLine = true;
 	    public boolean drawYScaleLine = true;
@@ -45,7 +45,7 @@ public class ChartView extends View {
 	        ChartViewValueImage
 	    }
 
-	    public int paintWidth = 5;                    // 默认  线宽
+	    public int paintWidth;                    // 默认  线宽
 	    public int paintPostTypeWidth = 6;
 	    public  ChartViewType chartViewType;          // 图类型
 	    public Boolean showYLabels = true;            // 显示  Ｘ Ｙ 轴标度
@@ -58,6 +58,8 @@ public class ChartView extends View {
 	    public int drawValueSpace = 1;
 	    public ChartViewValuePointType chartViewValuePointType = ChartViewValuePointType.ChartViewValuePoint;
 	    public ArrayList<LineData> dataArray ;
+
+		private long rate;
 	    
 	    public ChartView(Context context){
 	        super(context);
@@ -87,20 +89,25 @@ public class ChartView extends View {
 	        super.onDraw(canvas);
 	        if (dataArray != null){
 	        	 if (xAxisLabels != null && xAxisLabels.size() != 0) {
-	 	        	XAxisDataCount = xAxisLabels.size();
+//	 	        	XAxisDataCount = xAxisLabels.size();
 	 	        	maxY = this.getHeight() - 10;
 	 			}
 	 	        else {
-	 	        	XAxisDataCount = 0;	
+//	 	        	XAxisDataCount = 0;
 	 	        	maxY = this.getHeight();
 	 			}
 	        	 
 	            maxX = this.getWidth();
 	            maxValue = this.chartViewMaxY();
 	            minValue = this.chartViewMinY();
+
+				rate = this.getHeight()/250;
+				paintWidth = (int)rate*5;
+				UpOrDownSpace = (int)rate*6;
+
 	            Paint paint = new Paint();
 	            paint.setAntiAlias(true);
-	            paint.setTextSize(20);
+	            paint.setTextSize((int)(rate*20));
 				paint.setColor(Color.parseColor("#009688"));
 //	            paint.setShadowLayer(2,2,2, Color.BLACK);
 
@@ -181,10 +188,10 @@ public class ChartView extends View {
 	        int average = (maxX - yAxisLableWith)/XAxisDataCount;
 	        paint.setStrokeWidth(1);
 	        for (int i = 0; i < XAxisDataCount; i++){
-	        	String str = xAxisLabels.get(i);
+
 	            int x = yAxisLableWith + average*i + average/2;
 	            if (showXLabels) {
-	            	
+					String str = xAxisLabels.get(i);
 		            canvas.drawText(str,x,maxY + UpOrDownSpace * 3,paint);	
 				}
 	            if (drawXScaleLine) {
@@ -236,7 +243,9 @@ public class ChartView extends View {
 
 		private void drawTitle(Canvas canvas,Paint paint){
 			if(title != null){
-				canvas.drawText(title, 20, 40, paint);
+				int x = (int)rate*20;
+				int y = (int)rate*40;
+				canvas.drawText(title, x, y, paint);
 			}
 		}
 	    
@@ -290,7 +299,7 @@ public class ChartView extends View {
 	            for (int j = 0; j < lineDataSize; j++){
 	                int value = ((Integer)tempArray.get(j)).intValue();
 	                int x = yAxisLableWith + average*j + average/2;
-	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + 12;
+	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + (int)rate*40;
 	                if (y >= maxY) {
 	                	y = maxY;
 					}
@@ -325,7 +334,7 @@ public class ChartView extends View {
 	            	int y = hashMap.get("y").intValue();
 	            	 switch (chartViewValuePointType) {
 	                    case ChartViewValuePoint:
-	                        canvas.drawCircle(x,y, 6, paint);
+	                        canvas.drawCircle(x,y, (int)6*rate, paint);
 	                        break;
 	                    case ChartViewValueImage:
 	                        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
