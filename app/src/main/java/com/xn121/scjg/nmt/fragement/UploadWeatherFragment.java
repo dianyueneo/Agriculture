@@ -14,8 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +24,13 @@ import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.xn121.scjg.nmt.MyApplication;
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.adapter.WeatherListAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.com.weather.api.CrowdWeatherAPI;
 import cn.com.weather.api.WeatherAPI;
@@ -42,7 +42,7 @@ import cn.com.weather.listener.AsyncResponseHandler;
 /**
  * Created by admin on 7/16/15.
  */
-public class UploadWeatherFragment extends Fragment implements AMapLocationListener,SensorEventListener, RadioGroup.OnCheckedChangeListener {
+public class UploadWeatherFragment extends Fragment implements AMapLocationListener,SensorEventListener{
 
     private View rootView;
 
@@ -50,7 +50,8 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
     private TextView address, qiya, tishi;
     private EditText nq_content;
-    private RadioGroup weatherbutton;
+    private GridView gridView;
+    private WeatherListAdapter adapter;
 
     private SensorManager sensorManager;
     private Sensor sensor;
@@ -79,10 +80,13 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         address = (TextView)rootView.findViewById(R.id.address);
         qiya = (TextView)rootView.findViewById(R.id.qiya);
         nq_content = (EditText)rootView.findViewById(R.id.nq_content);
-        weatherbutton = (RadioGroup)rootView.findViewById(R.id.weatherbutton);
+        gridView = (GridView)rootView.findViewById(R.id.gridview);
         tishi = (TextView)rootView.findViewById(R.id.tishi);
 
-        weatherbutton.setOnCheckedChangeListener(this);
+        adapter = new WeatherListAdapter(getActivity());
+        adapter.setCodes(getWeatherList());
+        gridView.setAdapter(adapter);
+
 
         String location = ((MyApplication)getActivity().getApplication()).getLocation();
         if(location == null){
@@ -101,7 +105,6 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
     private void checkButton(String weatherId){
         int id = getResources().getIdentifier("weather"+weatherId, "id", getActivity().getPackageName());
-        weatherbutton.check(id);
     }
 
 
@@ -158,7 +161,7 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
                     ((MyApplication) getActivity().getApplication()).setCityId(id);
 
-                    if(((MyApplication) getActivity().getApplication()).getWeatherId() == null){
+                    if (((MyApplication) getActivity().getApplication()).getWeatherId() == null) {
                         getWeather(id);
                     }
                 } else {
@@ -256,23 +259,77 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         params.put("position", ((MyApplication) getActivity().getApplication()).getLocation());
         params.put("weather", weather.toString());
 
-        CrowdWeatherAPI.uploadMyWeather(getActivity(), params, new AsyncResponseHandler(){
+        CrowdWeatherAPI.uploadMyWeather(getActivity(), params, new AsyncResponseHandler() {
             @Override
             public void onComplete(JSONObject content) {
                 String str = "上传失败";
-                if(content != null){
-                    if("SUCCESS".equals(content.optString("status"))){
+                if (content != null) {
+                    if ("SUCCESS".equals(content.optString("status"))) {
                         str = "上传成功";
-                    };
+                    }
+                    ;
                 }
                 Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        RadioButton rb = (RadioButton)rootView.findViewById(checkedId);
-        weatherId = (String)rb.getTag();
+    private List<String> getWeatherList(){
+        ArrayList<String> list = new ArrayList<String>();
+
+        //晴、多云、阴
+        list.add("00");
+        list.add("01");
+        list.add("02");
+        list.add("-1");
+
+        //雨
+        list.add("07");
+        list.add("08");
+        list.add("09");
+        list.add("10");
+        list.add("11");
+        list.add("12");
+        list.add("03");
+        list.add("04");
+        list.add("05");
+        list.add("19");
+        list.add("-1");
+        list.add("-1");
+
+        //雪、小到中雪、中到大雪、大到暴雪
+        list.add("33");
+        list.add("14");
+        list.add("15");
+        list.add("16");
+        list.add("17");
+        list.add("06");
+        list.add("13");
+        list.add("-1");
+
+        //浮尘、扬沙、沙尘暴、强沙尘暴
+        list.add("29");
+        list.add("30");
+        list.add("20");
+        list.add("31");
+
+        //雾、大雾、浓雾、强浓雾、特强浓雾
+        list.add("18");
+        list.add("57");
+        list.add("32");
+        list.add("49");
+        list.add("58");
+        list.add("-1");
+        list.add("-1");
+        list.add("-1");
+
+        //霾、中度霾、重度霾、严重霾
+        list.add("53");
+        list.add("54");
+        list.add("55");
+        list.add("56");
+
+        return list;
     }
+
 }

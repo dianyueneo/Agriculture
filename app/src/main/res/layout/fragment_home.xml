@@ -14,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:src="@drawable/sell"
+            android:src="@drawable/selector_tab_sell"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
             />

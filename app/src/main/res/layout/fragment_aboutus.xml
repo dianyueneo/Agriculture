@@ -73,8 +73,8 @@
         >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="190dp"
+            android:layout_height="90dp"
             android:src="@drawable/xingnong"
             android:layout_marginTop="10dp"
             />
@@ -83,13 +83,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/xingnong"
+            android:textSize="@dimen/text_size_smaller"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="176dp"
+            android:layout_height="88dp"
             android:src="@drawable/guizhou"
             />
 
@@ -97,6 +98,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/guizhong"
+            android:textSize="@dimen/text_size_smaller"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             />
