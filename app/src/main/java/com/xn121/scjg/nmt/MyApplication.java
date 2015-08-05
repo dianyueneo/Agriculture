@@ -3,6 +3,7 @@ package com.xn121.scjg.nmt;
 import android.app.Application;
 
 import com.xn121.scjg.nmt.bean.Profit;
+import com.xn121.scjg.nmt.scaleview.ContextProvider;
 
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class MyApplication extends Application{
     private String cityId;
     private String weatherId;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ContextProvider.init(this);
+    }
 
     public List<Profit> getProfitList() {
         return profitList;

@@ -5,6 +5,26 @@
     android:orientation="vertical"
     >
 
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
+        >
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/toolbartitle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big"
+            android:text="首页"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">

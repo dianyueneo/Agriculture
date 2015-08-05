@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASLinearLayout
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="575dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <FrameLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
+        >
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/toolbartitle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big"
+            android:text="当地天气"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+    <com.xn121.scjg.nmt.scaleview.ScaleFrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:layout_width="fill_parent"
             android:layout_height="190dp"
             android:src="@drawable/back_weather"
@@ -22,14 +36,14 @@
             />
 
 
-        <LinearLayout
+        <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             >
 
-            <TextView
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
                 android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,13 +54,13 @@
                 android:layout_marginTop="10dp"
                 />
 
-            <LinearLayout
+            <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
                 >
-                <TextView
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,7 +69,7 @@
                     android:textColor="@android:color/white"
                     />
 
-                <TextView
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,9 +79,9 @@
                     android:layout_marginLeft="14dp"
                     />
 
-            </LinearLayout>
+            </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
-            <TextView
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
                 android:id="@+id/temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,13 +91,13 @@
                 android:layout_marginTop="8dp"
                 />
 
-            <LinearLayout
+            <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
                 >
-                <TextView
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +106,7 @@
                     android:textColor="@android:color/white"
                     />
 
-                <TextView
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/wend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,24 +116,23 @@
                     android:layout_marginLeft="14dp"
                     />
 
-            </LinearLayout>
+            </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
 
-        </LinearLayout>
+        </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
-    </FrameLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleFrameLayout>
 
-    <LinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="12dp"
         android:orientation="horizontal"
         >
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_1"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -127,7 +140,7 @@
             android:src="@drawable/cloudy_red"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_2"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -136,7 +149,7 @@
             android:layout_marginLeft="@dimen/img_weather_marginleft"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_3"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -145,7 +158,7 @@
             android:layout_marginLeft="@dimen/img_weather_marginleft"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_4"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -154,7 +167,7 @@
             android:layout_marginLeft="@dimen/img_weather_marginleft"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_5"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -163,7 +176,7 @@
             android:layout_marginLeft="@dimen/img_weather_marginleft"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_6"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -172,7 +185,7 @@
             android:layout_marginLeft="@dimen/img_weather_marginleft"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img_weather_7"
             android:layout_width="0dp"
             android:layout_height="24dp"
@@ -183,9 +196,9 @@
 
 
 
-    </LinearLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/flag"
@@ -195,17 +208,17 @@
 
         />
 
-    <LinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         >
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -215,7 +228,7 @@
             android:textColor="@color/red"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -226,7 +239,7 @@
             android:layout_marginLeft="@dimen/text_weather_marginleft"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -237,7 +250,7 @@
             android:layout_marginLeft="@dimen/text_weather_marginleft"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -248,7 +261,7 @@
             android:layout_marginLeft="@dimen/text_weather_marginleft"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -259,7 +272,7 @@
             android:layout_marginLeft="@dimen/text_weather_marginleft"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -271,7 +284,7 @@
             />
 
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/text_weather_7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -282,12 +295,12 @@
             android:layout_marginLeft="@dimen/text_weather_marginleft"
             />
 
-    </LinearLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
     
     <com.xn121.scjg.nmt.chart.ChartView
         android:id="@+id/chart"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:background="@drawable/chart_background"
         />
 
@@ -296,4 +309,4 @@
 
 
 
-</me.dreamheart.autoscalinglayout.ASLinearLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>

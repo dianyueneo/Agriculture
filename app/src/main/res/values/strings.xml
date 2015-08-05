@@ -30,8 +30,8 @@
     <string name="xiaoshou">销售数量</string>
     <string name="xiaoshou_cb">销售成本</string>
     <string name="yunshu">运输车辆类型、燃油类型</string>
-    <string name="cheliangleixing">点击选择车辆类型</string>
-    <string name="ranyouleixing">点击选择燃油类型</string>
+    <string name="cheliangleixing">选择车辆类型</string>
+    <string name="ranyouleixing">选择燃油类型</string>
     <string name="chengben">其他成本</string>
     <string name="gongren">工人费用</string>
     <string name="cailiao">材料费用</string>

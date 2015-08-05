@@ -11,28 +11,31 @@
     <dimen name="text_size_big">26dp</dimen>
     <dimen name="text_size_big2">22dp</dimen>
     <dimen name="text_size_small">20dp</dimen>
+    <dimen name="text_size_smaller3">14dp</dimen>
     <dimen name="text_size_smaller">16dp</dimen>
     <dimen name="text_size_smaller2">17dp</dimen>
-    <dimen name="progress_width">22dp</dimen>
-    <dimen name="progress_height">116dp</dimen>
-    <dimen name="price_width">90dp</dimen>
-    <dimen name="price_padding">2dp</dimen>
-    <dimen name="price_padding_bottom">5dp</dimen>
-    <dimen name="price_marginlift">15dp</dimen>
-    <dimen name="xiaoshou_width">60dp</dimen>
+    <dimen name="text_size_smaller4">18dp</dimen>
+    <dimen name="progress_width">19dp</dimen>
+    <dimen name="progress_height">102dp</dimen>
+    <dimen name="price_width">80dp</dimen>
+    <dimen name="price_padding">1dp</dimen>
+    <dimen name="price_padding_bottom">1dp</dimen>
+    <dimen name="price_marginlift">10dp</dimen>
+    <dimen name="xiaoshou_width">40dp</dimen>
     <dimen name="feiyong_et_marginleft">120dp</dimen>
     <dimen name="chengben_margintop">15dp</dimen>
-    <dimen name="button_padding">8dp</dimen>
-    <dimen name="btn_width">180dp</dimen>
+    <dimen name="button_padding">7dp</dimen>
+    <dimen name="btn_width">140dp</dimen>
 
-    <dimen name="progress_short_heigt">64dp</dimen>
+    <dimen name="progress_short_width">17dp</dimen>
+    <dimen name="progress_short_heigt">50dp</dimen>
     <dimen name="progress_short_marginleft">15dp</dimen>
 
     <dimen name="ask_marginleft">5dp</dimen>
     <dimen name="ask_marginright">15dp</dimen>
-    <dimen name="ask_margintop">35dp</dimen>
+    <dimen name="ask_margintop">24dp</dimen>
 
     <dimen name="text_weather_marginleft">25dp</dimen>
-    <dimen name="img_weather_marginleft">38dp</dimen>
+    <dimen name="img_weather_marginleft">30dp</dimen>
 
 </resources>

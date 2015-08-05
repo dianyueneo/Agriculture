@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASLinearLayout
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="45dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="10dp"
     android:orientation="horizontal">
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,11 +14,11 @@
         android:layout_marginLeft="10dp"
         />
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/hide"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:visibility="gone"
         />
 
-</me.dreamheart.autoscalinglayout.ASLinearLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>

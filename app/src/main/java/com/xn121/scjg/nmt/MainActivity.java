@@ -24,9 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost mTabHost;
     private LayoutInflater inflater;
-    private Toolbar toolbar;
-    private TextView toolbartitle;
-
 
     private Class fragmentArray[] = {HomeFragment.class , AskPriceFragment.class, WeatherFragment.class, UploadWeatherFragment.class, AboutFragment.class};
     private int imageViewArray[] = {R.drawable.home_sel,R.drawable.ask,R.drawable.weather,R.drawable.uploadweather,R.drawable.about};
@@ -38,16 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        this.getWindow().setBackgroundDrawable(null);
 
-        initToolbar();
         initView();
-    }
-
-    private void initToolbar(){
-        toolbar = (Toolbar)this.findViewById(R.id.id_toolbar);
-        this.setSupportActionBar(toolbar);
-        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbartitle = (TextView)this.findViewById(R.id.toolbartitle);
-        toolbartitle.setText(this.getResources().getString(textArray[0]));
     }
 
     private void initView(){
@@ -64,13 +52,6 @@ public class MainActivity extends AppCompatActivity {
             mTabHost.addTab(tabSpec, fragmentArray[i], null);
             mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
-
-        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                toolbartitle.setText(tabId);
-            }
-        });
 
     }
 

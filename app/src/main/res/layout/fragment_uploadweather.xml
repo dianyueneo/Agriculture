@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASLinearLayout
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="575dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/static_01"
     android:orientation="vertical"
-    android:padding="15dp"
     >
 
-    <RelativeLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
+        >
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/toolbartitle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big"
+            android:text="农情信息"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/tijiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提交"
+            android:textSize="@dimen/text_size_small"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            />
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:id="@+id/top"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         >
-        <TextView
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/weizhi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +54,7 @@
             android:textSize="@dimen/text_size_big2"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,29 +66,29 @@
             android:layout_marginLeft="10dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/nq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="农情信息"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big2"
-            android:layout_below="@id/weizhi"
             android:layout_marginTop="10dp"
+            android:layout_below="@id/weizhi"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/nq_content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nq"
-            android:layout_marginTop="10dp"
             android:hint="当地玉米涨势良好"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
+            android:layout_below="@id/nq"
+            android:layout_marginTop="5dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/weatheris"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,9 +99,22 @@
             android:layout_marginTop="10dp"
             />
 
-    </RelativeLayout>
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_smaller"
+            android:textColor="@android:color/white"
+            android:layout_below="@id/weizhi"
+            android:layout_toRightOf="@id/weatheris"
+            android:layout_marginTop="15dp"
+            android:layout_alignBaseline="@id/weatheris"
+            android:layout_marginLeft="5dp"
+            />
 
-    <GridView
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+    <com.xn121.scjg.nmt.scaleview.ScaleGridView
         android:id="@+id/gridview"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -83,21 +124,27 @@
         android:listSelector="@android:color/transparent"
         android:choiceMode="singleChoice"
         android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         />
 
-    <RelativeLayout
+
+
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp"
         >
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/img"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/qiya"
-            android:layout_marginLeft="10dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/qy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,7 +156,7 @@
             android:layout_marginLeft="10dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/qiya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,16 +168,15 @@
             android:layout_marginLeft="10dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tishi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="（数据来源于手机传感器，仅供参考）"
             android:textColor="@android:color/white"
             android:layout_below="@id/img"
-            android:layout_marginLeft="10dp"
             />
 
-    </RelativeLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
-</me.dreamheart.autoscalinglayout.ASLinearLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>

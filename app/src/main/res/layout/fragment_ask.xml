@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASLinearLayout
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="575dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
+        >
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/toolbartitle"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big"
+            android:text="问菜价"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
     <ExpandableListView
         android:id="@+id/eplistview"
@@ -17,7 +31,7 @@
         android:layout_weight="1"
         />
 
-    <LinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,7 +39,7 @@
         android:padding="10dp"
         >
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/speech"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -34,7 +48,7 @@
             android:adjustViewBounds="true"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/clear"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -44,11 +58,11 @@
             android:layout_marginLeft="10dp"
             />
 
-    </LinearLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
 
 
 
 
 
-</me.dreamheart.autoscalinglayout.ASLinearLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>

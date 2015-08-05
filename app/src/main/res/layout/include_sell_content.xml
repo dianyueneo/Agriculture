@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress1"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
@@ -13,42 +13,42 @@
         android:layout_marginTop="7dp"
 
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress2"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress1"
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress3"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress2"
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress4"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress3"
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress5"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress4"
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress6"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
         android:src="@drawable/progress_gray"
         android:layout_below="@+id/progress5"
         />
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/progress7"
         android:layout_width="@dimen/progress_width"
         android:layout_height="@dimen/progress_height"
@@ -56,35 +56,35 @@
         android:layout_below="@+id/progress6"
         />
 
-    <RelativeLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="30dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="20dp"
         android:layout_toRightOf="@id/progress1"
         >
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/qidian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/qidian"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/red"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/xzdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzedidian"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_smaller"
             android:textColor="@color/red"
             android:layout_toRightOf="@id/qidian"
             android:layout_marginLeft="6dp"
             android:layout_alignBaseline="@id/qidian"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line1"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -94,7 +94,7 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_sf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,14 +102,14 @@
             android:background="@color/red"
             android:text="@string/shengfen"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/direct1"
             android:layout_width="9dp"
             android:layout_height="10dp"
@@ -121,7 +121,7 @@
             android:src="@drawable/direct"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_cs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
             android:background="@color/red"
             android:text="@string/chengshi"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
@@ -139,7 +139,7 @@
             android:singleLine="true"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line2"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -149,22 +149,22 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/zhongdian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zhongdian"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line2"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/xzzd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzezhongdian"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_smaller"
             android:textColor="@color/grey"
             android:layout_below="@id/line2"
             android:layout_toRightOf="@id/zhongdian"
@@ -172,7 +172,7 @@
             android:layout_marginLeft="6dp"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line3"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -182,7 +182,7 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_sf2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
             android:background="@color/grey"
             android:text="@string/shengfen"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
@@ -198,7 +198,7 @@
             />
 
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line4"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -209,22 +209,22 @@
             />
 
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/shangpin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shangpin"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line4"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/xzcp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/xuanzechanpin"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_smaller"
             android:textColor="@color/grey"
             android:layout_below="@id/line4"
             android:layout_toRightOf="@id/shangpin"
@@ -232,7 +232,7 @@
             android:layout_alignBaseline="@id/shangpin"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line5"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -243,7 +243,7 @@
             />
 
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_sc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -251,14 +251,14 @@
             android:background="@color/grey"
             android:text="@string/shucai"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             />
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/direct2"
             android:layout_width="9dp"
             android:layout_height="10dp"
@@ -270,7 +270,7 @@
             android:src="@drawable/direct"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_cp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -279,14 +279,14 @@
             android:background="@color/grey"
             android:text="@string/caipin"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line6"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -296,17 +296,17 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/dangdijiage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dangdijiage"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line6"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line7"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -316,7 +316,7 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_cx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -324,14 +324,14 @@
             android:background="@color/grey"
             android:text="@string/dianji"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:textSize="@dimen/text_size_small"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tv_pf"
             android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
@@ -340,16 +340,16 @@
             android:background="@color/grey"
             android:text="@string/pifa"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_smaller"
+            android:textSize="@dimen/text_size_smaller3"
             android:layout_marginLeft="@dimen/price_marginlift"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
             android:gravity="center"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tv_pf_c"
             android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
@@ -358,16 +358,16 @@
             android:background="@color/grey"
             android:text="@string/moren"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_smaller"
+            android:textSize="@dimen/text_size_smaller3"
             android:layout_marginLeft="@dimen/price_marginlift"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="0dp"
             android:paddingBottom="@dimen/price_padding_bottom"
             android:gravity="center"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tv_ls"
             android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
@@ -376,16 +376,16 @@
             android:background="@color/grey"
             android:text="@string/lingshou"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_smaller"
+            android:textSize="@dimen/text_size_smaller3"
             android:layout_marginLeft="@dimen/price_marginlift"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="@dimen/price_padding"
             android:paddingBottom="0dp"
             android:gravity="center"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tv_ls_c"
             android:layout_width="@dimen/price_width"
             android:layout_height="wrap_content"
@@ -394,16 +394,16 @@
             android:background="@color/grey"
             android:text="@string/moren"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_smaller"
+            android:textSize="@dimen/text_size_smaller3"
             android:layout_marginLeft="@dimen/price_marginlift"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:paddingTop="0dp"
             android:paddingBottom="@dimen/price_padding_bottom"
             android:gravity="center"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line8"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -413,17 +413,17 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/spcbsl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/shangpinchengben"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line8"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line9"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -433,20 +433,20 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/xiaoshou"
             android:layout_width="@dimen/xiaoshou_width"
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:text="@string/xiaoshou"
             android:textColor="@color/grey"
-            android:textSize="@dimen/text_size_big2"
+            android:textSize="@dimen/text_size_smaller4"
             android:lines="2"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/xs_sl"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:layout_toRightOf="@id/xiaoshou"
@@ -457,7 +457,7 @@
             android:layout_marginLeft="6dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/xiaoshou_cb"
             android:layout_width="@dimen/xiaoshou_width"
             android:layout_height="wrap_content"
@@ -465,14 +465,14 @@
             android:text="@string/xiaoshou_cb"
             android:layout_toRightOf="@id/xs_sl"
             android:textColor="@color/grey"
-            android:textSize="@dimen/text_size_big2"
+            android:textSize="@dimen/text_size_smaller4"
             android:lines="2"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/xs_cb"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:layout_toRightOf="@id/xiaoshou_cb"
@@ -483,7 +483,7 @@
             />
 
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line10"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -493,17 +493,17 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/yunshu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/yunshu"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line10"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line11"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -513,7 +513,7 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_cl"
             android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
@@ -521,13 +521,13 @@
             android:background="@color/grey"
             android:text="@string/cheliangleixing"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big2"
+            android:textSize="@dimen/text_size_small"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             android:gravity="center"
         />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_ry"
             android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
@@ -536,14 +536,14 @@
             android:background="@color/grey"
             android:text="@string/ranyouleixing"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big2"
+            android:textSize="@dimen/text_size_small"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
             android:layout_marginLeft="15dp"
             android:gravity="center"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line12"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -553,17 +553,17 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/qita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/chengben"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line12"
             />
 
-        <View
+        <com.xn121.scjg.nmt.scaleview.ScaleView
             android:id="@+id/line13"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -573,17 +573,17 @@
             android:background="@color/grey"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/gongren"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/gongren"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line13"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/et_gr"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -595,29 +595,29 @@
             android:layout_marginLeft="@dimen/feiyong_et_marginleft"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/yuan1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/line13"
             android:layout_toRightOf="@id/et_gr"
             android:text="@string/yuan"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             />
 
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/cailiao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cailiao"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/gongren"
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/et_cl"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -630,30 +630,30 @@
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/yuan2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gongren"
             android:layout_toRightOf="@id/et_cl"
             android:text="@string/yuan"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/qtfy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/qtfy"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/cailiao"
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
-        <EditText
+        <com.xn121.scjg.nmt.scaleview.ScaleEditText
             android:id="@+id/et_qt"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -666,18 +666,18 @@
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/yuan3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cailiao"
             android:layout_toRightOf="@id/et_qt"
             android:text="@string/yuan"
-            android:textSize="@dimen/text_size_big"
+            android:textSize="@dimen/text_size_small"
             android:layout_marginTop="@dimen/chengben_margintop"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/btn_hqxl"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -685,7 +685,7 @@
             android:background="@color/grey"
             android:text="@string/huoqu"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big2"
+            android:textSize="@dimen/text_size_small"
             android:gravity="center_horizontal"
             android:paddingTop="@dimen/button_padding"
             android:paddingBottom="@dimen/button_padding"
@@ -698,6 +698,6 @@
             android:layout_below="@id/btn_hqxl"
             />
 
-    </RelativeLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
-</RelativeLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>

@@ -1,110 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASLinearLayout
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="575dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
-    <RelativeLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/aboutus"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
         >
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="指点农情"
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:id="@+id/toolbartitle"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"
-            />
-
-        <TextView
-            android:id="@+id/version"
+            android:text="关于我们"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/title"
-            android:layout_alignBaseline="@id/title"
-            android:text="v1.0"
-            android:textSize="@dimen/text_size_small"
-            android:layout_marginLeft="5dp"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/introduction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="使用说明"
             android:textSize="@dimen/text_size_small"
-            android:layout_alignBaseline="@id/version"
-            android:background="@color/green"
-            android:gravity="right"
             android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
             />
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_smaller2"
-            android:textColor="@android:color/white"
-            android:layout_below="@id/title"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/aboutus"
-            />
-
-    </RelativeLayout>
-
-    <LinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleScrollView
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
         >
 
-        <ImageView
-            android:layout_width="190dp"
-            android:layout_height="90dp"
-            android:src="@drawable/xingnong"
-            android:layout_marginTop="10dp"
-            />
-
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/xingnong"
-            android:textSize="@dimen/text_size_smaller"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            />
+            android:orientation="vertical"
+            >
 
-        <ImageView
-            android:layout_width="176dp"
-            android:layout_height="88dp"
-            android:src="@drawable/guizhou"
-            />
+            <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/aboutus"
+                >
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/guizhong"
-            android:textSize="@dimen/text_size_smaller"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            />
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指点农情"
+                    android:textSize="@dimen/text_size_big"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:id="@+id/version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/title"
+                    android:layout_alignBaseline="@id/title"
+                    android:text="v1.0"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginLeft="5dp"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_smaller2"
+                    android:textColor="@android:color/white"
+                    android:layout_below="@id/title"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/aboutus"
+                    />
+
+            </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+            <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
+
+                <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                    android:layout_width="190dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/xingnong"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xingnong"
+                    android:textSize="@dimen/text_size_smaller"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                    android:layout_width="176dp"
+                    android:layout_height="88dp"
+                    android:src="@drawable/guizhou"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guizhong"
+                    android:textSize="@dimen/text_size_smaller"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    />
 
 
-    </LinearLayout>
+            </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
+
+        </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
 
-</me.dreamheart.autoscalinglayout.ASLinearLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleScrollView>
+
+
+
+
+
+
+</com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>

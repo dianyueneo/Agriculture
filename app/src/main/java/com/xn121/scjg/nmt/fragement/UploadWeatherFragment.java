@@ -1,5 +1,6 @@
 package com.xn121.scjg.nmt.fragement;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,10 +10,12 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -42,19 +45,22 @@ import cn.com.weather.listener.AsyncResponseHandler;
 /**
  * Created by admin on 7/16/15.
  */
-public class UploadWeatherFragment extends Fragment implements AMapLocationListener,SensorEventListener{
+public class UploadWeatherFragment extends Fragment implements AMapLocationListener,SensorEventListener, View.OnClickListener{
 
     private View rootView;
 
     private LocationManagerProxy mLocationManagerProxy;
 
-    private TextView address, qiya, tishi;
+    private TextView address, qiya, tishi, tijiao, weather;
     private EditText nq_content;
     private GridView gridView;
     private WeatherListAdapter adapter;
+    private List<String> list;
 
     private SensorManager sensorManager;
     private Sensor sensor;
+
+    private ProgressDialog progressDialog;
 
     private float pressure = 0;
     private String weatherId;
@@ -82,10 +88,23 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         nq_content = (EditText)rootView.findViewById(R.id.nq_content);
         gridView = (GridView)rootView.findViewById(R.id.gridview);
         tishi = (TextView)rootView.findViewById(R.id.tishi);
+        weather = (TextView)rootView.findViewById(R.id.weather);
+        tijiao = (TextView)rootView.findViewById(R.id.tijiao);
+        tijiao.setOnClickListener(this);
 
         adapter = new WeatherListAdapter(getActivity());
-        adapter.setCodes(getWeatherList());
+        list = getWeatherList();
+        adapter.setCodes(list);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                weatherId = list.get(i);
+                Log.i("test", "weatherId==" + weatherId);
+                String code = String.valueOf(Integer.parseInt(weatherId));
+                weather.setText(WeatherAPI.parseWeather(getActivity(), code, Constants.Language.ZH_CN));
+            }
+        });
 
 
         String location = ((MyApplication)getActivity().getApplication()).getLocation();
@@ -109,6 +128,7 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
 
     private void startLocation(){
+        showProgressDialog("让我看看你在哪儿");
         mLocationManagerProxy.removeUpdates(this);
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }
@@ -122,10 +142,13 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
             ((MyApplication)getActivity().getApplication()).setLat(aMapLocation.getLatitude() + "");
             ((MyApplication)getActivity().getApplication()).setLon(aMapLocation.getLongitude() + "");
 
+            address.setText(aMapLocation.getAddress());
+
             if(((MyApplication)getActivity().getApplication()).getCityId() == null){
                 getCityId(aMapLocation.getLongitude() + "", aMapLocation.getLatitude() + "");
             }
         }else{
+            dismissProgressDialog();
             Toast.makeText(getActivity(), "定位失败", Toast.LENGTH_LONG).show();
         }
     }
@@ -154,6 +177,7 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         WeatherAPI.getGeo(getActivity(), lon, lat, new AsyncResponseHandler() {
             @Override
             public void onComplete(JSONObject content) {
+                dismissProgressDialog();
                 if ("0".equals(content.optString("status"))) {
                     JSONObject geo = content.optJSONObject("geo");
                     String id = geo.optString("id");
@@ -161,9 +185,9 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
                     ((MyApplication) getActivity().getApplication()).setCityId(id);
 
-                    if (((MyApplication) getActivity().getApplication()).getWeatherId() == null) {
-                        getWeather(id);
-                    }
+//                    if (((MyApplication) getActivity().getApplication()).getWeatherId() == null) {
+//                        getWeather(id);
+//                    }
                 } else {
                     Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
                 }
@@ -231,6 +255,7 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_PRESSURE){
+            Log.i("test","sensor:"+event.values);
             qiya.setText(event.values[0]+"hPa");
             pressure = event.values[0];
         }
@@ -242,6 +267,14 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
     }
 
     private void uploadWeather(){
+
+        if(TextUtils.isEmpty(weatherId)){
+            Toast.makeText(getActivity(), "请选择天气", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        showProgressDialog("正在上传");
+        Log.i("test", "weatherId====="+weatherId);
 
         JSONObject weather = new JSONObject();
         try {
@@ -262,12 +295,12 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         CrowdWeatherAPI.uploadMyWeather(getActivity(), params, new AsyncResponseHandler() {
             @Override
             public void onComplete(JSONObject content) {
+                dismissProgressDialog();
                 String str = "上传失败";
                 if (content != null) {
                     if ("SUCCESS".equals(content.optString("status"))) {
                         str = "上传成功";
                     }
-                    ;
                 }
                 Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
             }
@@ -332,4 +365,31 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
         return list;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tijiao:
+                uploadWeather();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showProgressDialog(String msg){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
+    }
 }
