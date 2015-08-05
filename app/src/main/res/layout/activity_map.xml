@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="575dp"
-    custom:autoScaleEnable="true"
+<com.xn121.scjg.nmt.scaleview.ScaleFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
         >
 
-        <RelativeLayout
+        <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/tabbackground"
-            android:padding="10dp"
+            android:background="@color/material_blue_500"
             >
 
-            <ImageView
+            <com.xn121.scjg.nmt.scaleview.ScaleImageView
                 android:id="@+id/back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/back"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
                 />
 
-            <TextView
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="地图"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_size_big2"
-                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/text_size_big"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
                 />
 
-        </RelativeLayout>
+        </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
         <com.amap.api.maps2d.MapView
             android:id="@+id/map"
@@ -45,7 +43,7 @@
             android:layout_height="fill_parent"
             />
 
-    </LinearLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
     <SlidingDrawer
         android:id="@+id/slidingDrawer"
@@ -57,7 +55,7 @@
         android:topOffset="250dp"
         >
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/handler"
             android:layout_width="197dp"
             android:layout_height="62dp"
@@ -94,4 +92,4 @@
 
 
     </SlidingDrawer>
-</me.dreamheart.autoscalinglayout.ASFrameLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleFrameLayout>

@@ -1,6 +1,7 @@
 package com.xn121.scjg.nmt.fragement;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -27,6 +29,9 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.com.weather.api.CommonAPI;
+import cn.com.weather.listener.AsyncResponseHandler;
+
 /**
  * Created by admin on 7/16/15.
  */
@@ -36,6 +41,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     private RequestQueue queue;
     private RetryPolicy retryPolicy;
     private TextView introduction;
+    private TextView checkupdate;
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -53,7 +60,9 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 
     private void init(){
         introduction = (TextView)rootView.findViewById(R.id.introduction);
+        checkupdate = (TextView)rootView.findViewById(R.id.checkupdate);
         introduction.setOnClickListener(this);
+        checkupdate.setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +108,44 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent(getActivity(), IntroActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.checkupdate:
+                checkUpdate();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void checkUpdate(){
+        showProgressDialog();
+        CommonAPI.updateVersion(getActivity(), new AsyncResponseHandler(){
+            @Override
+            public void onComplete(JSONObject content) {
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable error, String content) {
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.show();
+    }
+
+    private void dismissProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
         }
     }
 }

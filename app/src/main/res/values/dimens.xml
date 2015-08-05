@@ -22,7 +22,7 @@
     <dimen name="price_padding_bottom">1dp</dimen>
     <dimen name="price_marginlift">10dp</dimen>
     <dimen name="xiaoshou_width">40dp</dimen>
-    <dimen name="feiyong_et_marginleft">120dp</dimen>
+    <dimen name="feiyong_et_marginleft">110dp</dimen>
     <dimen name="chengben_margintop">15dp</dimen>
     <dimen name="button_padding">7dp</dimen>
     <dimen name="btn_width">140dp</dimen>

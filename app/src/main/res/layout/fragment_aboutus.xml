@@ -24,10 +24,10 @@
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
-            android:id="@+id/introduction"
+            android:id="@+id/checkupdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用说明"
+            android:text="检查更新"
             android:textSize="@dimen/text_size_small"
             android:layout_alignParentRight="true"
             android:padding="10dp"
@@ -72,6 +72,18 @@
                     android:text="v1.0"
                     android:textSize="@dimen/text_size_small"
                     android:layout_marginLeft="5dp"
+                    />
+
+                <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                    android:id="@+id/introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/title"
+                    android:text="使用说明"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView

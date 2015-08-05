@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.dreamheart.autoscalinglayout.ASRelativeLayout
+<com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    custom:designWidth="384dp"
-    custom:designHeight="100dp"
-    custom:autoScaleEnable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
     android:padding="10dp"
     >
 
-    <ImageView
+    <com.xn121.scjg.nmt.scaleview.ScaleImageView
         android:id="@+id/img"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@color/green_title"
         />
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/pf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +26,7 @@
         android:layout_marginTop="20dp"
         />
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/qgpfj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +37,7 @@
         android:layout_marginTop="20dp"
         />
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/ls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +49,7 @@
         android:layout_below="@id/pf"
         />
 
-    <TextView
+    <com.xn121.scjg.nmt.scaleview.ScaleTextView
         android:id="@+id/lsj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,4 +60,4 @@
         android:layout_below="@id/pf"
         />
 
-</me.dreamheart.autoscalinglayout.ASRelativeLayout>
+</com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>

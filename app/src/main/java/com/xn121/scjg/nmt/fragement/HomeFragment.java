@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.xn121.scjg.nmt.R;
+import com.xn121.scjg.nmt.ZixunActivity;
 import com.xn121.scjg.nmt.adapter.TabsViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private ViewPager viewPager;
     private ImageView btn_sell, btn_buy;
     private TabsViewPagerAdapter tabsViewPagerAdapter;
+    private TextView zixun;
 
     public static final int REQUEST_CODE_PROVINCESTART = 100;
     public static final int REQUEST_CODE_PROVINCEEND = 110;
@@ -85,6 +88,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         btn_sell.setOnClickListener(this);
         btn_buy.setOnClickListener(this);
 
+        zixun = (TextView)rootView.findViewById(R.id.zixun);
+        zixun.setOnClickListener(this);
+
         setSelected(0);
     }
 
@@ -105,6 +111,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.btn_buy:
                 setSelected(1);
+                break;
+            case R.id.zixun:
+                Intent intent = new Intent(getActivity(), ZixunActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -50,6 +50,7 @@
         <activity android:name=".MapActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Map4AskPriceActivity" android:screenOrientation="portrait"/>
         <activity android:name=".IntroActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ZixunActivity" android:screenOrientation="portrait"/>
 
         <!-- weatherapi-->
 

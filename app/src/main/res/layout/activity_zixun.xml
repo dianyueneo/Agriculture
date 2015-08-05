@@ -23,7 +23,7 @@
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用说明"
+            android:text="农业资讯"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_big"
             android:layout_centerInParent="true"
@@ -32,10 +32,19 @@
 
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="4dp"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_bar_states"
         />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
 </LinearLayout>

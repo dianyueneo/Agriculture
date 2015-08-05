@@ -1,1 +1,1 @@
-include ':app', ':lib-AutoScalingLayout'
+include ':app'

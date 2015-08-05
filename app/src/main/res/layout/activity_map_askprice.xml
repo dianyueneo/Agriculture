@@ -5,31 +5,32 @@
     android:orientation="vertical"
     >
 
-    <RelativeLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/tabbackground"
-        android:padding="10dp"
+        android:background="@color/material_blue_500"
         >
 
-        <ImageView
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/back"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
             />
 
-        <TextView
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="地图"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big2"
-            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/text_size_big"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
             />
 
-    </RelativeLayout>
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
     <com.amap.api.maps2d.MapView
         android:id="@+id/map"
