@@ -5,7 +5,7 @@ package com.cxwl.agriculture.util;
  * 此类不对外开放，测试Log,可不添加
  */
 public class Log {
-	private static final boolean LOG = true;
+	private static final boolean LOG = false;
 
 	//tag
 	private static final String Tag_AOI = "TEST-AOI";
