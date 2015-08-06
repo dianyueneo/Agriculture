@@ -231,22 +231,30 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
     private void initSerSor(){
         sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         if(sensor == null){
             tishi.setText("您的手机不支持气压传感器");
+            return;
         }
+
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.i("test", "sensor:onResume");
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.i("test", "sensor:onPause");
+        unregisterListener();
+    }
+
+    private void unregisterListener(){
         if(sensorManager != null){
             sensorManager.unregisterListener(this);
         }
@@ -255,9 +263,10 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_PRESSURE){
-            Log.i("test","sensor:"+event.values);
+            Log.i("test","sensor:"+event.values[0]);
             qiya.setText(event.values[0]+"hPa");
             pressure = event.values[0];
+            unregisterListener();
         }
     }
 
