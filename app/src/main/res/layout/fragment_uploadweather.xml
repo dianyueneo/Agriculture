@@ -86,6 +86,7 @@
             android:textColor="@android:color/white"
             android:layout_below="@id/nq"
             android:layout_marginTop="5dp"
+            android:maxLength="60"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -331,7 +333,8 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
                 showCarDialog();
                 break;
             case R.id.btn_ry:
-                showFuelDialog();
+                showPickerDialog();
+//                showFuelDialog();
                 break;
             case R.id.btn_hqxl:
                 getProfitStatement();
@@ -447,11 +450,39 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("燃油类型");
         final String[] carlist = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};
+
         builder.setItems(carlist, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 fuelId = which + 1 + "";
                 btn_ry.setText(carlist[which]);
+                sellStep6.complete();
+            }
+        });
+        builder.show();
+    }
+
+    private void showPickerDialog(){
+        final String[] carlist = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};
+        NumberPicker numberPicker = new NumberPicker(getActivity());
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(carlist.length - 1);
+        numberPicker.setDisplayedValues(carlist);
+        numberPicker.setValue(3);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                fuelId = newVal + 1 + "";
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("燃油类型");
+        builder.setView(numberPicker);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                btn_ry.setText(carlist[Integer.parseInt(fuelId) -1]);
                 sellStep6.complete();
             }
         });
