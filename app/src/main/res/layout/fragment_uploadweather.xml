@@ -81,7 +81,7 @@
             android:id="@+id/nq_content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="当地玉米涨势良好"
+            android:hint="请添加描述，最多输入六十个字符"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
             android:layout_below="@id/nq"
