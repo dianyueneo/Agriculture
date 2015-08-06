@@ -5,11 +5,12 @@
     android:orientation="horizontal"
     android:background="@color/green"
     android:padding="10dp"
+    android:layout_centerVertical="true"
     >
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:src="@drawable/guide_right"
         />
 

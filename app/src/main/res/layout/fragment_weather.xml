@@ -297,7 +297,7 @@
 
     </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
     
-    <com.xn121.scjg.nmt.chart.ChartView
+    <com.cxwl.agriculture.chart.ChartView
         android:id="@+id/chart"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
