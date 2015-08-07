@@ -36,6 +36,8 @@ import com.cxwl.agriculture.SellStep.SellStep;
 import com.cxwl.agriculture.bean.Profit;
 import com.cxwl.agriculture.netInterface.NetUtil;
 
+import net.simonvt.numberpicker.NumberPicker;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,7 +82,10 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
 
     private SellStep sellStep1, sellStep2, sellStep3, sellStep4, sellStep5, sellStep6, sellStep7, sellStep8;
 
-    private String provinceId_start, marketId, provinceId_end, provinceName_end, goodsPinin, carId, fuelId;
+    private String provinceId_start, marketId, provinceId_end, provinceName_end, goodsPinin, fuelId;
+
+    private String carId = "1";
+
 
     private RequestQueue requestQueue;
     private RetryPolicy retryPolicy;
@@ -328,10 +333,12 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
                 getPrice();
                 break;
             case R.id.btn_cl:
-                showCarDialog();
+                showCarPickerDialog();
+//                showCarDialog();
                 break;
             case R.id.btn_ry:
-                showFuelDialog();
+                showFuelPickerDialog();
+//                showFuelDialog();
                 break;
             case R.id.btn_hqxl:
                 getProfitStatement();
@@ -436,7 +443,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         builder.setItems(carlist, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                carId = which+1+"";
+                carId = which + 1 + "";
                 btn_cl.setText(carlist[which]);
             }
         });
@@ -447,11 +454,126 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("燃油类型");
         final String[] carlist = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};
+
         builder.setItems(carlist, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 fuelId = which + 1 + "";
                 btn_ry.setText(carlist[which]);
+                sellStep6.complete();
+            }
+        });
+        builder.show();
+    }
+
+    private void showCarPickerDialog(){
+        final String[] carlist = {"轻型货车", "中型货车", "重型货车","微型货车"};
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.dialg_numberpicker, null);
+
+        NumberPicker numberPicker = (NumberPicker)view.findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(carlist.length - 1);
+        numberPicker.setDisplayedValues(carlist);
+        numberPicker.setValue(Integer.parseInt(carId) -1);
+
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                carId = newVal+1+"";
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("车辆类型");
+        builder.setView(view);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                btn_cl.setText(carlist[Integer.parseInt(carId) - 1]);
+            }
+        });
+        builder.show();
+    }
+
+    private void showFuelPickerDialog(){
+
+        String[] carlist = null;
+        String[] carlist_key = null;
+        int defaultvalue = 0;
+
+
+        final String[] carlist1 = {"93汽油", "0柴油", "90汽油", "97汽油", "-10柴油", "-20柴油"};//1
+        final String[] carlist1_key = {"1", "2", "4", "5", "6", "7"};
+
+        final String[] carlist2 = {"0柴油", "-10柴油", "-20柴油"};//0
+        final String[] carlist2_key = {"2", "6", "7"};
+
+        final String[] carlist3 = {"0柴油", "-10柴油", "-20柴油"};//0
+        final String[] carlist3_key = {"2", "6", "7"};
+
+        final String[] carlist4 = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};//3
+        final String[] carlist4_key = {"1", "2", "3", "4", "5", "6", "7"};
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.dialg_numberpicker, null);
+
+        NumberPicker numberPicker = (NumberPicker)view.findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(0);
+
+        if("1".equals(carId)){
+            carlist = carlist1;
+            carlist_key = carlist1_key;
+            defaultvalue = 1;
+        }else if("2".equals(carId)){
+            carlist = carlist2;
+            carlist_key = carlist2_key;
+            defaultvalue = 0;
+        }else if("3".equals(carId)){
+            carlist = carlist3;
+            carlist_key = carlist3_key;
+            defaultvalue = 0;
+        }else  if("4".equals(carId)){
+            carlist = carlist4;
+            carlist_key = carlist4_key;
+            defaultvalue = 3;
+        }else{
+            carlist = carlist4;
+            carlist_key = carlist4_key;
+            defaultvalue = 0;
+        }
+
+        numberPicker.setMaxValue(carlist.length - 1);
+        numberPicker.setDisplayedValues(carlist);
+        numberPicker.setValue(defaultvalue);
+        fuelId = carlist_key[defaultvalue];
+
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                if("1".equals(carId)){
+                    fuelId = carlist1_key[newVal];
+                }else if("2".equals(carId)){
+                    fuelId = carlist2_key[newVal];
+                }else if("3".equals(carId)){
+                    fuelId = carlist3_key[newVal];
+                }else  if("4".equals(carId)){
+                    fuelId = carlist4_key[newVal];
+                }else{
+                    fuelId = carlist4_key[newVal];
+                }
+
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("燃油类型");
+        builder.setView(view);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                btn_ry.setText(carlist4[Integer.parseInt(fuelId) -1]);
                 sellStep6.complete();
             }
         });
@@ -554,6 +676,58 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         if(progressDialog != null){
             progressDialog.dismiss();
         }
+    }
+
+    private void getMarketNameList(String areaid){
+        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        String type = "xn121list";
+        String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
+        String key = NetUtil.getSignature(publicKey);
+        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0, 6) + "&key=" + key);
+
+        Log.i("test", url);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("test", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("test", "接口异常");
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+    private void getProductNameList(String areaid){
+        String date = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+        String type = "xn121list";
+        String publicKey = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID);
+        String key = NetUtil.getSignature(publicKey);
+        String url = String.format(NetUtil.GETPRICE, areaid, type, date, NetUtil.APPID.substring(0,6)+"&key="+key);
+
+        Log.i("test", url);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("test", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("test", "接口异常");
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(retryPolicy);
+        requestQueue.add(jsonObjectRequest);
+
     }
 
 }
