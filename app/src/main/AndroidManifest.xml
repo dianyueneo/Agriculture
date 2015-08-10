@@ -21,6 +21,7 @@
 
     <!-- WeatherAPI-->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application

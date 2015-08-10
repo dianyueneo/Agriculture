@@ -24,6 +24,7 @@
     <dimen name="xiaoshou_width">40dp</dimen>
     <dimen name="feiyong_et_marginleft">90dp</dimen>
     <dimen name="chengben_margintop">15dp</dimen>
+    <dimen name="edittext_margintop">10dp</dimen>
     <dimen name="button_padding">7dp</dimen>
     <dimen name="btn_width">140dp</dimen>
 

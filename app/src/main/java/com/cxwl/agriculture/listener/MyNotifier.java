@@ -53,9 +53,7 @@ public class MyNotifier implements Notifier{
         Notification notification = new Notification();
         notification.icon = R.mipmap.ic_launcher;
         notification.tickerText = context.getResources().getString(R.string.app_name);
-        notification.defaults = Notification.DEFAULT_LIGHTS;
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
+        notification.defaults = Notification.DEFAULT_ALL;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.when = System.currentTimeMillis();
 
@@ -74,8 +72,10 @@ public class MyNotifier implements Notifier{
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis())
-                .setOngoing(true);
-        return builder.getNotification();
+                .setDefaults(Notification.DEFAULT_ALL);
+        Notification notification = builder.getNotification();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        return notification;
     }
 
     @TargetApi(16)
@@ -87,8 +87,10 @@ public class MyNotifier implements Notifier{
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis())
-                .setOngoing(true);
-        return builder.build();
+                .setDefaults(Notification.DEFAULT_ALL);
+        Notification notification = builder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        return notification;
     }
 
 

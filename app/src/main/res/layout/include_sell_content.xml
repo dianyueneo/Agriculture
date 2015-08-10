@@ -450,11 +450,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:layout_toRightOf="@id/xiaoshou"
-            android:layout_alignBottom="@id/xiaoshou"
             android:hint="0"
             android:singleLine="true"
             android:inputType="numberDecimal"
             android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/text_border"
+            android:padding="5dp"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
@@ -476,10 +478,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/line9"
             android:layout_toRightOf="@id/xiaoshou_cb"
-            android:layout_alignBottom="@id/xiaoshou_cb"
             android:hint="0"
             android:inputType="numberDecimal"
             android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/text_border"
+            android:padding="5dp"
             />
 
 
@@ -581,6 +585,7 @@
             android:textSize="@dimen/text_size_small"
             android:textColor="@color/grey"
             android:layout_below="@id/line13"
+            android:layout_marginTop="5dp"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleEditText
@@ -589,10 +594,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/line13"
             android:layout_toRightOf="@id/gongren"
-            android:layout_alignBaseline="@id/gongren"
             android:hint="0"
             android:inputType="numberDecimal"
             android:layout_marginLeft="@dimen/feiyong_et_marginleft"
+            android:background="@drawable/text_border"
+            android:padding="5dp"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
@@ -603,6 +609,7 @@
             android:layout_toRightOf="@id/et_gr"
             android:text="@string/yuan"
             android:textSize="@dimen/text_size_small"
+            android:layout_marginTop="5dp"
             />
 
 
@@ -623,11 +630,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/gongren"
             android:layout_toRightOf="@id/cailiao"
-            android:layout_alignBaseline="@id/cailiao"
             android:hint="0"
             android:inputType="numberDecimal"
             android:layout_marginLeft="@dimen/feiyong_et_marginleft"
-            android:layout_marginTop="@dimen/chengben_margintop"
+            android:layout_marginTop="@dimen/edittext_margintop"
+            android:background="@drawable/text_border"
+            android:padding="5dp"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
@@ -659,11 +667,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cailiao"
             android:layout_toRightOf="@id/qtfy"
-            android:layout_alignBaseline="@id/qtfy"
             android:hint="0"
             android:inputType="numberDecimal"
             android:layout_marginLeft="@dimen/feiyong_et_marginleft"
-            android:layout_marginTop="@dimen/chengben_margintop"
+            android:layout_marginTop="@dimen/edittext_margintop"
+            android:background="@drawable/text_border"
+            android:padding="5dp"
             />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
