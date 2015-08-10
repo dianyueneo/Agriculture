@@ -51,21 +51,27 @@
             >
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="@dimen/progress_short_width"
-                android:layout_height="@dimen/progress_short_heigt"
-                android:src="@drawable/progress_short"
+                android:layout_width="15dp"
+                android:layout_height="40dp"
+                android:background="@drawable/progress_s"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="@dimen/progress_short_width"
-                android:layout_height="@dimen/progress_short_heigt"
-                android:src="@drawable/progress_short"
+                android:layout_width="15dp"
+                android:layout_height="80dp"
+                android:background="@drawable/progress_s"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="@dimen/progress_short_width"
-                android:layout_height="@dimen/progress_short_heigt"
-                android:src="@drawable/progress_short"
+                android:layout_width="15dp"
+                android:layout_height="320dp"
+                android:background="@drawable/progress_s"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/progress_head"
                 />
 
 
@@ -170,9 +176,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingRight="15dp"
                 android:paddingBottom="15dp"
                 android:background="@color/grey_background"
+                android:layout_marginRight="15dp"
                 >
                 <com.xn121.scjg.nmt.scaleview.ScaleImageView
                     android:id="@+id/img"
