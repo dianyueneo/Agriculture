@@ -55,6 +55,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("test", "onCreateView======"+this.getClass().getSimpleName());
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_weather, null);
             init();

@@ -48,24 +48,43 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             >
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
                 android:layout_width="15dp"
-                android:layout_height="40dp"
-                android:background="@drawable/progress_s"
+                android:layout_height="15dp"
+                android:background="@drawable/progress_head"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:layout_width="15dp"
+                android:layout_height="27dp"
+                android:background="@drawable/line"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
                 android:layout_width="15dp"
-                android:layout_height="80dp"
-                android:background="@drawable/progress_s"
+                android:layout_height="15dp"
+                android:background="@drawable/progress_head"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:layout_width="15dp"
+                android:layout_height="60dp"
+                android:background="@drawable/line"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
                 android:layout_width="15dp"
-                android:layout_height="320dp"
-                android:background="@drawable/progress_s"
+                android:layout_height="15dp"
+                android:background="@drawable/progress_head"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:layout_width="15dp"
+                android:layout_height="290dp"
+                android:background="@drawable/line"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleImageView
@@ -176,7 +195,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingBottom="15dp"
+                android:paddingBottom="10dp"
                 android:background="@color/grey_background"
                 android:layout_marginRight="15dp"
                 >

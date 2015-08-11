@@ -63,6 +63,7 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("test", "onCreateView======"+this.getClass().getSimpleName());
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_ask, null);
             initView();
