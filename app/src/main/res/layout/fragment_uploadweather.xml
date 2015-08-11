@@ -1,114 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xn121.scjg.nmt.scaleview.ScaleLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/material_blue_500"
-        >
+        android:background="@color/material_blue_500">
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/toolbartitle"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_big"
-            android:text="农情信息"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="10dp"
-            />
+            android:text="农情信息"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big" />
 
         <com.xn121.scjg.nmt.scaleview.ScaleTextView
             android:id="@+id/tijiao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提交"
-            android:textSize="@dimen/text_size_small"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            />
+            android:text="提交"
+            android:textSize="@dimen/text_size_small" />
     </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
-    <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_height="wrap_content">
+
+        <com.xn121.scjg.nmt.scaleview.ScaleView
+            android:id="@+id/line1"
+            android:layout_width="15dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="74dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/line" />
 
         <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            >
-
-            <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/progress_head"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleView
-                android:layout_width="15dp"
-                android:layout_height="27dp"
-                android:background="@drawable/line"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/progress_head"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleView
-                android:layout_width="15dp"
-                android:layout_height="60dp"
-                android:background="@drawable/line"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/progress_head"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleView
-                android:layout_width="15dp"
-                android:layout_height="290dp"
-                android:background="@drawable/line"
-                />
-
-            <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:background="@drawable/progress_head"
-                />
-
-
-        </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
-
-        <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            >
+            android:layout_marginLeft="12dp"
+            android:orientation="vertical">
 
             <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
                 android:id="@+id/top"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="15dp"
-                android:paddingRight="15dp"
-                >
+                android:paddingRight="15dp">
+
+                <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                    android:id="@+id/head1"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/progress_head"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="4dp"
+                    />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/weizhi"
@@ -116,62 +72,97 @@
                     android:layout_height="wrap_content"
                     android:text="当前位置"
                     android:textSize="@dimen/text_size_big2"
+                    android:layout_toRightOf="@id/head1"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="北京市朝阳区建外soho"
-                    android:textSize="@dimen/text_size_smaller"
-                    android:layout_toRightOf="@id/weizhi"
-                    android:layout_alignBaseline="@id/weizhi"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/weizhi"
+                    android:text="北京市朝阳区建外soho"
+                    android:textSize="@dimen/text_size_smaller" />
+
+
+            </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+            <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+                android:id="@+id/top1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingRight="15dp">
+
+                <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                    android:id="@+id/head2"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/progress_head"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="4dp"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/nq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/weizhi"
                     android:text="农情信息"
                     android:textSize="@dimen/text_size_big2"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/weizhi"
+                    android:layout_toRightOf="@id/head2"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleEditText
                     android:id="@+id/nq_content"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="请添加描述，最多输入六十个字符"
                     android:layout_below="@id/nq"
+                    android:layout_toRightOf="@id/head2"
                     android:layout_marginTop="5dp"
-                    android:maxLength="60"
                     android:background="@drawable/text_border"
-                    android:padding="5dp"
+                    android:hint="请添加描述，最多输入六十个字符"
+                    android:maxHeight="65dp"
+                    android:maxLength="60"
+                    android:padding="5dp" />
+
+            </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+            <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+                android:id="@+id/top2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp">
+
+                <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                    android:id="@+id/head3"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/progress_head"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="4dp"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/weatheris"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/nq_content"
                     android:text="现在的天气是？"
                     android:textSize="@dimen/text_size_big2"
-                    android:layout_below="@id/nq_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/head3"
                     />
 
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_size_smaller"
-                    android:layout_below="@id/weizhi"
-                    android:layout_toRightOf="@id/weatheris"
-                    android:layout_marginTop="15dp"
                     android:layout_alignBaseline="@id/weatheris"
+                    android:layout_below="@id/weizhi"
                     android:layout_marginLeft="5dp"
-                    />
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/weatheris"
+                    android:textSize="@dimen/text_size_smaller" />
 
             </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
@@ -179,70 +170,85 @@
                 android:id="@+id/gridview"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:numColumns="4"
-                android:scrollbars="none"
-                android:listSelector="@android:color/transparent"
-                android:choiceMode="singleChoice"
                 android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:choiceMode="singleChoice"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="4"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:scrollbars="none"
+                android:layout_marginLeft="5dp"
                 />
-
-
 
             <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="15dp"
-                android:paddingBottom="10dp"
-                android:background="@color/grey_background"
-                android:layout_marginRight="15dp"
-                >
+                android:layout_height="wrap_content">
+
                 <com.xn121.scjg.nmt.scaleview.ScaleImageView
-                    android:id="@+id/img"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/qiya"
+                    android:id="@+id/head4"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/progress_head"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginRight="4dp"
                     />
 
-                <com.xn121.scjg.nmt.scaleview.ScaleTextView
-                    android:id="@+id/qy"
-                    android:layout_width="wrap_content"
+                <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="气压"
-                    android:textSize="@dimen/text_size_small"
-                    android:layout_toRightOf="@id/img"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginRight="15dp"
+                    android:background="@color/grey_background"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:layout_toRightOf="@id/head4"
+                    >
 
-                <com.xn121.scjg.nmt.scaleview.ScaleTextView
-                    android:id="@+id/qiya"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0hPa"
-                    android:textSize="@dimen/text_size_smaller"
-                    android:layout_toRightOf="@id/img"
-                    android:layout_below="@id/qy"
-                    android:layout_marginLeft="10dp"
-                    />
 
-                <com.xn121.scjg.nmt.scaleview.ScaleTextView
-                    android:id="@+id/tishi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="（数据来源于手机传感器，仅供参考）"
-                    android:layout_below="@id/img"
-                    />
+
+                    <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                        android:id="@+id/img"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/qiya"
+                        />
+
+                    <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                        android:id="@+id/qy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/img"
+                        android:text="气压"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                        android:id="@+id/qiya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/qy"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/img"
+                        android:text="0hPa"
+                        android:textSize="@dimen/text_size_smaller" />
+
+                    <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                        android:id="@+id/tishi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img"
+                        android:text="（数据来源于手机传感器，仅供参考）" />
+
+                </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
             </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+
+
         </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
-
-
-    </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
-
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
 
 </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
