@@ -85,6 +85,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
     private String provinceId_start, marketId, provinceId_end, provinceName_end, goodsPinin, fuelId;
 
     private String carId = "1";
+    private final String[] carlist4 = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};//3
 
 
     private RequestQueue requestQueue;
@@ -476,8 +477,8 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(carlist.length - 1);
         numberPicker.setDisplayedValues(carlist);
-        numberPicker.setValue(Integer.parseInt(carId) -1);
-
+        numberPicker.setValue(Integer.parseInt(carId) - 1);
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -492,9 +493,26 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 btn_cl.setText(carlist[Integer.parseInt(carId) - 1]);
+                showNext();
             }
         });
         builder.show();
+    }
+
+    private void showNext(){
+        if("1".equals(carId)){
+            fuelId = "2";
+        }else if("2".equals(carId)){
+            fuelId = "2";
+        }else if("3".equals(carId)){
+            fuelId = "2";
+        }else  if("4".equals(carId)){
+            fuelId = "4";
+        }else{
+            return;
+        }
+        btn_ry.setText(carlist4[Integer.parseInt(fuelId) -1]);
+        sellStep6.complete();
     }
 
     private void showFuelPickerDialog(){
@@ -513,7 +531,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         final String[] carlist3 = {"0柴油", "-10柴油", "-20柴油"};//0
         final String[] carlist3_key = {"2", "6", "7"};
 
-        final String[] carlist4 = {"93汽油", "0柴油", "天然气", "90汽油", "97汽油", "-10柴油", "-20柴油"};//3
+
         final String[] carlist4_key = {"1", "2", "3", "4", "5", "6", "7"};
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -548,7 +566,7 @@ public class HomeSellFragment extends Fragment implements View.OnClickListener{
         numberPicker.setDisplayedValues(carlist);
         numberPicker.setValue(defaultvalue);
         fuelId = carlist_key[defaultvalue];
-
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
