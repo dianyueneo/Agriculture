@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.cxwl.agriculture.db.AssetsUtil;
 import com.cxwl.agriculture.listener.MyNotifier;
@@ -24,7 +25,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.i("test", "onCreate======" + this.getClass().getSimpleName());
         setContentView(R.layout.activity_splash);
 
         PushAgent pushAgent = PushAgent.getInstance(this);
@@ -37,9 +38,10 @@ public class SplashActivity extends Activity {
                 Intent i = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
+                Log.i("test", "finish======");
             }
         }, 1000);
-
+        Log.i("test", "postDelayed======");
         AssetsUtil.initDb(this);
 
 

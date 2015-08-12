@@ -1,8 +1,12 @@
 package com.cxwl.agriculture.fragement;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +27,9 @@ import com.android.volley.toolbox.Volley;
 import com.cxwl.agriculture.IntroActivity;
 import com.cxwl.agriculture.R;
 import com.cxwl.agriculture.netInterface.NetUtil;
+import com.github.snowdream.android.app.DownloadListener;
+import com.github.snowdream.android.app.DownloadManager;
+import com.github.snowdream.android.app.DownloadTask;
 
 import org.json.JSONObject;
 
@@ -43,6 +50,9 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     private TextView introduction;
     private TextView checkupdate;
     private ProgressDialog progressDialog;
+    private DownloadManager downloadManager;
+    private DownloadTask downloadTask;
+    private String url;
 
     @Nullable
     @Override
@@ -123,7 +133,20 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onComplete(JSONObject content) {
                 dismissProgressDialog();
-                Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();
+                if("SUCCESS".equals(content.optString("status"))){
+                    JSONObject data = content.optJSONObject("data");
+                    String latestVersion = data.optString("latestVersion");
+                    url = data.optString("url");
+                    if(latestVersion.equals(getVersion())){
+                        Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();
+                    }else{
+                        String message = "是否从当前版本号"+getVersion()+"升级到版本号"+latestVersion;
+                        showUpdateDialog(message, url);
+                    }
+
+                }
+
+
             }
 
             @Override
@@ -133,6 +156,64 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
+
+    private void showUpdateDialog(String message, final String url){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("更新提示")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        //TODO
+                        downLoad(url);
+                    }
+                })
+                .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void showTryUpdateDialog(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("更新提示")
+                .setMessage("下载失败，是否重试？")
+                .setCancelable(false)
+                .setPositiveButton("下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        //TODO
+                        downLoad(url);
+                    }
+                })
+                .setNegativeButton("去掉", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private String getVersion(){
+        String version = null;
+        PackageManager pm = getActivity().getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), 0);
+            version = pi.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            return version;
+        }
+    }
+
 
     private void showProgressDialog(){
         if(progressDialog == null){
@@ -144,9 +225,69 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         progressDialog.show();
     }
 
+    private void showProgressDialog(String title){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+        }
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(true);
+        progressDialog.setTitle(title);
+        progressDialog.setMessage("正在下载请稍后");
+        progressDialog.setProgress(100);
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                cancleDownLoad();
+            }
+        });
+
+        progressDialog.show();
+    }
+
     private void dismissProgressDialog(){
         if(progressDialog != null){
             progressDialog.dismiss();
         }
     }
+
+    private void downLoad(String url){
+        downloadManager = new DownloadManager(getActivity());
+        downloadTask = new DownloadTask(getActivity());
+        downloadTask.setUrl(url);
+        downloadManager.add(downloadTask, listener);
+        downloadManager.start(downloadTask, listener);
+    }
+
+    private void cancleDownLoad(){
+        downloadManager.stop(downloadTask, listener);
+    }
+
+    private DownloadListener listener = new DownloadListener<Integer, DownloadTask>(){
+        @Override
+        public void onStart() {
+            super.onStart();
+            showProgressDialog("下载");
+        }
+
+        @Override
+        public void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            if(progressDialog != null){
+                progressDialog.setProgress(values[0]);
+            }
+        }
+
+        @Override
+        public void onSuccess(DownloadTask downloadTask) {
+            super.onSuccess(downloadTask);
+            dismissProgressDialog();
+        }
+
+        @Override
+        public void onError(Throwable thr) {
+            super.onError(thr);
+            showTryUpdateDialog();
+        }
+    };
 }
