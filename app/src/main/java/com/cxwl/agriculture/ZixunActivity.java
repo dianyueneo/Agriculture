@@ -32,7 +32,7 @@ public class ZixunActivity extends Activity implements View.OnClickListener{
         pb.setMax(100);
 
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+//        webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);

@@ -96,12 +96,12 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         mLocationManagerProxy.setGpsEnable(false);
 
         GregorianCalendar calendar = new GregorianCalendar();
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+        int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
 
         date.setText(month + "月" + day + "日");
-        String[] weekdatyname = {"星期一","星期二","星期三","星期四","星期五","星期六","星期日"};
+        String[] weekdatyname = {"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
         week.setText(weekdatyname[weekday]);
 
         startLocation();

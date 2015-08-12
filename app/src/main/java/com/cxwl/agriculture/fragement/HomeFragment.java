@@ -144,6 +144,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        tabsViewPagerAdapter.getItem(viewPager.getCurrentItem()).onActivityResult(requestCode, resultCode, data);
+        int item = viewPager.getCurrentItem();
+        Fragment fragment = tabsViewPagerAdapter.getItem(item);
+        fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

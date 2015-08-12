@@ -60,9 +60,14 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
 
     private String appId = "55b4a6ff";
 
+    private long start;
+    private long middle;
+    private long end;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        middle = System.currentTimeMillis();
         Log.i("test", "onCreateView======"+this.getClass().getSimpleName());
         if(rootView == null){
             rootView = inflater.inflate(R.layout.fragment_ask, null);
@@ -79,8 +84,17 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        start = System.currentTimeMillis();
         queue = Volley.newRequestQueue(activity);
         retryPolicy = new DefaultRetryPolicy(5000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        end = System.currentTimeMillis();
+        System.out.println("end-start===="+(end-start));
+        System.out.println("end-middle===="+(end-middle));
     }
 
     private void initView(){
@@ -88,7 +102,6 @@ public class AskPriceFragment extends Fragment implements View.OnClickListener, 
         speech = (ImageView)rootView.findViewById(R.id.speech);
         clear = (ImageView)rootView.findViewById(R.id.clear);
 
-        speech.setOnClickListener(this);
         speech.setOnLongClickListener(this);
         clear.setOnClickListener(this);
 

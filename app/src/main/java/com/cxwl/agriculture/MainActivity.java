@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("test", "onCreate======" + this.getClass().getSimpleName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        this.getWindow().setBackgroundDrawable(null);
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             mTabHost.addTab(tabSpec, fragmentArray[i], null);
             mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
-
     }
 
     private View getTabItemView(int index){
@@ -65,11 +66,6 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(this.getResources().getString(textArray[index]));
 
         return view;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
