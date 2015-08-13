@@ -65,6 +65,7 @@ public class MapActivity extends FragmentActivity implements RouteSearch.OnRoute
             Profit profit = list.get(0);
             startDriveRouteQuery(profit);
         }
+
     }
 
     private void init(){
