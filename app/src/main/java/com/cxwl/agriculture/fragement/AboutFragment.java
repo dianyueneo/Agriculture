@@ -7,7 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,6 +36,7 @@ import com.github.snowdream.android.app.DownloadTask;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -49,10 +53,12 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     private RetryPolicy retryPolicy;
     private TextView introduction;
     private TextView checkupdate;
-    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog, loadProgressDialog;
+    private AlertDialog alertDialog;
     private DownloadManager downloadManager;
     private DownloadTask downloadTask;
     private String url;
+    private String name;
 
     @Nullable
     @Override
@@ -129,18 +135,20 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 
     private void checkUpdate(){
         showProgressDialog();
-        CommonAPI.updateVersion(getActivity(), new AsyncResponseHandler(){
+        CommonAPI.updateVersion(getActivity(), new AsyncResponseHandler() {
             @Override
             public void onComplete(JSONObject content) {
                 dismissProgressDialog();
-                if("SUCCESS".equals(content.optString("status"))){
+                if ("SUCCESS".equals(content.optString("status"))) {
                     JSONObject data = content.optJSONObject("data");
                     String latestVersion = data.optString("latestVersion");
                     url = data.optString("url");
-                    if(latestVersion.equals(getVersion())){
+                    url = "http://download.weather.com.cn/3g/ChinaWeather_AndroidV3.1.4.apk";
+                    name = url.substring(url.lastIndexOf("/") + 1);
+                    if (latestVersion.equals(getVersion())) {
                         Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();
-                    }else{
-                        String message = "是否从当前版本号"+getVersion()+"升级到版本号"+latestVersion;
+                    } else {
+                        String message = "是否从当前版本号" + getVersion() + "升级到版本号" + latestVersion;
                         showUpdateDialog(message, url);
                     }
 
@@ -165,39 +173,47 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
                 .setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        //TODO
-                        downLoad(url);
+                        if (!isSDuseable()) {
+                            showSdCardDialog("存储卡不可用");
+                            return;
+                        }
+                        if (getUseableStorage() < 10) {
+                            showSdCardDialog("存储卡剩余的空间不足");
+                            return;
+                        }
+                        downLoad(url, name);
                     }
                 })
-                .setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton("以后再说", null)
+                .show();
+    }
+
+    private void showSdCardDialog(String msg){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("更新提示")
+                .setMessage(msg)
+                .setCancelable(false)
+                .setNegativeButton("好的", null)
                 .show();
     }
 
     private void showTryUpdateDialog(){
-        new AlertDialog.Builder(getActivity())
+        Log.i("test", "showTryUpdateDialog");
+        if(alertDialog != null && alertDialog.isShowing()){
+            return;
+        }
+
+        alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle("更新提示")
                 .setMessage("下载失败，是否重试？")
                 .setCancelable(false)
                 .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        //TODO
-                        downLoad(url);
+                        downLoad(url, name);
                     }
                 })
-                .setNegativeButton("去掉", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                .setNegativeButton("取消", null)
                 .show();
     }
 
@@ -226,23 +242,23 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     }
 
     private void showProgressDialog(String title){
-        if(progressDialog == null){
-            progressDialog = new ProgressDialog(getActivity());
+        if(loadProgressDialog == null){
+            loadProgressDialog = new ProgressDialog(getActivity());
         }
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setCancelable(true);
-        progressDialog.setTitle(title);
-        progressDialog.setMessage("正在下载请稍后");
-        progressDialog.setProgress(100);
-        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        loadProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        loadProgressDialog.setIndeterminate(false);
+        loadProgressDialog.setCancelable(false);
+        loadProgressDialog.setTitle(title);
+        loadProgressDialog.setMessage("正在下载请稍后");
+        loadProgressDialog.setProgress(100);
+        loadProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onClick(DialogInterface dialogInterface, int i) {
                 cancleDownLoad();
             }
         });
 
-        progressDialog.show();
+        loadProgressDialog.show();
     }
 
     private void dismissProgressDialog(){
@@ -250,11 +266,18 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
             progressDialog.dismiss();
         }
     }
+    private void dismissLoadProgressDialog(){
+        if(loadProgressDialog != null){
+            loadProgressDialog.dismiss();
+        }
+    }
 
-    private void downLoad(String url){
+    private void downLoad(String url, String name){
         downloadManager = new DownloadManager(getActivity());
         downloadTask = new DownloadTask(getActivity());
         downloadTask.setUrl(url);
+        downloadTask.setName(name);
+        downloadTask.setPath(getActivity().getExternalCacheDir().getPath());
         downloadManager.add(downloadTask, listener);
         downloadManager.start(downloadTask, listener);
     }
@@ -273,21 +296,61 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         @Override
         public void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            if(progressDialog != null){
-                progressDialog.setProgress(values[0]);
+            if(loadProgressDialog != null){
+                loadProgressDialog.setProgress(values[0]);
             }
         }
 
         @Override
         public void onSuccess(DownloadTask downloadTask) {
             super.onSuccess(downloadTask);
-            dismissProgressDialog();
+            dismissLoadProgressDialog();
+            replaceLaunchApk();
         }
 
         @Override
         public void onError(Throwable thr) {
             super.onError(thr);
+            Log.i("test", "onError...");
+            dismissLoadProgressDialog();
             showTryUpdateDialog();
         }
     };
+
+    private String getSDCartPath(){
+        return Environment.getExternalStorageDirectory().getPath();
+    }
+
+    private boolean isSDuseable(){
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+    private long getUseableStorage(){
+        String state = Environment.getExternalStorageState();
+        if(state.equals(Environment.MEDIA_MOUNTED)){
+            StatFs statFs = new StatFs(getSDCartPath());
+
+            long abl = statFs.getAvailableBlocks();
+            long  bsl = statFs.getBlockSize();
+            return abl*bsl/1024/1024;
+        }else{
+            return -1;
+        }
+    }
+
+    //启动安装替换apk
+    private void replaceLaunchApk() {
+        String apkpath = getActivity().getExternalCacheDir().getPath() + File.pathSeparator + name;
+        File file = new File(apkpath);
+        if (file.exists()) {
+            Intent intent = new Intent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setAction(android.content.Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            startActivity(intent);
+        } else {
+            Log.e("test", "File not exsit:" + apkpath);
+        }
+    }
 }

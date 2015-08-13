@@ -1,6 +1,7 @@
 package com.cxwl.agriculture;
 
 import android.app.Application;
+import android.os.Environment;
 import android.test.ApplicationTestCase;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,6 +16,10 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void test(){
         DisplayMetrics dm = this.getContext().getResources().getDisplayMetrics();
-        Log.i("test", "====="+dm.widthPixels);
+        Log.i("test", "=====" + dm.widthPixels);
+    }
+
+    public void test2(){
+        Log.i("test", "=====" + Environment.getExternalStorageDirectory().getPath());
     }
 }
