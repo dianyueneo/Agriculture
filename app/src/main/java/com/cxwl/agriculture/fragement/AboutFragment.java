@@ -155,9 +155,9 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
                         showUpdateDialog(message, url);
                     }
 
+                }else if("FAILURE".equals(content.optString("status"))){
+                    Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();
                 }
-
-
             }
 
             @Override
