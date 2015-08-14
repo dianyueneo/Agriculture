@@ -3,8 +3,10 @@ package com.cxwl.agriculture.fragement;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -59,6 +61,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     private DownloadTask downloadTask;
     private String url;
     private String name;
+    private String latestVersion;
+    private static final String NAME = "loadapk";
 
     @Nullable
     @Override
@@ -141,7 +145,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
                 dismissProgressDialog();
                 if ("SUCCESS".equals(content.optString("status"))) {
                     JSONObject data = content.optJSONObject("data");
-                    String latestVersion = data.optString("latestVersion");
+                    latestVersion = data.optString("latestVersion");
                     url = data.optString("url");
                     url = "http://download.weather.com.cn/3g/ChinaWeather_AndroidV3.1.4.apk";
                     name = url.substring(url.lastIndexOf("/") + 1);
@@ -236,21 +240,18 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
             progressDialog = new ProgressDialog(getActivity());
         }
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setIndeterminate(false);
         progressDialog.setCancelable(true);
         progressDialog.show();
     }
 
     private void showProgressDialog(String title){
-        if(loadProgressDialog == null){
-            loadProgressDialog = new ProgressDialog(getActivity());
-        }
+        loadProgressDialog = new ProgressDialog(getActivity());
         loadProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         loadProgressDialog.setIndeterminate(false);
         loadProgressDialog.setCancelable(false);
         loadProgressDialog.setTitle(title);
         loadProgressDialog.setMessage("正在下载请稍后");
-        loadProgressDialog.setProgress(100);
+        loadProgressDialog.setMax(100);
         loadProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -273,11 +274,25 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
     }
 
     private void downLoad(String url, String name){
+        String path = getAPKPath();
+        File file = new File(path);
+
+        String apk = getDownload(latestVersion);
+        if(apk != null){
+            if(file.exists()){
+                replaceLaunchApk();
+                return;
+            }
+        }
+
+        if(file.exists()){
+            file.delete();
+        }
+
         downloadManager = new DownloadManager(getActivity());
         downloadTask = new DownloadTask(getActivity());
         downloadTask.setUrl(url);
-        downloadTask.setName(name);
-        downloadTask.setPath(getActivity().getExternalCacheDir().getPath());
+        downloadTask.setPath(path);
         downloadManager.add(downloadTask, listener);
         downloadManager.start(downloadTask, listener);
     }
@@ -305,6 +320,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         public void onSuccess(DownloadTask downloadTask) {
             super.onSuccess(downloadTask);
             dismissLoadProgressDialog();
+            saveDownload(latestVersion, name);
             replaceLaunchApk();
         }
 
@@ -316,6 +332,18 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
             showTryUpdateDialog();
         }
     };
+
+    private void saveDownload(String version, String name){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(version, name);
+        editor.commit();
+    }
+
+    private String getDownload(String version){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(version, null);
+    }
 
     private String getSDCartPath(){
         return Environment.getExternalStorageDirectory().getPath();
@@ -341,7 +369,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
 
     //启动安装替换apk
     private void replaceLaunchApk() {
-        String apkpath = getActivity().getExternalCacheDir().getPath() + File.pathSeparator + name;
+        String apkpath = getAPKPath();
         File file = new File(apkpath);
         if (file.exists()) {
             Intent intent = new Intent();
@@ -352,5 +380,9 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
         } else {
             Log.e("test", "File not exsit:" + apkpath);
         }
+    }
+
+    private String getAPKPath(){
+        return getActivity().getExternalCacheDir().getPath() + File.separator + name;
     }
 }
