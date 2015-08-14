@@ -147,7 +147,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener{
                     JSONObject data = content.optJSONObject("data");
                     latestVersion = data.optString("latestVersion");
                     url = data.optString("url");
-                    url = "http://download.weather.com.cn/3g/ChinaWeather_AndroidV3.1.4.apk";
                     name = url.substring(url.lastIndexOf("/") + 1);
                     if (latestVersion.equals(getVersion())) {
                         Toast.makeText(getActivity(), "已经是最新版本", Toast.LENGTH_LONG).show();

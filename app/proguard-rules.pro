@@ -39,6 +39,10 @@
 -keep class com.amap.api.maps2d.**{*;}
 -keep class com.amap.api.mapcore2d.**{*;}
 
+#下载
+-keep class com.j256.ormlite.**{*;}
+-keep class com.github.snowdream.android.**{*;}
+-keep class org.apache.commons.lang3.**{*;}
 
 -dontwarn android.support.v4.**
 -keep class android.support.v4.** { *; }
