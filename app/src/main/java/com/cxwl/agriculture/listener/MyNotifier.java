@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.cxwl.agriculture.R;
+import com.cxwl.agriculture.util.WarningParser;
 import com.smartapi.pn.client.Notifier;
 
 public class MyNotifier implements Notifier{
@@ -51,7 +52,7 @@ public class MyNotifier implements Notifier{
 
     private Notification getNotification_1(String title, String message, PendingIntent contentIntent){
         Notification notification = new Notification();
-        notification.icon = R.mipmap.ic_launcher;
+        notification.icon = getIcon(title);
         notification.tickerText = context.getResources().getString(R.string.app_name);
         notification.defaults = Notification.DEFAULT_ALL;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -70,7 +71,7 @@ public class MyNotifier implements Notifier{
                 .setContentTitle(title)
                 .setContentText(message)
                 .setContentIntent(contentIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(getIcon(title))
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(Notification.DEFAULT_ALL);
         Notification notification = builder.getNotification();
@@ -85,7 +86,7 @@ public class MyNotifier implements Notifier{
                 .setContentTitle(title)
                 .setContentText(message)
                 .setContentIntent(contentIntent)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(getIcon(title))
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(Notification.DEFAULT_ALL);
         Notification notification = builder.build();
@@ -93,6 +94,15 @@ public class MyNotifier implements Notifier{
         return notification;
     }
 
+
+    private int getIcon(String title){
+        String weatherkey = WarningParser.getWeatherKey(title);
+        String colorkey = WarningParser.getColorKey(title);
+        if(weatherkey == null || colorkey == null){
+            return R.mipmap.ic_launcher;
+        }
+        return context.getResources().getIdentifier("hf_warning_"+ weatherkey +"_"+ colorkey, "drawable", context.getPackageName());
+    }
 
 
 }
