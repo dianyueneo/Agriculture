@@ -36,11 +36,9 @@
             />
 
 
-        <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
+        <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
             >
 
             <com.xn121.scjg.nmt.scaleview.ScaleTextView
@@ -55,10 +53,13 @@
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
+                android:id="@+id/riqi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
+                android:layout_below="@id/city"
+                android:layout_centerHorizontal="true"
                 >
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/date"
@@ -81,6 +82,15 @@
 
             </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
+            <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                android:id="@+id/warning"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="10dp"
+                />
+
             <com.xn121.scjg.nmt.scaleview.ScaleTextView
                 android:id="@+id/temperature"
                 android:layout_width="wrap_content"
@@ -89,6 +99,8 @@
                 android:textSize="30dp"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="8dp"
+                android:layout_below="@id/riqi"
+                android:layout_centerHorizontal="true"
                 />
 
             <com.xn121.scjg.nmt.scaleview.ScaleLinearLayout
@@ -96,6 +108,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
+                android:layout_below="@id/temperature"
+                android:layout_centerHorizontal="true"
                 >
                 <com.xn121.scjg.nmt.scaleview.ScaleTextView
                     android:id="@+id/weather"
@@ -119,7 +133,7 @@
             </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
 
 
-        </com.xn121.scjg.nmt.scaleview.ScaleLinearLayout>
+        </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
 
     </com.xn121.scjg.nmt.scaleview.ScaleFrameLayout>
 

@@ -1,72 +1,103 @@
 package com.cxwl.agriculture.util;
 
-import android.util.JsonToken;
+import android.content.Context;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.cxwl.agriculture.R;
+
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.util.Iterator;
 
 /**
  * Created by admin on 15/8/14.
  */
 public class WarningParser {
 
-    private static final String warningArray = "[" +
-            "{'冰雹':'bb'}," +
-            "{'暴雪':'bx'}," +
-            "{'暴雨':'by'}," +
-            "{'大风':'df'}," +
-            "{'道路结冰':'dljb'}," +
-            "{'大雾':'dw'}," +
-            "{'干旱':'gh'}," +
-            "{'高温':'gw'}," +
-            "{'寒潮':'hc'}," +
-            "{'空间天气灾害':'kjtq'}," +
-            "{'雷电':'ld'}," +
-            "{'霾':'m'}," +
-            "{'沙尘暴':'scb'}," +
-            "{'霜冻':'sd'}," +
-            "{'台风':'tf'}]";
+    public static String getIcon(JSONObject warning, Context context){
+        String w4 = warning.optString("w4");
+        String w6 = warning.optString("w6");
 
-    private static final String colorArray = "[" +
-            "{'蓝':'b'}," +
-            "{'橙':'o'}," +
-            "{'红':'r'}," +
-            "{'黄':'y'}]";
-
-    public static String getWeatherKey(String title){
-        return getKey(title, warningArray);
-    }
-
-    public static String getColorKey(String title){
-        return getKey(title, colorArray);
-    }
-
-    public static String getKey(String title, String array){
-        String str = null;
-        if(title == null){
-            return str;
+        String weatherkey = WarningParser.getWarningKey(w4);
+        String colorkey = WarningParser.getColorKey(w6);
+        if(weatherkey == null || colorkey == null){
+            return null;
         }
-        try {
-            JSONArray wa= new JSONArray(array);
-
-            for(int i=0; i < wa.length(); i++){
-                JSONObject object = wa.getJSONObject(i);
-                Iterator iterator = object.keys();
-                while (iterator.hasNext()){
-                    String key = iterator.next().toString();
-                    if(title.contains(key)){
-                        str = object.getString(key);
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }finally {
-            return str;
-        }
+        return "hf_warning_"+ weatherkey +"_"+ colorkey;
     }
+
+    public static String getWarningKey(String w4){
+        String value = null;
+        int key = Integer.parseInt(w4);
+        switch (key){
+            case 1:
+                value = "tf";
+                break;
+            case 2:
+                value = "by";
+                break;
+            case 3:
+                value = "bx";
+                break;
+            case 4:
+                value = "hc";
+                break;
+            case 5:
+                value = "df";
+                break;
+            case 6:
+                value = "scb";
+                break;
+            case 7:
+                value = "gw";
+                break;
+            case 8:
+                value = "gh";
+                break;
+            case 9:
+                value = "ld";
+                break;
+            case 10:
+                value = "bb";
+                break;
+            case 11:
+                value = "sd";
+                break;
+            case 12:
+                value = "dw";
+                break;
+            case 13:
+                value = "m";
+                break;
+            case 14:
+                value = "dljb";
+                break;
+            case 15:
+                value ="kjtq";
+                break;
+            default:
+                break;
+        }
+        return value;
+    }
+
+    public static String getColorKey(String w6){
+        String value = null;
+        int key = Integer.parseInt(w6);
+        switch (key){
+            case 1:
+                value = "b";
+                break;
+            case 2:
+                value = "y";
+                break;
+            case 3:
+                value = "o";
+                break;
+            case 4:
+                value = "r";
+                break;
+            default:
+                break;
+        }
+        return value;
+    }
+
 }

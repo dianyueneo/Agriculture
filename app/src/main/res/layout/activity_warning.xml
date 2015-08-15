@@ -1,5 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/material_blue_500"
+        >
+
+        <com.xn121.scjg.nmt.scaleview.ScaleImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            />
+
+        <com.xn121.scjg.nmt.scaleview.ScaleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_big"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            />
+
+    </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+    <com.xn121.scjg.nmt.scaleview.ScaleScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            >
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/title"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="广东省广州暴雨黄色预警"
+                android:textSize="@dimen/text_size_big"
+                android:layout_margin="10dp"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleImageView
+                android:id="@+id/icon"
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:src="@drawable/hf_warning_bb_b"
+                android:layout_margin="10dp"
+                android:layout_alignParentRight="true"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015-08-14 13:30:00"
+                android:layout_below="@id/icon"
+                android:layout_marginLeft="10dp"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:id="@+id/line1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/time"
+                android:background="@color/grey"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6小时内本地将可能有暴雨发生，或者强降水将可能持续"
+                android:layout_below="@id/line1"
+                android:textSize="@dimen/text_size_small"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="#F9FAFB"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:id="@+id/line2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@id/content"
+                android:background="@color/grey"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/fyzn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="防御指南"
+                android:layout_below="@id/line2"
+                android:textSize="@dimen/text_size_small"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/white"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:id="@+id/line3"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/fyzn"
+                android:background="@color/grey"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="防御指南"
+                android:layout_below="@id/line3"
+                android:textSize="@dimen/text_size_small"
+                android:background="#F9FAFB"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:id="@+id/line4"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/guide"
+                android:background="@color/grey"
+                android:layout_marginBottom="5dp"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/bzsm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="标准说明"
+                android:layout_below="@id/line4"
+                android:textSize="@dimen/text_size_small"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/white"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleView
+                android:id="@+id/line5"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/bzsm"
+                android:background="@color/grey"
+                />
+
+            <com.xn121.scjg.nmt.scaleview.ScaleTextView
+                android:id="@+id/sm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="防御指南"
+                android:layout_below="@id/line5"
+                android:textSize="@dimen/text_size_small"
+                android:background="#F9FAFB"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                />
+
+
+        </com.xn121.scjg.nmt.scaleview.ScaleRelativeLayout>
+
+    </com.xn121.scjg.nmt.scaleview.ScaleScrollView>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.cxwl.agriculture.bean.Profit;
 import com.xn121.scjg.nmt.scaleview.ContextProvider;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public class MyApplication extends Application{
     private String lon;
     private String cityId;
     private String weatherId;
+
+    private HashMap<String, String> warning;
 
     @Override
     public void onCreate() {
@@ -72,5 +75,13 @@ public class MyApplication extends Application{
 
     public void setWeatherId(String weatherId) {
         this.weatherId = weatherId;
+    }
+
+    public HashMap<String, String> getWarning() {
+        return warning;
+    }
+
+    public void setWarning(HashMap<String, String> warning) {
+        this.warning = warning;
     }
 }

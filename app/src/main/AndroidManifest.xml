@@ -52,6 +52,7 @@
         <activity android:name="com.cxwl.agriculture.Map4AskPriceActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.cxwl.agriculture.IntroActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.cxwl.agriculture.ZixunActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.cxwl.agriculture.WarningActivity" android:screenOrientation="portrait"/>
 
         <!-- weatherapi-->
 
