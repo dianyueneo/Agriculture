@@ -12,10 +12,13 @@ import android.graphics.Matrix;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
+import android.widget.RemoteViews;
 
 import com.cxwl.agriculture.R;
 
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by admin on 15/8/14.
@@ -32,13 +35,15 @@ public class NotificationUtil {
         int icon = context.getResources().getIdentifier(icon_text, "drawable", context.getPackageName());
 
         Notification notification = null;
-        if(Build.VERSION.SDK_INT < 11){
-            notification = getNotification_1(context, icon, title, message, contentIntent);
-        }else if(Build.VERSION.SDK_INT < 16){
-            notification = getNotification_2(context, icon, title, message, contentIntent);
-        }else{
-            notification = getNotification_3(context, icon, title, message, contentIntent);
-        }
+//        if(Build.VERSION.SDK_INT < 11){
+//            notification = getNotification_1(context, icon, title, message, contentIntent);
+//        }else if(Build.VERSION.SDK_INT < 16){
+//            notification = getNotification_2(context, icon, title, message, contentIntent);
+//        }else{
+//            notification = getNotification_3(context, icon, title, message, contentIntent);
+//        }
+
+        notification = getNotification(context, icon, title, message, contentIntent);
 
         notificationManager.notify(id, notification);
     }
@@ -55,6 +60,31 @@ public class NotificationUtil {
 
         notification.setLatestEventInfo(context, title, message,
                 contentIntent);
+        return notification;
+    }
+
+    private static Notification getNotification(Context context, int icon, String title, String message, PendingIntent contentIntent){
+
+        Notification notification = new Notification();
+        notification.icon = icon;
+        notification.tickerText = context.getResources().getString(R.string.app_name);
+        notification.defaults = Notification.DEFAULT_ALL;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.when = System.currentTimeMillis();
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.layout_notification);
+        remoteViews.setImageViewResource(R.id.icon, icon);
+        remoteViews.setTextViewText(R.id.title, title);
+        remoteViews.setTextViewText(R.id.content, message);
+        remoteViews.setTextViewText(R.id.time, hour+":"+minute);
+
+        notification.contentView = remoteViews;
+        notification.contentIntent = contentIntent;
+
         return notification;
     }
 
@@ -97,7 +127,7 @@ public class NotificationUtil {
         ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getMetrics(displayMetrics);
         float density = displayMetrics.density;
-
+        density = 4;
         Matrix matrix = new Matrix();
         float scaleWidth = 24*density/bitmap.getWidth();
         float scaleHeight = 24*density/bitmap.getHeight();

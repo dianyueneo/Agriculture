@@ -114,8 +114,8 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         String[] weekdatyname = {"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
         week.setText(weekdatyname[weekday]);
 
-//        startLocation();
-        getCityId();
+        startLocation();
+//        getCityId();
     }
 
     private void startLocation(){
@@ -262,36 +262,6 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         JSONObject time7 = time.optJSONObject(6);
 
 
-        //wawrning
-        JSONArray warningList = weather.getWarningInfo();
-        final JSONObject warning = warningList.optJSONObject(0);
-        String w1 = warning.optString("w1");
-        String w2 = warning.optString("w2");
-        String w4 = warning.optString("w4");
-        String w5 = warning.optString("w5");
-        String w6 = warning.optString("w6");
-        String w7 = warning.optString("w7");
-        String w8 = warning.optString("w8");
-        String w9 = warning.optString("w9");
-
-        int id = Integer.parseInt(warning.optString("w10").substring(13, 17));
-        final String icon_text = WarningParser.getIcon(warning, getActivity());
-        final String title_text = w1+w2+w5+w7+"预警";
-        final String time_text = w8;
-        final String context_text = w9;
-        String str = WeatherAPI.parseWarning(getActivity(), w4 + w6);
-        final String guide_text = str.split("\\|")[1].replace("<br>", "\n");
-        final  String sm_text = str.split("\\|")[0];
-
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("icon", icon_text);
-        map.put("title", title_text);
-        map.put("time", time_text);
-        map.put("content", context_text);
-        map.put("guide", guide_text);
-        map.put("sm", sm_text);
-        ((MyApplication)getActivity().getApplication()).setWarning(map);
-
         //forcast
         JSONArray forcast = weather.getWeatherForecastInfo(0);
         String fa1 = forcast.optJSONObject(0).optString("fa");
@@ -319,14 +289,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         String number = String.valueOf(Integer.parseInt(l5[l5.length-1]));
         tv_weather.setText(WeatherAPI.parseWeather(getActivity(), number, Constants.Language.ZH_CN));
 
-        warningImage.setImageResource(getActivity().getResources().getIdentifier(icon_text, "drawable", getActivity().getPackageName()));
-        warningImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WarningActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         text_weather_3.setText("周" + time3.optString("t4").substring(2, 3));
         text_weather_4.setText("周"+time4.optString("t4").substring(2,3));
@@ -345,8 +308,51 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
         setCharData(max, min);
 
-        Intent intent = new Intent(getActivity(), WarningActivity.class);
-        NotificationUtil.nofity(getActivity(), id, icon_text, title_text, context_text, intent);
+
+        //wawrning
+        JSONArray warningList = weather.getWarningInfo();
+        final JSONObject warning = warningList.optJSONObject(0);
+        if(warning != null){
+            String w1 = warning.optString("w1");
+            String w2 = warning.optString("w2");
+            String w4 = warning.optString("w4");
+            String w5 = warning.optString("w5");
+            String w6 = warning.optString("w6");
+            String w7 = warning.optString("w7");
+            String w8 = warning.optString("w8");
+            String w9 = warning.optString("w9");
+
+            int id = Integer.parseInt(warning.optString("w10").substring(13, 17));
+            final String icon_text = WarningParser.getIcon(warning, getActivity());
+            final String title_text = w1+w2+w5+w7+"预警";
+            final String time_text = w8;
+            final String context_text = w9;
+            String str = WeatherAPI.parseWarning(getActivity(), w4 + w6);
+            final String guide_text = str.split("\\|")[1].replace("<br>", "\n");
+            final  String sm_text = str.split("\\|")[0];
+
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("icon", icon_text);
+            map.put("title", title_text);
+            map.put("time", time_text);
+            map.put("content", context_text);
+            map.put("guide", guide_text);
+            map.put("sm", sm_text);
+            ((MyApplication)getActivity().getApplication()).setWarning(map);
+
+            warningImage.setImageResource(getActivity().getResources().getIdentifier(icon_text, "drawable", getActivity().getPackageName()));
+            warningImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), WarningActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            Intent intent = new Intent(getActivity(), WarningActivity.class);
+            NotificationUtil.nofity(getActivity(), id, icon_text, title_text, context_text, intent);
+        }
+
     }
 
     private int parseWeatherImg(String fa){
@@ -383,7 +389,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
 
 
     private void getCityId(){
-        String cityId = "101250201";
+        String cityId = "101270203";
         getWeather(cityId);
     }
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hf_warning_bb_b"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_vertical"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:text="四川省成都市暴雨黄色预警"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/content"
+            android:text="目前我省有对流目前我省有对流目前我省有对流目前我省有对流目前我省有对流目前我省有对流"
+            android:maxLines="2"
+            android:textSize="14dp"
+            android:ellipsize="end"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:text="11:09"
+        />
+
+
+
+</LinearLayout>

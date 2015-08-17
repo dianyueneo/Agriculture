@@ -45,20 +45,27 @@ public class WarningActivity extends Activity{
         });
 
         HashMap<String, String> warinig = ((MyApplication) getApplication()).getWarning();
-        String icon_text = warinig.get("icon");
-        String title_text = warinig.get("title");
-        String time_text = warinig.get("time");
-        String content_text = warinig.get("content");
-        String guide_text = warinig.get("guide");
-        String sm_text = warinig.get("sm");
 
-        int icon_int = getResources().getIdentifier(icon_text, "drawable", getPackageName());
-        icon.setImageResource(icon_int);
-        title.setText(title_text);
-        time.setText(time_text);
-        content.setText(content_text);
-        guide.setText(guide_text);
-        sm.setText(sm_text);
+        if(warinig != null){
+            String icon_text = warinig.get("icon");
+            String title_text = warinig.get("title");
+            String time_text = warinig.get("time");
+            String content_text = warinig.get("content");
+            String guide_text = warinig.get("guide");
+            String sm_text = warinig.get("sm");
+
+            int icon_int = getResources().getIdentifier(icon_text, "drawable", getPackageName());
+            icon.setImageResource(icon_int);
+            title.setText(title_text);
+            time.setText(time_text);
+            content.setText(content_text);
+            guide.setText(guide_text);
+            sm.setText(sm_text);
+        }else{
+            finish();
+        }
+
+
 
 
     }
