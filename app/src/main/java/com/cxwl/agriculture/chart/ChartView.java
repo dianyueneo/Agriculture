@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -102,8 +103,8 @@ public class ChartView extends View {
 	            minValue = this.chartViewMinY();
 
 				rate = this.getHeight()/250.0;
-				paintWidth = (int)rate*5;
-				UpOrDownSpace = (int)rate*6;
+				paintWidth = (int)(rate*5);
+				UpOrDownSpace = (int)(rate*6);
 
 	            Paint paint = new Paint();
 	            paint.setAntiAlias(true);
@@ -237,14 +238,14 @@ public class ChartView extends View {
 	        // 画Ｙ轴
 	        if (showYLabels) {
 	        	 paint.setStrokeWidth(3);
-	 	        canvas.drawLine(yAxisLableWith + 2,5,yAxisLableWith + 2,maxY,paint);	
+	 	        canvas.drawLine(yAxisLableWith + 2, 5, yAxisLableWith + 2, maxY, paint);
 			}
 	    }
 
 		private void drawTitle(Canvas canvas,Paint paint){
 			if(title != null){
-				int x = (int)rate*20;
-				int y = (int)rate*40;
+				int x = (int)(rate*20);
+				int y = (int)(rate*40);
 				canvas.drawText(title, x, y, paint);
 			}
 		}
@@ -299,7 +300,7 @@ public class ChartView extends View {
 	            for (int j = 0; j < lineDataSize; j++){
 	                int value = ((Integer)tempArray.get(j)).intValue();
 	                int x = yAxisLableWith + average*j + average/2;
-	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + (int)rate*40;
+	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + (int)(rate*40);
 	                if (y >= maxY) {
 	                	y = maxY;
 					}
@@ -354,4 +355,11 @@ public class ChartView extends View {
 				}
 	        }
 	    }
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int heightsize = MeasureSpec.getSize(heightMeasureSpec);
+		Log.i("test", "heightsize: "+heightsize);
+	}
 }
