@@ -59,7 +59,7 @@ public class ChartView extends View {
 	    public ChartViewValuePointType chartViewValuePointType = ChartViewValuePointType.ChartViewValuePoint;
 	    public ArrayList<LineData> dataArray ;
 
-		private long rate;
+		private double rate;
 	    
 	    public ChartView(Context context){
 	        super(context);
@@ -101,7 +101,7 @@ public class ChartView extends View {
 	            maxValue = this.chartViewMaxY();
 	            minValue = this.chartViewMinY();
 
-				rate = this.getHeight()/250;
+				rate = this.getHeight()/250.0;
 				paintWidth = (int)rate*5;
 				UpOrDownSpace = (int)rate*6;
 
@@ -334,7 +334,7 @@ public class ChartView extends View {
 	            	int y = hashMap.get("y").intValue();
 	            	 switch (chartViewValuePointType) {
 	                    case ChartViewValuePoint:
-	                        canvas.drawCircle(x,y, (int)6*rate, paint);
+	                        canvas.drawCircle(x,y, (int)(6*rate), paint);
 	                        break;
 	                    case ChartViewValueImage:
 	                        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
