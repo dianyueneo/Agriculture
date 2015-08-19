@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("test", "onCreate======" + this.getClass().getSimpleName());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        this.getWindow().setBackgroundDrawable(null);
+        this.getWindow().setBackgroundDrawable(null);
 
         initView();
     }
