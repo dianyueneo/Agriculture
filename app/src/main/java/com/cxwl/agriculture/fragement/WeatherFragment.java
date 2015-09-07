@@ -119,13 +119,12 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
     }
 
     private void startLocation(){
-        showProgressDialog();
+//        showProgressDialog();
         mLocationManagerProxy.removeUpdates(this);
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }
 
-    private void setCharData(ArrayList<Number> max, ArrayList<Number> min){
-        LineData lineData_max = new LineData();
+    private void setCharData(ArrayList<Number> max, ArrayList<Number> min){LineData lineData_max = new LineData();
         lineData_max.colorValue = Color.parseColor("#009688");
         lineData_max.dataList = max;
 
@@ -146,7 +145,7 @@ public class WeatherFragment extends Fragment implements AMapLocationListener{
         chartView.XAxisDataCount = 7;
         chartView.title = "未来七天气温变化趋势";
 
-        chartView.invalidate();
+        chartView.postInvalidate();
     }
 
     @Override

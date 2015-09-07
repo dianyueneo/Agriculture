@@ -135,7 +135,7 @@ public class UploadWeatherFragment extends Fragment implements AMapLocationListe
 
 
     private void startLocation(){
-        showProgressDialog("让我看看你在哪儿");
+//        showProgressDialog("让我看看你在哪儿");
         mLocationManagerProxy.removeUpdates(this);
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, -1, 15, this);
     }

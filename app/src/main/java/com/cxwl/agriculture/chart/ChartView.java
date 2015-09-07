@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class ChartView extends View {
 	    public ChartViewValuePointType chartViewValuePointType = ChartViewValuePointType.ChartViewValuePoint;
 	    public ArrayList<LineData> dataArray ;
 
-		private long rate;
+		private double rate;
 	    
 	    public ChartView(Context context){
 	        super(context);
@@ -87,6 +88,7 @@ public class ChartView extends View {
 
 		public void onDraw(Canvas canvas){
 	        super.onDraw(canvas);
+			Log.i("test", "onDraw======" + this.getClass().getSimpleName());
 	        if (dataArray != null){
 	        	 if (xAxisLabels != null && xAxisLabels.size() != 0) {
 //	 	        	XAxisDataCount = xAxisLabels.size();
@@ -101,13 +103,13 @@ public class ChartView extends View {
 	            maxValue = this.chartViewMaxY();
 	            minValue = this.chartViewMinY();
 
-				rate = this.getHeight()/250;
-				paintWidth = (int)rate*5;
-				UpOrDownSpace = (int)rate*6;
+				rate = maxY/250.0;
+				paintWidth = (int) (rate *5);
+				UpOrDownSpace = (int) (rate *6);
 
 	            Paint paint = new Paint();
 	            paint.setAntiAlias(true);
-	            paint.setTextSize((int)(rate*20));
+	            paint.setTextSize((int)(rate *20));
 				paint.setColor(Color.parseColor("#009688"));
 //	            paint.setShadowLayer(2,2,2, Color.BLACK);
 
@@ -243,8 +245,8 @@ public class ChartView extends View {
 
 		private void drawTitle(Canvas canvas,Paint paint){
 			if(title != null){
-				int x = (int)rate*20;
-				int y = (int)rate*40;
+				int x = (int) (rate *20);
+				int y = (int) (rate *40);
 				canvas.drawText(title, x, y, paint);
 			}
 		}
@@ -299,7 +301,7 @@ public class ChartView extends View {
 	            for (int j = 0; j < lineDataSize; j++){
 	                int value = ((Integer)tempArray.get(j)).intValue();
 	                int x = yAxisLableWith + average*j + average/2;
-	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + (int)rate*40;
+	                int y = (maxValue - value) * (maxY - 10) / (maxValue - minValue) + (int) (rate *40);
 	                if (y >= maxY) {
 	                	y = maxY;
 					}
@@ -334,7 +336,7 @@ public class ChartView extends View {
 	            	int y = hashMap.get("y").intValue();
 	            	 switch (chartViewValuePointType) {
 	                    case ChartViewValuePoint:
-	                        canvas.drawCircle(x,y, (int)6*rate, paint);
+	                        canvas.drawCircle(x,y, (int)(6* rate), paint);
 	                        break;
 	                    case ChartViewValueImage:
 	                        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
@@ -354,4 +356,12 @@ public class ChartView extends View {
 				}
 	        }
 	    }
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int widthsize = MeasureSpec.getSize(widthMeasureSpec);
+		int heightsize = MeasureSpec.getSize(heightMeasureSpec);
+		Log.i("test","heightsize: "+heightsize);
+	}
 }

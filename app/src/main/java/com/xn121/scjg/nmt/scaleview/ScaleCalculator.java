@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.cxwl.agriculture.chart.ChartView;
 
 import java.lang.reflect.Field;
 
@@ -102,13 +105,21 @@ public class ScaleCalculator {
 		}
 		int i = viewGroup.getChildCount();
 		for (int j = 0; j < i; j++) {
-			this.scaleView(viewGroup.getChildAt(j));
+			View view = viewGroup.getChildAt(j);
+			if(view.getClass().getSimpleName().equals(ChartView.class.getSimpleName())){
+				Log.i("test", "========1");
+			}
+			this.scaleView(view);
 		}
 	}
 
 	public final void scaleView(View view) {
 		if (view == null || this.isBaseSize()) {
 			return;
+		}
+
+		if(view.getClass().getSimpleName().equals(ChartView.class.getSimpleName())){
+			Log.i("test", "========2");
 		}
 
 		ViewGroup.LayoutParams layoutParams = view.getLayoutParams();

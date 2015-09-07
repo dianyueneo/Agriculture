@@ -319,16 +319,16 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
             case R.id.btn_sf:
                 Intent intent_sf = new Intent(this.getActivity(), ProvinceActivity.class);
                 intent_sf.putExtra("requestCode", HomeFragment.REQUEST_CODE_PROVINCESTART);
-                startActivityForResult(intent_sf, HomeFragment.REQUEST_CODE_PROVINCESTART);
+                getParentFragment().startActivityForResult(intent_sf, HomeFragment.REQUEST_CODE_PROVINCESTART);
                 break;
             case R.id.btn_sf2:
                 Intent intent_sf2 = new Intent(this.getActivity(), ProvinceActivity.class);
                 intent_sf2.putExtra("requestCode", HomeFragment.REQUEST_CODE_PROVINCEEND);
-                startActivityForResult(intent_sf2, HomeFragment.REQUEST_CODE_PROVINCEEND);
+                getParentFragment().startActivityForResult(intent_sf2, HomeFragment.REQUEST_CODE_PROVINCEEND);
                 break;
             case R.id.btn_sc:
                 Intent intent_sc = new Intent(this.getActivity(), CategoryActivity.class);
-                startActivityForResult(intent_sc, HomeFragment.REQUEST_CODE_CATEGORY_START);
+                getParentFragment().startActivityForResult(intent_sc, HomeFragment.REQUEST_CODE_CATEGORY_START);
                 break;
             case R.id.btn_cx:
                 getPrice();
@@ -373,9 +373,13 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                tv_pf_c.setText(getPrice(response));
-                tv_ls_c.setText(getPrice(response));
-                sellStep4.complete();
+                String price = getPrice(response);
+                if(price != null){
+                    tv_pf_c.setText(price);
+                    tv_ls_c.setText(price);
+                    sellStep4.complete();
+                }
+
                 dismissProgressDialog();
             }
         }, new Response.ErrorListener() {
@@ -420,14 +424,13 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
     }
 
     private String getPrice(JSONObject response){
-        String str = "$";
+        String str = null;
         try {
             boolean status = TextUtils.isEmpty(response.optString("status"));
             if(status) {
                 JSONArray jsonArray = response.getJSONArray("days");
-                str += jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
+                str ="$" + jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
             }else{
-                str += "00.00";
                 Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
