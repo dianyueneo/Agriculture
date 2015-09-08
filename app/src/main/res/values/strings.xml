@@ -24,7 +24,7 @@
     <string name="dangdijiage">当地参考价格</string>
     <string name="dianji">点击查询</string>
     <string name="pifa">批发价格:</string>
-    <string name="moren">$00.00</string>
+    <string name="moren">￥00.00</string>
     <string name="lingshou">零售价格:</string>
     <string name="shangpinchengben">商品成本、数量</string>
     <string name="xiaoshou">销售数量</string>

@@ -429,7 +429,7 @@ public class HomeBuyFragment extends Fragment implements View.OnClickListener{
             boolean status = TextUtils.isEmpty(response.optString("status"));
             if(status) {
                 JSONArray jsonArray = response.getJSONArray("days");
-                str ="$" + jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
+                str ="￥" + jsonArray.getJSONObject(jsonArray.length() - 1).getString("price");
             }else{
                 Toast.makeText(getActivity(), "获取失败", Toast.LENGTH_SHORT).show();
             }
